@@ -1,44 +1,61 @@
 [gd_scene load_steps=5 format=3 uid="uid://bqs3mw7uk1yal"]
 
-[ext_resource type="Texture2D" uid="uid://k4217cpkgyv7" path="res://icon.svg" id="1_js123"]
-[ext_resource type="Script" path="res://busd/Scene/CharacterBody2D2.gd" id="2_epgpw"]
-[ext_resource type="Script" path="res://busd/Scene/CharacterBody2D.gd" id="2_ptu5m"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ictyb"]
-size = Vector2(121.75, 119.5)
+[ext_resource type="Script" path="res://busd/scripts/canvas_layer.gd" id="1_rdr4n"]
+[ext_resource type="Texture2D" uid="uid://8270frmqokra" path="res://aseprite/human_silhoute0001.png" id="1_ycond"]
+[ext_resource type="Script" path="res://busd/scripts/external_view.gd" id="2_prww1"]
+[ext_resource type="Texture2D" uid="uid://ct47tuxjxbf8v" path="res://aseprite/sign.png" id="3_41dh7"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("1_rdr4n")
 
-[node name="Icon" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(280.5, 131.5)
-scale = Vector2(4.36719, 2.03906)
-texture = ExtResource("1_js123")
+[node name="sep_horiz" type="Line2D" parent="CanvasLayer"]
+points = PackedVector2Array(0, 120, 640, 120)
+width = 5.0
+default_color = Color(0, 0, 0, 1)
 
-[node name="Icon3" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(102, 94)
-texture = ExtResource("1_js123")
+[node name="sep_vert" type="Line2D" parent="CanvasLayer"]
+points = PackedVector2Array(160, 120, 160, 360)
+width = 5.0
+default_color = Color(0, 0, 0, 1)
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="CanvasLayer/Icon3"]
-script = ExtResource("2_epgpw")
+[node name="ExternalView" type="Node2D" parent="."]
+script = ExtResource("2_prww1")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Icon3/CharacterBody2D"]
-shape = SubResource("RectangleShape2D_ictyb")
+[node name="HumanSilhoute" type="Sprite2D" parent="ExternalView"]
+position = Vector2(72, 53)
+texture = ExtResource("1_ycond")
 
-[node name="Camera2D" type="Camera2D" parent="CanvasLayer/Icon3/CharacterBody2D"]
+[node name="HumanSilhoute0002" type="Sprite2D" parent="ExternalView"]
+position = Vector2(65, 56)
+texture = ExtResource("1_ycond")
 
-[node name="Icon2" type="Sprite2D" parent="CanvasLayer/Icon3/CharacterBody2D"]
-texture = ExtResource("1_js123")
+[node name="HumanSilhoute0003" type="Sprite2D" parent="ExternalView"]
+position = Vector2(59, 54)
+texture = ExtResource("1_ycond")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-position = Vector2(685, 319)
-script = ExtResource("2_ptu5m")
+[node name="HumanSilhoute0004" type="Sprite2D" parent="ExternalView"]
+position = Vector2(52, 56)
+texture = ExtResource("1_ycond")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-shape = SubResource("RectangleShape2D_ictyb")
+[node name="HumanSilhoute0005" type="Sprite2D" parent="ExternalView"]
+position = Vector2(46, 51)
+texture = ExtResource("1_ycond")
 
-[node name="Icon2" type="Sprite2D" parent="CharacterBody2D"]
-texture = ExtResource("1_js123")
+[node name="HumanSilhoute0006" type="Sprite2D" parent="ExternalView"]
+position = Vector2(40, 56)
+texture = ExtResource("1_ycond")
 
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D/Icon2"]
+[node name="HumanSilhoute0007" type="Sprite2D" parent="ExternalView"]
+position = Vector2(34, 50)
+texture = ExtResource("1_ycond")
+
+[node name="HumanSilhoute0008" type="Sprite2D" parent="ExternalView"]
+position = Vector2(27, 55)
+texture = ExtResource("1_ycond")
+
+[node name="Sign" type="Sprite2D" parent="ExternalView"]
+position = Vector2(84, 49)
+scale = Vector2(1, 2)
+texture = ExtResource("3_41dh7")

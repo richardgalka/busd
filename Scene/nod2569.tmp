@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqs3mw7uk1yal"]
+
+[ext_resource type="Script" path="res://busd/scripts/canvas_layer.gd" id="1_rdr4n"]
+[ext_resource type="Texture2D" uid="uid://8270frmqokra" path="res://aseprite/human_silhoute0001.png" id="1_ycond"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("1_rdr4n")
+
+[node name="sep_horiz" type="Line2D" parent="CanvasLayer"]
+points = PackedVector2Array(0, 120, 640, 120)
+width = 5.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="sep_vert" type="Line2D" parent="CanvasLayer"]
+points = PackedVector2Array(160, 120, 160, 360)
+width = 5.0
+default_color = Color(0, 0, 0, 1)
+
+[node name="HumanSilhoute0001" type="Sprite2D" parent="."]
+position = Vector2(63, 52)
+texture = ExtResource("1_ycond")
