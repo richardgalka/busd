@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://bqs3mw7uk1yal"]
+[gd_scene load_steps=7 format=3 uid="uid://bqs3mw7uk1yal"]
 
+[ext_resource type="Texture2D" uid="uid://1b7t07iw2d1o" path="res://aseprite/city_skyline.png" id="1_oq7em"]
 [ext_resource type="Texture2D" uid="uid://dd5dkl5hbtc8j" path="res://aseprite/road.png" id="1_p2ec7"]
 [ext_resource type="Script" path="res://busd/scripts/canvas_layer.gd" id="1_rdr4n"]
 [ext_resource type="Script" path="res://busd/scripts/external_view.gd" id="2_prww1"]
@@ -8,12 +9,17 @@
 
 [node name="Node2D" type="Node2D"]
 
+[node name="Sky" type="Sprite2D" parent="."]
+position = Vector2(320, 59)
+texture = ExtResource("1_oq7em")
+
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_left = 138.0
-offset_top = 24.0
-offset_right = 202.0
-offset_bottom = 88.0
+texture_repeat = 2
+offset_top = 54.0
+offset_right = 640.0
+offset_bottom = 118.0
 texture = ExtResource("1_p2ec7")
+stretch_mode = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("1_rdr4n")
@@ -32,9 +38,15 @@ default_color = Color(0, 0, 0, 1)
 script = ExtResource("2_prww1")
 
 [node name="Sign" type="Sprite2D" parent="ExternalView"]
-position = Vector2(84, 49)
+position = Vector2(97, 51)
 scale = Vector2(1, 2)
 texture = ExtResource("3_41dh7")
 
 [node name="HumanSilhoute" parent="." instance=ExtResource("3_rfg2k")]
-position = Vector2(69, 59)
+position = Vector2(85, 60)
+
+[node name="HumanSilhoute2" parent="." instance=ExtResource("3_rfg2k")]
+position = Vector2(70, 60)
+
+[node name="HumanSilhoute3" parent="." instance=ExtResource("3_rfg2k")]
+position = Vector2(77, 61)
