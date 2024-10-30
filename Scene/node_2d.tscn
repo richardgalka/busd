@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bqs3mw7uk1yal"]
+[gd_scene load_steps=16 format=3 uid="uid://bqs3mw7uk1yal"]
 
 [ext_resource type="Texture2D" uid="uid://1b7t07iw2d1o" path="res://aseprite/city_skyline.png" id="1_oq7em"]
 [ext_resource type="Texture2D" uid="uid://dd5dkl5hbtc8j" path="res://aseprite/road.png" id="1_p2ec7"]
@@ -6,10 +6,29 @@
 [ext_resource type="Script" path="res://busd/scripts/external_view.gd" id="2_prww1"]
 [ext_resource type="Texture2D" uid="uid://ct47tuxjxbf8v" path="res://aseprite/sign.png" id="3_41dh7"]
 [ext_resource type="Texture2D" uid="uid://btrep3p3umukd" path="res://aseprite/bus_windowsseethrough.png" id="6_4yvj3"]
+[ext_resource type="Script" path="res://busd/scripts/bus_animation_player.gd" id="6_623af"]
 [ext_resource type="Texture2D" uid="uid://bgpm8rvohp6vi" path="res://aseprite/bus_door_background.png" id="7_b1rf0"]
 [ext_resource type="Texture2D" uid="uid://d05hsg8m26yfc" path="res://aseprite/stop_button.png" id="8_68j2x"]
+[ext_resource type="Texture2D" uid="uid://3rrujgfrtt6j" path="res://aseprite/bus_door_button.png" id="9_1dgk8"]
+[ext_resource type="Texture2D" uid="uid://bp4lxeiiq0tge" path="res://aseprite/bus_drawer.png" id="10_q738f"]
 
-[sub_resource type="Animation" id="Animation_ubdey"]
+[sub_resource type="Animation" id="Animation_e6nvy"]
+resource_name = "bus_park"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.46667, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(696, 67), Vector2(235, 64), Vector2(193, 55)]
+}
+
+[sub_resource type="Animation" id="Animation_xdmid"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -21,30 +40,17 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(692, 66)]
+"values": [Vector2(696, 67)]
 }
 
-[sub_resource type="Animation" id="Animation_2mv28"]
-resource_name = "bus_enter_scene"
-length = 10.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 10),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(690, 64), Vector2(206, 63)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_4u4sw"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2q5q0"]
 _data = {
-"RESET": SubResource("Animation_ubdey"),
-"bus_enter_scene": SubResource("Animation_2mv28")
+"RESET": SubResource("Animation_xdmid"),
+"bus_park": SubResource("Animation_e6nvy")
 }
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_570yy"]
+radius = 5.09902
 
 [node name="Node2D" type="Node2D"]
 
@@ -86,19 +92,21 @@ position = Vector2(150, 51)
 scale = Vector2(1, 2)
 texture = ExtResource("3_41dh7")
 
-[node name="Marker2D_lineup" type="Marker2D" parent="ExternalView"]
-top_level = true
-position = Vector2(160, 55)
-
-[node name="BusWindowsseethrough" type="Sprite2D" parent="ExternalView"]
-position = Vector2(692, 66)
+[node name="Bus" type="Sprite2D" parent="ExternalView"]
+z_index = 5
+position = Vector2(696, 67)
 texture = ExtResource("6_4yvj3")
 flip_h = true
 
-[node name="BusAnimationPlayer" type="AnimationPlayer" parent="ExternalView/BusWindowsseethrough"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ExternalView/Bus"]
 libraries = {
-"": SubResource("AnimationLibrary_4u4sw")
+"": SubResource("AnimationLibrary_2q5q0")
 }
+script = ExtResource("6_623af")
+
+[node name="Marker2D_lineup" type="Marker2D" parent="ExternalView"]
+top_level = true
+position = Vector2(160, 55)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
@@ -109,7 +117,21 @@ anchor_mode = 0
 position = Vector2(79, 241)
 texture = ExtResource("7_b1rf0")
 
+[node name="BusDoorButton" type="Sprite2D" parent="BusDriverView"]
+position = Vector2(29, 286)
+texture = ExtResource("9_1dgk8")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="BusDriverView/BusDoorButton"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BusDriverView/BusDoorButton/StaticBody2D"]
+shape = SubResource("CircleShape2D_570yy")
+
 [node name="DashView" type="Node2D" parent="."]
+
+[node name="BusDrawer" type="Sprite2D" parent="DashView"]
+z_index = -5
+position = Vector2(421, 34)
+texture = ExtResource("10_q738f")
 
 [node name="Sprite2D" type="Sprite2D" parent="DashView"]
 position = Vector2(624, 344)

@@ -15,7 +15,6 @@ var num_spawned_passengers: int = 0
 @export var difficulty : int = 10
 @onready var scn_human_silhoute: PackedScene = preload("res://busd/Scene/human_silhoute.tscn")
 @onready var marker_2d_lineup = $Marker2D_lineup
-@onready var bus_animation_player = $BusWindowsseethrough/BusAnimationPlayer
 
 var time_left : float = 5.0
 
@@ -27,7 +26,6 @@ func _ready():
 	#generate_passengers()
 	num_passengers = generate_random_passengers(min_passengers, max_passengers)
 	print("Number of passengers arriving at bus stop: ", num_passengers)
-	bus_animation_player.play("position")
 
 # Function to generate a random number of passengers
 func generate_random_passengers(min: int, max: int) -> int:
@@ -39,7 +37,6 @@ func move_passenger(passenger):
 	var tween = Tween.new()
 
 func _on_timer_new_person_timeout():
-	print("TIMER")
 	if(num_spawned_passengers < num_passengers):
 		num_spawned_passengers += 1
 		var passenger = passenger_scene.instantiate()
