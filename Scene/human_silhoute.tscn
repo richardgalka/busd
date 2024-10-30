@@ -6,3 +6,7 @@
 [node name="HumanSilhoute" type="Sprite2D"]
 texture = ExtResource("1_miher")
 script = ExtResource("2_qdtsk")
+
+[node name="FidgetTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="FidgetTimer" to="." method="_on_fidget_timer_timeout"]

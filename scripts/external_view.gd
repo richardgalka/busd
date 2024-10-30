@@ -31,7 +31,7 @@ func _ready():
 
 # Function to generate a random number of passengers
 func generate_random_passengers(min: int, max: int) -> int:
-	return randi() % (max - min + 1) + min
+	return randi_range(min, max)
 
 # Function to move a passenger along the X axis
 func move_passenger(passenger):

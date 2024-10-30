@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bqs3mw7uk1yal"]
+[gd_scene load_steps=12 format=3 uid="uid://bqs3mw7uk1yal"]
 
 [ext_resource type="Texture2D" uid="uid://1b7t07iw2d1o" path="res://aseprite/city_skyline.png" id="1_oq7em"]
 [ext_resource type="Texture2D" uid="uid://dd5dkl5hbtc8j" path="res://aseprite/road.png" id="1_p2ec7"]
@@ -6,6 +6,23 @@
 [ext_resource type="Script" path="res://busd/scripts/external_view.gd" id="2_prww1"]
 [ext_resource type="Texture2D" uid="uid://ct47tuxjxbf8v" path="res://aseprite/sign.png" id="3_41dh7"]
 [ext_resource type="Texture2D" uid="uid://btrep3p3umukd" path="res://aseprite/bus_windowsseethrough.png" id="6_4yvj3"]
+[ext_resource type="Texture2D" uid="uid://bgpm8rvohp6vi" path="res://aseprite/bus_door_background.png" id="7_b1rf0"]
+[ext_resource type="Texture2D" uid="uid://d05hsg8m26yfc" path="res://aseprite/stop_button.png" id="8_68j2x"]
+
+[sub_resource type="Animation" id="Animation_ubdey"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(692, 66)]
+}
 
 [sub_resource type="Animation" id="Animation_2mv28"]
 resource_name = "bus_enter_scene"
@@ -21,21 +38,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(690, 64), Vector2(206, 63)]
-}
-
-[sub_resource type="Animation" id="Animation_ubdey"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(692, 66)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4u4sw"]
@@ -100,5 +102,17 @@ libraries = {
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
+
+[node name="BusDriverView" type="Node2D" parent="."]
+
+[node name="BusDoorBackground" type="Sprite2D" parent="BusDriverView"]
+position = Vector2(79, 241)
+texture = ExtResource("7_b1rf0")
+
+[node name="DashView" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="DashView"]
+position = Vector2(624, 344)
+texture = ExtResource("8_68j2x")
 
 [connection signal="timeout" from="ExternalView/Timer_new_person" to="ExternalView" method="_on_timer_new_person_timeout"]
