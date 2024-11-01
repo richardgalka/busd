@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bqs3mw7uk1yal"]
+[gd_scene load_steps=27 format=3 uid="uid://bqs3mw7uk1yal"]
 
 [ext_resource type="Texture2D" uid="uid://1b7t07iw2d1o" path="res://aseprite/city_skyline.png" id="1_oq7em"]
 [ext_resource type="Texture2D" uid="uid://dd5dkl5hbtc8j" path="res://aseprite/road.png" id="1_p2ec7"]
@@ -12,6 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://drdy3naj6fh44" path="res://aseprite/bus_stop.png" id="8_axcme"]
 [ext_resource type="Texture2D" uid="uid://3rrujgfrtt6j" path="res://aseprite/bus_door_button.png" id="9_1dgk8"]
 [ext_resource type="Texture2D" uid="uid://bp4lxeiiq0tge" path="res://aseprite/bus_drawer.png" id="10_q738f"]
+[ext_resource type="Script" path="res://busd/scripts/dash_view.gd" id="11_18vpy"]
+[ext_resource type="Shader" path="res://busd/shaders/BusDrawerHandle.gdshader" id="13_es3fj"]
+[ext_resource type="Texture2D" uid="uid://bgqiqifi6odfp" path="res://aseprite/bus_drawer_handle.png" id="13_w2uea"]
 
 [sub_resource type="Animation" id="Animation_xdmid"]
 length = 0.001
@@ -122,6 +125,11 @@ radius = 5.09902
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y0g88"]
 size = Vector2(104, 20)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b547v"]
+shader = ExtResource("13_es3fj")
+shader_parameter/active = false
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+
 [node name="Node2D" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -227,6 +235,7 @@ texture = ExtResource("9_1dgk8")
 shape = SubResource("CircleShape2D_570yy")
 
 [node name="DashView" type="Node2D" parent="."]
+script = ExtResource("11_18vpy")
 metadata/_edit_lock_ = true
 
 [node name="BusDrawer" type="StaticBody2D" parent="DashView"]
@@ -240,6 +249,11 @@ texture = ExtResource("10_q738f")
 position = Vector2(0, 108)
 shape = SubResource("RectangleShape2D_y0g88")
 
+[node name="BusDrawerHandle" type="Sprite2D" parent="DashView/BusDrawer"]
+material = SubResource("ShaderMaterial_b547v")
+position = Vector2(0, 108)
+texture = ExtResource("13_w2uea")
+
 [node name="Sprite2D" type="Sprite2D" parent="DashView"]
 position = Vector2(624, 344)
 texture = ExtResource("8_68j2x")
@@ -247,3 +261,4 @@ texture = ExtResource("8_68j2x")
 [connection signal="timeout" from="ExternalView/Timer_new_person" to="ExternalView" method="_on_timer_new_person_timeout"]
 [connection signal="area_entered" from="ExternalView/BusStopArea" to="ExternalView" method="_on_bus_stop_area_area_entered"]
 [connection signal="body_entered" from="ExternalView/BusStopArea" to="ExternalView" method="_on_bus_stop_area_body_entered"]
+[connection signal="mouse_entered" from="DashView/BusDrawer" to="DashView" method="_on_bus_drawer_mouse_entered"]
