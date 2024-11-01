@@ -15,6 +15,8 @@ var num_spawned_passengers: int = 0
 @export var difficulty : int = 10
 @onready var scn_human_silhoute: PackedScene = preload("res://busd/Scene/human_silhoute.tscn")
 @onready var marker_2d_lineup = $Marker2D_lineup
+@onready var bus_stop_animation_player = $"../BusDriverView/BusStopAnimationPlayer"
+
 
 var time_left : float = 5.0
 
@@ -53,3 +55,10 @@ func _unhandled_input(event):
 	if event is InputEventKey:
 		if event.pressed and event.keycode == KEY_ESCAPE:
 			get_tree().quit()
+
+
+func _on_bus_stop_area_area_entered(area):
+	if area.is_in_group("Bus"):
+		# start the bus stop movement in bus driver view
+		bus_stop_animation_player.play("BusStopMoveInView")
+	
