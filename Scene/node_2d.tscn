@@ -5,14 +5,14 @@
 [ext_resource type="Script" path="res://busd/scripts/canvas_layer.gd" id="1_rdr4n"]
 [ext_resource type="Script" path="res://busd/scripts/external_view.gd" id="2_prww1"]
 [ext_resource type="Texture2D" uid="uid://ct47tuxjxbf8v" path="res://aseprite - Copy/sign.png" id="3_41dh7"]
+[ext_resource type="Texture2D" uid="uid://vruotbu0ra4w" path="res://aseprite/bus.png" id="6_8qksk"]
 [ext_resource type="Script" path="res://busd/scripts/bus_animation_player.gd" id="6_623af"]
-[ext_resource type="Texture2D" uid="uid://vruotbu0ra4w" path="res://aseprite/bus.png" id="6_skujy"]
 [ext_resource type="Texture2D" uid="uid://bgpm8rvohp6vi" path="res://aseprite - Copy/bus_door_background.png" id="7_b1rf0"]
 [ext_resource type="Texture2D" uid="uid://d05hsg8m26yfc" path="res://aseprite - Copy/stop_button.png" id="8_68j2x"]
 [ext_resource type="Texture2D" uid="uid://drdy3naj6fh44" path="res://aseprite - Copy/bus_stop.png" id="8_axcme"]
 [ext_resource type="Script" path="res://busd/scripts/bus_driver_view.gd" id="8_dr4n6"]
 [ext_resource type="Texture2D" uid="uid://3rrujgfrtt6j" path="res://aseprite - Copy/bus_door_button.png" id="9_1dgk8"]
-[ext_resource type="Texture2D" uid="uid://drffnm2dt7rtw" path="res://aseprite/Cigar man sprite.png" id="9_tdilp"]
+[ext_resource type="Texture2D" uid="uid://drffnm2dt7rtw" path="res://aseprite - Copy/Cigar man sprite.png" id="9_tdilp"]
 [ext_resource type="Texture2D" uid="uid://lwvtyi8osmay" path="res://aseprite/bus_door_inside.png" id="10_ockru"]
 [ext_resource type="Texture2D" uid="uid://bp4lxeiiq0tge" path="res://aseprite - Copy/bus_drawer.png" id="10_q738f"]
 [ext_resource type="Script" path="res://busd/scripts/dash_view.gd" id="11_18vpy"]
@@ -89,6 +89,10 @@ tracks/1/keys = {
 "values": [Vector2(1, 1), Vector2(1.32857, 1.32857)]
 }
 
+[sub_resource type="Animation" id="Animation_bgkkn"]
+resource_name = "OpenBusDoor"
+length = 5.0
+
 [sub_resource type="Animation" id="Animation_153tk"]
 length = 0.001
 tracks/0/type = "value"
@@ -115,10 +119,6 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(1.32857, 1.32857)]
 }
-
-[sub_resource type="Animation" id="Animation_bgkkn"]
-resource_name = "OpenBusDoor"
-length = 5.0
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j7nri"]
 _data = {
@@ -333,7 +333,7 @@ metadata/_edit_lock_ = true
 [node name="Bus" type="Sprite2D" parent="ExternalView" groups=["Bus"]]
 z_index = 5
 position = Vector2(696, 67)
-texture = ExtResource("6_skujy")
+texture = ExtResource("6_8qksk")
 flip_h = true
 metadata/_edit_lock_ = true
 
@@ -393,12 +393,10 @@ randomness = 0.34
 fixed_fps = 0
 visibility_rect = Rect2(-2510.29, -12894.1, 3854.2, 14237.9)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BusDriverView"]
+[node name="BusDoorSprite" type="AnimatedSprite2D" parent="BusDriverView"]
 position = Vector2(102, 249)
 sprite_frames = SubResource("SpriteFrames_seul3")
 animation = &"Open"
-frame = 6
-frame_progress = 1.0
 
 [node name="BusDoorBackground" type="Sprite2D" parent="BusDriverView"]
 position = Vector2(79, 241)
@@ -447,5 +445,5 @@ libraries = {
 [connection signal="timeout" from="ExternalView/Timer_new_person" to="ExternalView" method="_on_timer_new_person_timeout"]
 [connection signal="area_entered" from="ExternalView/BusStopArea" to="ExternalView" method="_on_bus_stop_area_area_entered"]
 [connection signal="body_entered" from="ExternalView/BusStopArea" to="ExternalView" method="_on_bus_stop_area_body_entered"]
-[connection signal="mouse_entered" from="BusDriverView/BusDoorButton/StaticBody2D" to="BusDriverView" method="_on_static_body_2d_mouse_entered"]
+[connection signal="input_event" from="BusDriverView/BusDoorButton/StaticBody2D" to="BusDriverView" method="_on_static_body_2d_input_event"]
 [connection signal="mouse_entered" from="DashView/BusDrawer" to="DashView" method="_on_bus_drawer_mouse_entered"]
