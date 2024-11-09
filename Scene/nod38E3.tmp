@@ -1,23 +1,20 @@
-[gd_scene load_steps=48 format=3 uid="uid://bqs3mw7uk1yal"]
+[gd_scene load_steps=31 format=3 uid="uid://bqs3mw7uk1yal"]
 
-[ext_resource type="Texture2D" uid="uid://1b7t07iw2d1o" path="res://aseprite - Copy/city_skyline.png" id="1_oq7em"]
-[ext_resource type="Texture2D" uid="uid://dd5dkl5hbtc8j" path="res://aseprite - Copy/road.png" id="1_p2ec7"]
+[ext_resource type="Texture2D" uid="uid://1b7t07iw2d1o" path="res://aseprite/city_skyline.png" id="1_oq7em"]
+[ext_resource type="Texture2D" uid="uid://dd5dkl5hbtc8j" path="res://aseprite/road.png" id="1_p2ec7"]
 [ext_resource type="Script" path="res://busd/scripts/canvas_layer.gd" id="1_rdr4n"]
 [ext_resource type="Script" path="res://busd/scripts/external_view.gd" id="2_prww1"]
-[ext_resource type="Texture2D" uid="uid://ct47tuxjxbf8v" path="res://aseprite - Copy/sign.png" id="3_41dh7"]
+[ext_resource type="Texture2D" uid="uid://ct47tuxjxbf8v" path="res://aseprite/sign.png" id="3_41dh7"]
+[ext_resource type="Texture2D" uid="uid://btrep3p3umukd" path="res://aseprite/bus_windowsseethrough.png" id="6_4yvj3"]
 [ext_resource type="Script" path="res://busd/scripts/bus_animation_player.gd" id="6_623af"]
-[ext_resource type="Texture2D" uid="uid://vruotbu0ra4w" path="res://aseprite/bus.png" id="6_skujy"]
-[ext_resource type="Texture2D" uid="uid://bgpm8rvohp6vi" path="res://aseprite - Copy/bus_door_background.png" id="7_b1rf0"]
-[ext_resource type="Texture2D" uid="uid://d05hsg8m26yfc" path="res://aseprite - Copy/stop_button.png" id="8_68j2x"]
-[ext_resource type="Texture2D" uid="uid://drdy3naj6fh44" path="res://aseprite - Copy/bus_stop.png" id="8_axcme"]
-[ext_resource type="Script" path="res://busd/scripts/bus_driver_view.gd" id="8_dr4n6"]
-[ext_resource type="Texture2D" uid="uid://3rrujgfrtt6j" path="res://aseprite - Copy/bus_door_button.png" id="9_1dgk8"]
-[ext_resource type="Texture2D" uid="uid://drffnm2dt7rtw" path="res://aseprite/Cigar man sprite.png" id="9_tdilp"]
-[ext_resource type="Texture2D" uid="uid://lwvtyi8osmay" path="res://aseprite/bus_door_inside.png" id="10_ockru"]
-[ext_resource type="Texture2D" uid="uid://bp4lxeiiq0tge" path="res://aseprite - Copy/bus_drawer.png" id="10_q738f"]
+[ext_resource type="Texture2D" uid="uid://bgpm8rvohp6vi" path="res://aseprite/bus_door_background.png" id="7_b1rf0"]
+[ext_resource type="Texture2D" uid="uid://d05hsg8m26yfc" path="res://aseprite/stop_button.png" id="8_68j2x"]
+[ext_resource type="Texture2D" uid="uid://drdy3naj6fh44" path="res://aseprite/bus_stop.png" id="8_axcme"]
+[ext_resource type="Texture2D" uid="uid://3rrujgfrtt6j" path="res://aseprite/bus_door_button.png" id="9_1dgk8"]
+[ext_resource type="Texture2D" uid="uid://bp4lxeiiq0tge" path="res://aseprite/bus_drawer.png" id="10_q738f"]
 [ext_resource type="Script" path="res://busd/scripts/dash_view.gd" id="11_18vpy"]
 [ext_resource type="Shader" path="res://busd/shaders/flash.gdshader" id="13_es3fj"]
-[ext_resource type="Texture2D" uid="uid://bgqiqifi6odfp" path="res://aseprite - Copy/bus_drawer_handle.png" id="13_w2uea"]
+[ext_resource type="Texture2D" uid="uid://bgqiqifi6odfp" path="res://aseprite/bus_drawer_handle.png" id="13_w2uea"]
 
 [sub_resource type="Animation" id="Animation_xdmid"]
 length = 0.001
@@ -116,100 +113,11 @@ tracks/1/keys = {
 "values": [Vector2(1.32857, 1.32857)]
 }
 
-[sub_resource type="Animation" id="Animation_bgkkn"]
-resource_name = "OpenBusDoor"
-length = 5.0
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j7nri"]
 _data = {
 "BusStopMoveInView": SubResource("Animation_mlv55"),
-"OpenBusDoor": SubResource("Animation_bgkkn"),
 "RESET": SubResource("Animation_153tk")
 }
-
-[sub_resource type="Curve" id="Curve_lvv4g"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.320513, 0.85567), 0.0, 0.0, 0, 0, Vector2(0.698718, 0.752577), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 4
-
-[sub_resource type="CurveTexture" id="CurveTexture_2hsj1"]
-curve = SubResource("Curve_lvv4g")
-
-[sub_resource type="Curve" id="Curve_t2x6s"]
-_data = [Vector2(0, 0.546392), 0.0, 0.0, 0, 0, Vector2(0.705128, 0.948454), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_2f352"]
-curve = SubResource("Curve_t2x6s")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ndhhb"]
-particle_flag_disable_z = true
-direction = Vector3(-3, -1, 0)
-spread = 2.0
-initial_velocity_min = 1.0
-initial_velocity_max = 3.0
-gravity = Vector3(0, -1, 0)
-damping_max = 0.03
-scale_max = 3.0
-scale_curve = SubResource("CurveTexture_2f352")
-color = Color(0.687215, 0.687215, 0.687215, 1)
-alpha_curve = SubResource("CurveTexture_2hsj1")
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_p6vfg"]
-atlas = ExtResource("10_ockru")
-region = Rect2(0, 0, 84, 168)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_mlg00"]
-atlas = ExtResource("10_ockru")
-region = Rect2(84, 0, 84, 168)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_46cc2"]
-atlas = ExtResource("10_ockru")
-region = Rect2(168, 0, 84, 168)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2o8ul"]
-atlas = ExtResource("10_ockru")
-region = Rect2(252, 0, 84, 168)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_aierc"]
-atlas = ExtResource("10_ockru")
-region = Rect2(336, 0, 84, 168)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_yr2h8"]
-atlas = ExtResource("10_ockru")
-region = Rect2(420, 0, 84, 168)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4v71p"]
-atlas = ExtResource("10_ockru")
-region = Rect2(504, 0, 84, 168)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_seul3"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p6vfg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_mlg00")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_46cc2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2o8ul")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_aierc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yr2h8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4v71p")
-}],
-"loop": false,
-"name": &"Open",
-"speed": 5.0
-}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_570yy"]
 radius = 5.09902
@@ -333,7 +241,7 @@ metadata/_edit_lock_ = true
 [node name="Bus" type="Sprite2D" parent="ExternalView" groups=["Bus"]]
 z_index = 5
 position = Vector2(696, 67)
-texture = ExtResource("6_skujy")
+texture = ExtResource("6_4yvj3")
 flip_h = true
 metadata/_edit_lock_ = true
 
@@ -365,7 +273,7 @@ anchor_mode = 0
 metadata/_edit_lock_ = true
 
 [node name="BusDriverView" type="Node2D" parent="."]
-script = ExtResource("8_dr4n6")
+metadata/_edit_lock_ = true
 
 [node name="BusStopAnimationPlayer" type="AnimationPlayer" parent="BusDriverView"]
 root_node = NodePath("../BusStop")
@@ -378,28 +286,6 @@ position = Vector2(-60, 272)
 scale = Vector2(1.32857, 1.32857)
 texture = ExtResource("8_axcme")
 
-[node name="CigarManSprite" type="Sprite2D" parent="BusDriverView/BusStop"]
-position = Vector2(42.9033, 11.2903)
-scale = Vector2(0.752689, 0.752689)
-texture = ExtResource("9_tdilp")
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="BusDriverView/BusStop/CigarManSprite"]
-position = Vector2(-13, -40.9999)
-amount = 20
-process_material = SubResource("ParticleProcessMaterial_ndhhb")
-lifetime = 8.0
-speed_scale = 2.49
-randomness = 0.34
-fixed_fps = 0
-visibility_rect = Rect2(-2510.29, -12894.1, 3854.2, 14237.9)
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BusDriverView"]
-position = Vector2(102, 249)
-sprite_frames = SubResource("SpriteFrames_seul3")
-animation = &"Open"
-frame = 6
-frame_progress = 1.0
-
 [node name="BusDoorBackground" type="Sprite2D" parent="BusDriverView"]
 position = Vector2(79, 241)
 texture = ExtResource("7_b1rf0")
@@ -409,7 +295,6 @@ position = Vector2(29, 286)
 texture = ExtResource("9_1dgk8")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="BusDriverView/BusDoorButton"]
-input_pickable = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BusDriverView/BusDoorButton/StaticBody2D"]
 shape = SubResource("CircleShape2D_570yy")
@@ -420,15 +305,10 @@ metadata/_edit_lock_ = true
 
 [node name="BusDrawer" type="StaticBody2D" parent="DashView"]
 position = Vector2(456, 50)
-input_pickable = true
 
 [node name="BusDrawerImage" type="Sprite2D" parent="DashView/BusDrawer"]
 z_index = -5
 texture = ExtResource("10_q738f")
-
-[node name="Sprite2D" type="Sprite2D" parent="DashView/BusDrawer/BusDrawerImage"]
-position = Vector2(161, 105)
-texture = ExtResource("8_68j2x")
 
 [node name="Handle_CS2D" type="CollisionShape2D" parent="DashView/BusDrawer"]
 position = Vector2(0, 108)
@@ -444,8 +324,11 @@ libraries = {
 "": SubResource("AnimationLibrary_7wrdt")
 }
 
+[node name="Sprite2D" type="Sprite2D" parent="DashView"]
+position = Vector2(624, 344)
+texture = ExtResource("8_68j2x")
+
 [connection signal="timeout" from="ExternalView/Timer_new_person" to="ExternalView" method="_on_timer_new_person_timeout"]
 [connection signal="area_entered" from="ExternalView/BusStopArea" to="ExternalView" method="_on_bus_stop_area_area_entered"]
 [connection signal="body_entered" from="ExternalView/BusStopArea" to="ExternalView" method="_on_bus_stop_area_body_entered"]
-[connection signal="mouse_entered" from="BusDriverView/BusDoorButton/StaticBody2D" to="BusDriverView" method="_on_static_body_2d_mouse_entered"]
 [connection signal="mouse_entered" from="DashView/BusDrawer" to="DashView" method="_on_bus_drawer_mouse_entered"]

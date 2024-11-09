@@ -1,4 +1,4 @@
-extends Node2D
+extends Sprite2D
 
 
 # Called when the node enters the scene tree for the first time.
@@ -11,7 +11,5 @@ func _process(delta):
 	pass
 
 
-func _on_bus_drawer_mouse_entered():
-	print("mouse entered")
-	#material.set_shader_parameter("colors", [Vector3(1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1)])
-	pass # Replace with function body.
+func _on_static_body_2d_mouse_entered():
+	print("MOUSE ENTERED!")
