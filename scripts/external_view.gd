@@ -30,13 +30,13 @@ func _ready():
 	print("Number of passengers arriving at bus stop: ", num_passengers)
 
 # Function to generate a random number of passengers
-func generate_random_passengers(min: int, max: int) -> int:
-	return randi_range(min, max)
+func generate_random_passengers(minp: int, maxp: int) -> int:
+	return randi_range(minp, maxp)
 
 # Function to move a passenger along the X axis
 func move_passenger(passenger):
 	passenger.create_tween().tween_property(self, "position:x", marker_2d_lineup.global_position.x-10, 5)
-	var tween = Tween.new()
+	#var tween = Tween.new()
 
 func _on_timer_new_person_timeout():
 	if(num_spawned_passengers < num_passengers):
