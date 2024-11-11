@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d2lkkxrxsad5y"]
 
-[ext_resource type="Texture2D" uid="uid://bp4lxeiiq0tge" path="res://aseprite - Copy/bus_drawer.png" id="1_hacc7"]
+[ext_resource type="Texture2D" uid="uid://bp4lxeiiq0tge" path="res://aseprite/bus_drawer.png" id="1_hacc7"]
 [ext_resource type="Script" path="res://busd/scripts/test_mouse_click.gd" id="2_srv48"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h1yak"]

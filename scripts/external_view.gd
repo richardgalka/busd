@@ -62,3 +62,7 @@ func _on_bus_stop_area_area_entered(area):
 		# start the bus stop movement in bus driver view
 		bus_stop_animation_player.play("BusStopMoveInView")
 	
+
+
+func _on_switch_lights_switched(state):
+	pass # Replace with function body.

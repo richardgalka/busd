@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://ch2onxgr5td3b"]
 
 [ext_resource type="Shader" path="res://busd/shaders/greyscale.gdshader" id="1_dftwl"]
-[ext_resource type="Texture2D" uid="uid://d05hsg8m26yfc" path="res://aseprite - Copy/stop_button.png" id="2_oo75c"]
+[ext_resource type="Texture2D" uid="uid://d05hsg8m26yfc" path="res://aseprite/stop_button.png" id="2_oo75c"]
 [ext_resource type="Shader" path="res://busd/shaders/maptogradient.gdshader" id="3_8srgs"]
-[ext_resource type="Texture2D" uid="uid://dvrc34ipcbc7t" path="res://aseprite - Copy/bus_nowindows.png" id="4_g7ffq"]
+[ext_resource type="Texture2D" uid="uid://dvrc34ipcbc7t" path="res://aseprite/bus_nowindows.png" id="4_g7ffq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j8373"]
 shader = ExtResource("1_dftwl")
