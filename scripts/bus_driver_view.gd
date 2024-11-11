@@ -23,7 +23,7 @@ func bus_state_set(anim_name):
 	if anim_name == ":bus_park":
 		print("abba")
 
-func _process(delta):
+func _process(_delta):
 	#if global.bus_state == global.BUS_STATE.STOPPED:
 	#	print ("Bus Stopped")
 	#if global.bus_state == global.BUS_STATE.MOVING:
@@ -45,17 +45,10 @@ func animate_wind():
 		wind_animation.play_backwards("light_wind")
 		#print("Wind.y after: %s" % wind.global_position)
 
-func _on_static_body_2d_input_event(_viewport, event:InputEvent, _shape_idx):
-	# InputEvent 
-	if event is InputEventMouseButton and event.pressed and event.get_button_index() == 1:
-		print("opening door")
-		if door_state_open:
-			bus_door_sprite.play_backwards("Open")
-		else:
-			bus_door_sprite.play("Open")
-		door_state_open = !door_state_open
 
-		# highlight button
-		
-		pass
-	pass # Replace with function body.
+func _on_switch_door_switched(state):
+	if door_state_open:
+		bus_door_sprite.play_backwards("Open")
+	else:
+		bus_door_sprite.play("Open")
+	door_state_open = !door_state_open

@@ -16,6 +16,7 @@ var num_spawned_passengers: int = 0
 @onready var scn_human_silhoute: PackedScene = preload("res://busd/Scene/human_silhoute.tscn")
 @onready var marker_2d_lineup = $Marker2D_lineup
 @onready var bus_stop_animation_player = $"../BusDriverView/BusStopAnimationPlayer"
+@onready var bus_lights = $Bus/BusLights
 
 
 var time_left : float = 5.0
@@ -61,8 +62,8 @@ func _on_bus_stop_area_area_entered(area):
 	if area.is_in_group("Bus"):
 		# start the bus stop movement in bus driver view
 		bus_stop_animation_player.play("BusStopMoveInView")
-	
 
 
-func _on_switch_lights_switched(state):
-	pass # Replace with function body.
+func _on_switch_lights_switched(_state):
+	# State should not be needed, we just switch
+	bus_lights.enabled = !bus_lights.enabled

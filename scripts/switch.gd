@@ -5,12 +5,16 @@ enum STATE {ON, OFF}
 
 # Enums.
 @export var switch_state: STATE = STATE.OFF
+@export var text: String = "VALUE"
 @onready var audio_stream_player = $AudioStreamPlayer
+@onready var label = $Label
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# ENUM is labeled based on frame # so we can set frame to STATE enum
 	frame = switch_state
+	label.text = text
 	
 func switch_on():
 	switch_state = STATE.ON

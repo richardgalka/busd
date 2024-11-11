@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://bqs3mw7uk1yal"]
+[gd_scene load_steps=57 format=3 uid="uid://bqs3mw7uk1yal"]
 
 [ext_resource type="Texture2D" uid="uid://1b7t07iw2d1o" path="res://aseprite/city_skyline.png" id="1_oq7em"]
 [ext_resource type="Texture2D" uid="uid://dd5dkl5hbtc8j" path="res://aseprite/road.png" id="1_p2ec7"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ct47tuxjxbf8v" path="res://aseprite/sign.png" id="3_41dh7"]
 [ext_resource type="Texture2D" uid="uid://vruotbu0ra4w" path="res://aseprite/bus.png" id="6_wlnve"]
 [ext_resource type="Texture2D" uid="uid://bgpm8rvohp6vi" path="res://aseprite/bus_door_background.png" id="7_b1rf0"]
+[ext_resource type="Texture2D" uid="uid://be3mp7gd2kxry" path="res://aseprite/light_cone.png" id="7_shmed"]
 [ext_resource type="Texture2D" uid="uid://d05hsg8m26yfc" path="res://aseprite/stop_button.png" id="8_68j2x"]
 [ext_resource type="Texture2D" uid="uid://drdy3naj6fh44" path="res://aseprite/bus_stop.png" id="8_axcme"]
 [ext_resource type="Script" path="res://busd/scripts/bus_driver_view.gd" id="8_dr4n6"]
@@ -22,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://cpf7gensnoxt6" path="res://busd/Scene/switch.tscn" id="17_sbfvp"]
 [ext_resource type="Texture2D" uid="uid://t7smf1061ys" path="res://purchased/man_hole.png" id="19_15g0a"]
 [ext_resource type="Texture2D" uid="uid://cmin8f0gthado" path="res://purchased/wind.png" id="19_hppvy"]
+[ext_resource type="Texture2D" uid="uid://5dpii76547or" path="res://aseprite/switch_red.png" id="19_romx1"]
 [ext_resource type="Texture2D" uid="uid://cn8yw5xmmo461" path="res://aseprite/green_button.png" id="24_n1flq"]
 
 [sub_resource type="Animation" id="Animation_xdmid"]
@@ -252,9 +254,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_570yy"]
-radius = 5.09902
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y0g88"]
 size = Vector2(104, 20)
 
@@ -378,6 +377,11 @@ texture = ExtResource("6_wlnve")
 flip_h = true
 metadata/_edit_lock_ = true
 
+[node name="BusLights" type="PointLight2D" parent="ExternalView/Bus"]
+position = Vector2(-79, 12)
+enabled = false
+texture = ExtResource("7_shmed")
+
 [node name="BusMoveAnimationPlayer" type="AnimationPlayer" parent="ExternalView/Bus"]
 libraries = {
 "": SubResource("AnimationLibrary_2q5q0")
@@ -479,18 +483,18 @@ texture = ExtResource("7_b1rf0")
 position = Vector2(29, 286)
 texture = ExtResource("9_1dgk8")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="BusDriverView/BusDoorButton"]
-input_pickable = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BusDriverView/BusDoorButton/StaticBody2D"]
-shape = SubResource("CircleShape2D_570yy")
-
 [node name="DashView" type="Node2D" parent="."]
 script = ExtResource("11_18vpy")
 metadata/_edit_lock_ = true
 
 [node name="SwitchLights" parent="DashView" instance=ExtResource("17_sbfvp")]
-position = Vector2(192, 169)
+position = Vector2(189, 169)
+text = "Lights"
+
+[node name="SwitchDoor" parent="DashView" instance=ExtResource("17_sbfvp")]
+position = Vector2(245, 169)
+texture = ExtResource("19_romx1")
+text = "Door"
 
 [node name="BusDashDoorButton" type="Sprite2D" parent="DashView"]
 position = Vector2(246, 244)
@@ -511,7 +515,7 @@ z_index = -5
 texture = ExtResource("10_q738f")
 
 [node name="Sprite2D" type="Sprite2D" parent="DashView/BusDrawer/BusDrawerImage"]
-position = Vector2(161, 105)
+position = Vector2(160, 105)
 texture = ExtResource("8_68j2x")
 
 [node name="Handle_CS2D" type="CollisionShape2D" parent="DashView/BusDrawer"]
@@ -531,6 +535,6 @@ libraries = {
 [connection signal="timeout" from="ExternalView/Timer_new_person" to="ExternalView" method="_on_timer_new_person_timeout"]
 [connection signal="area_entered" from="ExternalView/BusStopArea" to="ExternalView" method="_on_bus_stop_area_area_entered"]
 [connection signal="body_entered" from="ExternalView/BusStopArea" to="ExternalView" method="_on_bus_stop_area_body_entered"]
-[connection signal="input_event" from="BusDriverView/BusDoorButton/StaticBody2D" to="BusDriverView" method="_on_static_body_2d_input_event"]
 [connection signal="switched" from="DashView/SwitchLights" to="ExternalView" method="_on_switch_lights_switched"]
+[connection signal="switched" from="DashView/SwitchDoor" to="BusDriverView" method="_on_switch_door_switched"]
 [connection signal="mouse_entered" from="DashView/BusDrawer" to="DashView" method="_on_bus_drawer_mouse_entered"]

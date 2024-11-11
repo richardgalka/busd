@@ -14,7 +14,7 @@ font_size = 6
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0kmju"]
 size = Vector2(14, 28)
 
-[node name="SwitchLights" type="Sprite2D"]
+[node name="Switch" type="Sprite2D"]
 texture = ExtResource("1_kf13q")
 hframes = 2
 script = ExtResource("2_5oj4a")
@@ -32,9 +32,10 @@ offset_left = -7.5
 offset_top = -14.507
 offset_right = -7.5
 offset_bottom = -14.497
-text = "Lights
+text = "Val
 "
 label_settings = SubResource("LabelSettings_xa4tm")
+horizontal_alignment = 1
 
 [node name="Area2D" type="Area2D" parent="Label"]
 

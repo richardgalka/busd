@@ -29,8 +29,7 @@ func set_fidget_time(min_time : float = 1.0, max_time : float = 6.0) -> float:
 	
 
 	
-func _process(delta):
-
+func _process(_delta):
 	# As we are low resolution we don't want fractions in our position which can cause tearing
 	self.position = floor(self.position) + get_fidgeting()
 	
