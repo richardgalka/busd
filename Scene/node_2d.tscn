@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://bqs3mw7uk1yal"]
+[gd_scene load_steps=59 format=3 uid="uid://bqs3mw7uk1yal"]
 
 [ext_resource type="Texture2D" uid="uid://1b7t07iw2d1o" path="res://aseprite/city_skyline.png" id="1_oq7em"]
 [ext_resource type="Texture2D" uid="uid://dd5dkl5hbtc8j" path="res://aseprite/road.png" id="1_p2ec7"]
@@ -19,8 +19,10 @@
 [ext_resource type="Texture2D" uid="uid://drffnm2dt7rtw" path="res://aseprite/Cigar man sprite.png" id="11_b0h8n"]
 [ext_resource type="Shader" path="res://busd/shaders/flash.gdshader" id="13_es3fj"]
 [ext_resource type="Texture2D" uid="uid://bgqiqifi6odfp" path="res://aseprite/bus_drawer_handle.png" id="13_w2uea"]
+[ext_resource type="AudioStream" uid="uid://cgy7l4d84xo65" path="res://audio/bus-closing-door-40007.mp3" id="14_n888a"]
 [ext_resource type="Texture2D" uid="uid://b1xgeptkb4dut" path="res://aseprite/bus_console_background.png" id="17_edv47"]
 [ext_resource type="PackedScene" uid="uid://cpf7gensnoxt6" path="res://busd/Scene/switch.tscn" id="17_sbfvp"]
+[ext_resource type="Texture2D" uid="uid://it31mrn3fwqs" path="res://aseprite/sarah sprite.png" id="18_xdxfx"]
 [ext_resource type="Texture2D" uid="uid://t7smf1061ys" path="res://purchased/man_hole.png" id="19_15g0a"]
 [ext_resource type="Texture2D" uid="uid://cmin8f0gthado" path="res://purchased/wind.png" id="19_hppvy"]
 [ext_resource type="Texture2D" uid="uid://5dpii76547or" path="res://aseprite/switch_red.png" id="19_romx1"]
@@ -439,6 +441,7 @@ libraries = {
 
 [node name="Wind" type="Sprite2D" parent="BusDriverView"]
 self_modulate = Color(1, 1, 1, 0.27451)
+z_index = -99
 position = Vector2(156, 322)
 texture = ExtResource("19_hppvy")
 hframes = 5
@@ -470,6 +473,11 @@ randomness = 0.34
 fixed_fps = 0
 visibility_rect = Rect2(-2510.29, -12894.1, 3854.2, 14237.9)
 
+[node name="BusDoorOpenSound" type="AudioStreamPlayer" parent="BusDriverView"]
+stream = ExtResource("14_n888a")
+volume_db = 1.0
+pitch_scale = 2.5
+
 [node name="BusDoorSprite" type="AnimatedSprite2D" parent="BusDriverView"]
 position = Vector2(102, 249)
 sprite_frames = SubResource("SpriteFrames_seul3")
@@ -482,6 +490,10 @@ texture = ExtResource("7_b1rf0")
 [node name="BusDoorButton" type="Sprite2D" parent="BusDriverView"]
 position = Vector2(29, 286)
 texture = ExtResource("9_1dgk8")
+
+[node name="SarahSprite" type="Sprite2D" parent="BusDriverView"]
+position = Vector2(-99, 287)
+texture = ExtResource("18_xdxfx")
 
 [node name="DashView" type="Node2D" parent="."]
 script = ExtResource("11_18vpy")
@@ -497,7 +509,7 @@ texture = ExtResource("19_romx1")
 text = "Door"
 
 [node name="BusDashDoorButton" type="Sprite2D" parent="DashView"]
-position = Vector2(246, 244)
+position = Vector2(188, 243)
 texture = ExtResource("24_n1flq")
 hframes = 3
 
@@ -505,6 +517,7 @@ hframes = 3
 z_index = -99
 position = Vector2(398, 239)
 texture = ExtResource("17_edv47")
+metadata/_edit_lock_ = true
 
 [node name="BusDrawer" type="StaticBody2D" parent="DashView"]
 position = Vector2(456, 50)

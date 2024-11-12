@@ -2,6 +2,7 @@ extends Node2D
 @onready var bus_stop_animation_player = $BusStopAnimationPlayer
 @onready var bus_move_animation_player = $"../ExternalView/Bus/BusMoveAnimationPlayer"
 @onready var bus_door_sprite = $BusDoorSprite
+@onready var bus_door_open_sound = $BusDoorOpenSound
 @onready var wind = $Wind
 @onready var wind_animation: AnimationPlayer = $Wind/WindAnimation
 @export var bus_top_speed: float = 20.0
@@ -23,20 +24,6 @@ func bus_state_set(anim_name):
 	if anim_name == ":bus_park":
 		print("abba")
 
-func _process(_delta):
-	#if global.bus_state == global.BUS_STATE.STOPPED:
-	#	print ("Bus Stopped")
-	#if global.bus_state == global.BUS_STATE.MOVING:
-	#	print ("Bus Moving")		
-	'''
-	if !bus_stop_animation_player.is_playing():
-		#print("bus stopped")
-		wind_animation.stop
-		global.bus_state = global.BUS_STATE.STOPPED
-	animate_wind()
-	'''
-		
-
 func animate_wind():
 	if !wind_animation.is_playing():
 		#randomize wind
@@ -49,6 +36,8 @@ func animate_wind():
 func _on_switch_door_switched(state):
 	if door_state_open:
 		bus_door_sprite.play_backwards("Open")
+		bus_door_open_sound.play()
 	else:
 		bus_door_sprite.play("Open")
+		bus_door_open_sound.play()
 	door_state_open = !door_state_open
