@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://miebndiyp246"]
+
+[ext_resource type="Script" path="res://busd/scripts/test_2.gd" id="1_w6a04"]
+[ext_resource type="Texture2D" uid="uid://vruotbu0ra4w" path="res://aseprite/bus.png" id="2_rffcj"]
+
+[node name="Test2" type="Node2D"]
+script = ExtResource("1_w6a04")
+
+[node name="Bus" type="Sprite2D" parent="."]
+position = Vector2(502, 117)
+texture = ExtResource("2_rffcj")
+flip_h = true
+
+[node name="Bus2" type="Sprite2D" parent="."]
+position = Vector2(81, 108)
+texture = ExtResource("2_rffcj")
