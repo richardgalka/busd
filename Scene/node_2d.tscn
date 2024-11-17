@@ -1,13 +1,8 @@
-[gd_scene load_steps=59 format=3 uid="uid://bqs3mw7uk1yal"]
+[gd_scene load_steps=48 format=3 uid="uid://bqs3mw7uk1yal"]
 
-[ext_resource type="Texture2D" uid="uid://1b7t07iw2d1o" path="res://aseprite/city_skyline.png" id="1_oq7em"]
-[ext_resource type="Texture2D" uid="uid://dd5dkl5hbtc8j" path="res://aseprite/road.png" id="1_p2ec7"]
 [ext_resource type="Script" path="res://busd/scripts/canvas_layer.gd" id="1_rdr4n"]
-[ext_resource type="Script" path="res://busd/scripts/external_view.gd" id="2_prww1"]
-[ext_resource type="Texture2D" uid="uid://ct47tuxjxbf8v" path="res://aseprite/sign.png" id="3_41dh7"]
-[ext_resource type="Texture2D" uid="uid://vruotbu0ra4w" path="res://aseprite/bus.png" id="6_wlnve"]
+[ext_resource type="PackedScene" uid="uid://by2jk5wouhgi8" path="res://busd/Scene/external_view.tscn" id="2_ky3bo"]
 [ext_resource type="Texture2D" uid="uid://bgpm8rvohp6vi" path="res://aseprite/bus_door_background.png" id="7_b1rf0"]
-[ext_resource type="Texture2D" uid="uid://be3mp7gd2kxry" path="res://aseprite/light_cone.png" id="7_shmed"]
 [ext_resource type="Texture2D" uid="uid://d05hsg8m26yfc" path="res://aseprite/stop_button.png" id="8_68j2x"]
 [ext_resource type="Texture2D" uid="uid://drdy3naj6fh44" path="res://aseprite/bus_stop.png" id="8_axcme"]
 [ext_resource type="Script" path="res://busd/scripts/bus_driver_view.gd" id="8_dr4n6"]
@@ -23,53 +18,9 @@
 [ext_resource type="Texture2D" uid="uid://b1xgeptkb4dut" path="res://aseprite/bus_console_background.png" id="17_edv47"]
 [ext_resource type="PackedScene" uid="uid://cpf7gensnoxt6" path="res://busd/Scene/switch.tscn" id="17_sbfvp"]
 [ext_resource type="Texture2D" uid="uid://it31mrn3fwqs" path="res://aseprite/sarah sprite.png" id="18_xdxfx"]
-[ext_resource type="Texture2D" uid="uid://t7smf1061ys" path="res://purchased/man_hole.png" id="19_15g0a"]
 [ext_resource type="Texture2D" uid="uid://cmin8f0gthado" path="res://purchased/wind.png" id="19_hppvy"]
 [ext_resource type="Texture2D" uid="uid://5dpii76547or" path="res://aseprite/switch_red.png" id="19_romx1"]
 [ext_resource type="Texture2D" uid="uid://cn8yw5xmmo461" path="res://aseprite/green_button.png" id="24_n1flq"]
-
-[sub_resource type="Animation" id="Animation_xdmid"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(696, 67)]
-}
-
-[sub_resource type="Animation" id="Animation_e6nvy"]
-resource_name = "bus_park"
-length = 4.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2.46667, 4),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(696, 67), Vector2(235, 64), Vector2(193, 55)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_2q5q0"]
-_data = {
-"RESET": SubResource("Animation_xdmid"),
-"bus_park": SubResource("Animation_e6nvy")
-}
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4bphc"]
-size = Vector2(101, 29)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vac21"]
-size = Vector2(23, 20)
 
 [sub_resource type="Animation" id="Animation_mlv55"]
 resource_name = "BusStopMoveInView"
@@ -344,81 +295,7 @@ points = PackedVector2Array(160, 120, 160, 360)
 width = 5.0
 default_color = Color(0, 0, 0, 1)
 
-[node name="ExternalView" type="Node2D" parent="."]
-script = ExtResource("2_prww1")
-min_passengers = 2
-max_passengers = 8
-
-[node name="Sky" type="Sprite2D" parent="ExternalView"]
-position = Vector2(320, 59)
-texture = ExtResource("1_oq7em")
-metadata/_edit_lock_ = true
-
-[node name="TextureRect" type="TextureRect" parent="ExternalView"]
-texture_repeat = 2
-offset_top = 54.0
-offset_right = 640.0
-offset_bottom = 118.0
-texture = ExtResource("1_p2ec7")
-stretch_mode = 1
-metadata/_edit_lock_ = true
-
-[node name="Timer_new_person" type="Timer" parent="ExternalView"]
-autostart = true
-
-[node name="Sign" type="Sprite2D" parent="ExternalView"]
-position = Vector2(150, 51)
-scale = Vector2(1, 2)
-texture = ExtResource("3_41dh7")
-metadata/_edit_lock_ = true
-
-[node name="Bus" type="Sprite2D" parent="ExternalView" groups=["Bus"]]
-z_index = 5
-position = Vector2(696, 67)
-texture = ExtResource("6_wlnve")
-flip_h = true
-metadata/_edit_lock_ = true
-
-[node name="BusLights" type="PointLight2D" parent="ExternalView/Bus"]
-position = Vector2(-79, 12)
-enabled = false
-texture = ExtResource("7_shmed")
-
-[node name="BusMoveAnimationPlayer" type="AnimationPlayer" parent="ExternalView/Bus"]
-libraries = {
-"": SubResource("AnimationLibrary_2q5q0")
-}
-
-[node name="BusArea" type="Area2D" parent="ExternalView/Bus" groups=["Bus"]]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ExternalView/Bus/BusArea" groups=["Bus"]]
-position = Vector2(2.5, 0)
-shape = SubResource("RectangleShape2D_4bphc")
-
-[node name="Marker2D_lineup" type="Marker2D" parent="ExternalView"]
-top_level = true
-position = Vector2(160, 55)
-metadata/_edit_lock_ = true
-
-[node name="BusStopArea" type="Area2D" parent="ExternalView"]
-position = Vector2(157, 51)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ExternalView/BusStopArea"]
-shape = SubResource("RectangleShape2D_vac21")
-
-[node name="ManHole" type="Sprite2D" parent="ExternalView"]
-position = Vector2(38, 74)
-scale = Vector2(0.2, 0.11)
-texture = ExtResource("19_15g0a")
-hframes = 2
-frame = 1
-
-[node name="ManHole2" type="Sprite2D" parent="ExternalView"]
-position = Vector2(534, 95)
-scale = Vector2(0.2, 0.11)
-texture = ExtResource("19_15g0a")
-hframes = 2
-frame = 1
+[node name="ExternalView" parent="." instance=ExtResource("2_ky3bo")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
@@ -545,9 +422,6 @@ libraries = {
 "": SubResource("AnimationLibrary_7wrdt")
 }
 
-[connection signal="timeout" from="ExternalView/Timer_new_person" to="ExternalView" method="_on_timer_new_person_timeout"]
-[connection signal="area_entered" from="ExternalView/BusStopArea" to="ExternalView" method="_on_bus_stop_area_area_entered"]
-[connection signal="body_entered" from="ExternalView/BusStopArea" to="ExternalView" method="_on_bus_stop_area_body_entered"]
 [connection signal="switched" from="DashView/SwitchLights" to="ExternalView" method="_on_switch_lights_switched"]
 [connection signal="switched" from="DashView/SwitchDoor" to="BusDriverView" method="_on_switch_door_switched"]
 [connection signal="mouse_entered" from="DashView/BusDrawer" to="DashView" method="_on_bus_drawer_mouse_entered"]

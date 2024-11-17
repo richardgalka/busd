@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="Person" load_steps=8 format=3 uid="uid://e67dfljxy5ya"]
+
+[ext_resource type="Script" path="res://busd/characters/person.gd" id="1_4boq1"]
+[ext_resource type="Script" path="res://busd/quirks/quirk.gd" id="1_im5u0"]
+[ext_resource type="Script" path="res://busd/inventory/inventory_container.gd" id="3_156t4"]
+[ext_resource type="Texture2D" uid="uid://drffnm2dt7rtw" path="res://aseprite/Cigar man sprite.png" id="3_elb3m"]
+[ext_resource type="Texture2D" uid="uid://8270frmqokra" path="res://aseprite/human_silhoute0001.png" id="4_evncj"]
+
+[sub_resource type="Resource" id="Resource_iueu4"]
+script = ExtResource("1_im5u0")
+timeout = 30
+quirk = 3
+
+[sub_resource type="Resource" id="Resource_1fr0p"]
+script = ExtResource("3_156t4")
+name = ""
+
+[resource]
+script = ExtResource("1_4boq1")
+fname = "Isaac"
+lname = "Galka"
+quirks = Array[ExtResource("1_im5u0")]([SubResource("Resource_iueu4")])
+storage = SubResource("Resource_1fr0p")
+texture_small = ExtResource("4_evncj")
+texture_large = ExtResource("3_elb3m")

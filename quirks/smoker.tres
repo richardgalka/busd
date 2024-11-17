@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Quirk" load_steps=2 format=3 uid="uid://dm7echa0clgrr"]
+
+[ext_resource type="Script" path="res://busd/quirks/quirk.gd" id="1_2wa14"]
+
+[resource]
+script = ExtResource("1_2wa14")
+timeout = 1
+quirks = Array[int]([])
+character_items = Array[int]([1, 2])

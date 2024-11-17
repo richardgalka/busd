@@ -1,6 +1,5 @@
 extends Node2D
 
-
 # Define the range for the number of passengers arriving
 @export_category("Passenger numbers")
 @export var min_passengers: int = 1
@@ -17,7 +16,6 @@ var num_spawned_passengers: int = 0
 @onready var marker_2d_lineup = $Marker2D_lineup
 @onready var bus_stop_animation_player = $"../BusDriverView/BusStopAnimationPlayer"
 @onready var bus_lights = $Bus/BusLights
-
 
 var time_left : float = 5.0
 

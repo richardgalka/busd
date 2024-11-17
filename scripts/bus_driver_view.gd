@@ -33,7 +33,7 @@ func animate_wind():
 		#print("Wind.y after: %s" % wind.global_position)
 
 
-func _on_switch_door_switched(state):
+func _on_switch_door_switched(_state):
 	if door_state_open:
 		bus_door_sprite.play_backwards("Open")
 		bus_door_open_sound.play()

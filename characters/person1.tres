@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Person" load_steps=5 format=3 uid="uid://b6tbbwa03cx0g"]
+
+[ext_resource type="Resource" uid="uid://dm7echa0clgrr" path="res://busd/quirks/smoker.tres" id="1_p7o6e"]
+[ext_resource type="Script" path="res://busd/characters/person.gd" id="1_qyjv2"]
+[ext_resource type="Texture2D" uid="uid://it31mrn3fwqs" path="res://aseprite/sarah sprite.png" id="3_7m6n1"]
+[ext_resource type="Texture2D" uid="uid://8270frmqokra" path="res://aseprite/human_silhoute0001.png" id="4_wrune"]
+
+[resource]
+script = ExtResource("1_qyjv2")
+fname = "Sarah"
+lname = "Person"
+quirk = ExtResource("1_p7o6e")
+texture_small = ExtResource("4_wrune")
+texture_large = ExtResource("3_7m6n1")
