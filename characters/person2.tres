@@ -18,7 +18,7 @@ name = ""
 [resource]
 script = ExtResource("1_4boq1")
 fname = "Isaac"
-lname = "Galka"
+lname = "Person"
 quirks = Array[ExtResource("1_im5u0")]([SubResource("Resource_iueu4")])
 storage = SubResource("Resource_1fr0p")
 texture_small = ExtResource("4_evncj")
