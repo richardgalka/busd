@@ -4,15 +4,15 @@
 [ext_resource type="Script" path="res://busd/scripts/switch.gd" id="2_5oj4a"]
 [ext_resource type="AudioStream" uid="uid://d36ca171xmykq" path="res://audio/Button7.mp3" id="3_l0mfi"]
 
-[sub_resource type="SystemFont" id="SystemFont_i5ig8"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0kmju"]
+size = Vector2(14, 28)
+
+[sub_resource type="SystemFont" id="SystemFont_rgiyt"]
 subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_xa4tm"]
-font = SubResource("SystemFont_i5ig8")
+font = SubResource("SystemFont_rgiyt")
 font_size = 6
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0kmju"]
-size = Vector2(14, 28)
 
 [node name="Switch" type="Sprite2D"]
 texture = ExtResource("1_kf13q")
@@ -21,6 +21,13 @@ script = ExtResource("2_5oj4a")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_l0mfi")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-9, 14)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(9, -14)
+shape = SubResource("RectangleShape2D_0kmju")
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = -1
@@ -37,10 +44,4 @@ text = "Val
 label_settings = SubResource("LabelSettings_xa4tm")
 horizontal_alignment = 1
 
-[node name="Area2D" type="Area2D" parent="Label"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Label/Area2D"]
-position = Vector2(9, -14)
-shape = SubResource("RectangleShape2D_0kmju")
-
-[connection signal="input_event" from="Label/Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

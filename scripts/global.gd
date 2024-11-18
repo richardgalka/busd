@@ -9,8 +9,6 @@ var bus_name: String = "Bussy"
 var bus_state: int = BUS_STATE.MOVING
 var bus_lights: bool = false
 
-
-
 func _ready():
 	print("I'M FIRST")
 	

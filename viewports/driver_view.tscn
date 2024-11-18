@@ -1,0 +1,103 @@
+[gd_scene load_steps=17 format=3 uid="uid://crck0ckfgtrh4"]
+
+[ext_resource type="Texture2D" uid="uid://xjanyy7f14by" path="res://aseprite/busdirverviewroad.png" id="1_esql1"]
+[ext_resource type="Script" path="res://busd/scripts/driver_view.gd" id="1_ik8c4"]
+[ext_resource type="Texture2D" uid="uid://bgpm8rvohp6vi" path="res://aseprite/bus_door_background.png" id="2_y4hsi"]
+[ext_resource type="Texture2D" uid="uid://lwvtyi8osmay" path="res://aseprite/bus_door_inside.png" id="4_hn2ph"]
+[ext_resource type="Script" path="res://busd/scripts/bus_door_sprite.gd" id="5_gv7nm"]
+[ext_resource type="Texture2D" uid="uid://3rrujgfrtt6j" path="res://aseprite/bus_door_button.png" id="5_n658o"]
+[ext_resource type="AudioStream" uid="uid://c1usowqtcbtqa" path="res://audio/bus-door-open.ogg" id="6_ubn14"]
+[ext_resource type="AudioStream" uid="uid://db6uc40jx5tfj" path="res://audio/bus_door_close.ogg" id="7_cj0fk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p6vfg"]
+atlas = ExtResource("4_hn2ph")
+region = Rect2(0, 0, 84, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mlg00"]
+atlas = ExtResource("4_hn2ph")
+region = Rect2(84, 0, 84, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_46cc2"]
+atlas = ExtResource("4_hn2ph")
+region = Rect2(168, 0, 84, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2o8ul"]
+atlas = ExtResource("4_hn2ph")
+region = Rect2(252, 0, 84, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aierc"]
+atlas = ExtResource("4_hn2ph")
+region = Rect2(336, 0, 84, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yr2h8"]
+atlas = ExtResource("4_hn2ph")
+region = Rect2(420, 0, 84, 168)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4v71p"]
+atlas = ExtResource("4_hn2ph")
+region = Rect2(504, 0, 84, 168)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q7cyy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p6vfg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mlg00")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_46cc2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2o8ul")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aierc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yr2h8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4v71p")
+}],
+"loop": false,
+"name": &"Open",
+"speed": 5.0
+}]
+
+[node name="DriverView" type="Node2D"]
+script = ExtResource("1_ik8c4")
+
+[node name="Busdriverviewroad" type="Sprite2D" parent="."]
+position = Vector2(0, -222)
+scale = Vector2(2, 2)
+texture = ExtResource("1_esql1")
+centered = false
+
+[node name="BusDoorBackground" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("2_y4hsi")
+centered = false
+
+[node name="BusDoorSprite" type="AnimatedSprite2D" parent="." groups=["bus_doors"]]
+position = Vector2(206, 256)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_q7cyy")
+animation = &"Open"
+script = ExtResource("5_gv7nm")
+
+[node name="BusDoorOpen" type="AudioStreamPlayer" parent="BusDoorSprite"]
+stream = ExtResource("6_ubn14")
+volume_db = 1.0
+pitch_scale = 1.7
+
+[node name="BusDoorClose" type="AudioStreamPlayer" parent="BusDoorSprite"]
+stream = ExtResource("7_cj0fk")
+volume_db = 1.0
+pitch_scale = 1.9
+
+[node name="BusDoorButton" type="Sprite2D" parent="."]
+position = Vector2(59, 334)
+scale = Vector2(2, 2)
+texture = ExtResource("5_n658o")

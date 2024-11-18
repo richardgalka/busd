@@ -1,0 +1,146 @@
+[gd_scene load_steps=16 format=3 uid="uid://818qtr2nxwck"]
+
+[ext_resource type="Script" path="res://busd/scripts/dash_view.gd" id="1_2asdb"]
+[ext_resource type="Texture2D" uid="uid://b1xgeptkb4dut" path="res://aseprite/bus_console_background.png" id="2_yty65"]
+[ext_resource type="PackedScene" uid="uid://cpf7gensnoxt6" path="res://busd/Scene/switch.tscn" id="3_q5php"]
+[ext_resource type="Texture2D" uid="uid://5dpii76547or" path="res://aseprite/switch_red.png" id="4_jl7sc"]
+[ext_resource type="Texture2D" uid="uid://cn8yw5xmmo461" path="res://aseprite/green_button.png" id="5_stxjk"]
+[ext_resource type="Texture2D" uid="uid://bp4lxeiiq0tge" path="res://aseprite/bus_drawer.png" id="6_kjc54"]
+[ext_resource type="Texture2D" uid="uid://d05hsg8m26yfc" path="res://aseprite/stop_button.png" id="7_2bk6p"]
+[ext_resource type="Shader" path="res://busd/shaders/flash.gdshader" id="8_1w36w"]
+[ext_resource type="Texture2D" uid="uid://bgqiqifi6odfp" path="res://aseprite/bus_drawer_handle.png" id="9_mqq7m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yl26h"]
+size = Vector2(104, 20)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0q0tp"]
+shader = ExtResource("8_1w36w")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/pct = 0.0
+
+[sub_resource type="Animation" id="Animation_gkkd5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BusDrawerHandle:material:shader_parameter/pct")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(456, 50)]
+}
+
+[sub_resource type="Animation" id="Animation_vhbvt"]
+resource_name = "highlight_drawer"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BusDrawerHandle:material:shader_parameter/pct")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.5, 0.0, 0.5, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_4ygj7"]
+resource_name = "open_drawer"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(456, 50), Vector2(456, 240)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7wrdt"]
+_data = {
+"RESET": SubResource("Animation_gkkd5"),
+"highlight_drawer": SubResource("Animation_vhbvt"),
+"open_drawer": SubResource("Animation_4ygj7")
+}
+
+[node name="DashView" type="Node2D"]
+script = ExtResource("1_2asdb")
+metadata/_edit_lock_ = true
+
+[node name="BusConsoleBackground" type="Sprite2D" parent="."]
+z_index = -99
+scale = Vector2(2, 2)
+texture = ExtResource("2_yty65")
+centered = false
+metadata/_edit_lock_ = true
+
+[node name="SwitchLights" parent="." instance=ExtResource("3_q5php")]
+position = Vector2(63, 93)
+scale = Vector2(2, 2)
+text = "Lights"
+group_name = "bus_lights"
+
+[node name="SwitchDoor" parent="." instance=ExtResource("3_q5php")]
+position = Vector2(159, 93)
+scale = Vector2(2, 2)
+texture = ExtResource("4_jl7sc")
+text = "Door"
+group_name = "bus_doors"
+
+[node name="BusDashDoorButton" type="Sprite2D" parent="."]
+position = Vector2(72, 249)
+scale = Vector2(2, 2)
+texture = ExtResource("5_stxjk")
+hframes = 3
+
+[node name="BusDrawer" type="StaticBody2D" parent="."]
+position = Vector2(456, 50)
+input_pickable = true
+
+[node name="BusDrawerImage" type="Sprite2D" parent="BusDrawer"]
+z_index = -5
+position = Vector2(116, -187)
+scale = Vector2(2, 2)
+texture = ExtResource("6_kjc54")
+
+[node name="Sprite2D" type="Sprite2D" parent="BusDrawer/BusDrawerImage"]
+position = Vector2(160, 105)
+texture = ExtResource("7_2bk6p")
+
+[node name="Handle_CS2D" type="CollisionShape2D" parent="BusDrawer"]
+position = Vector2(116, 29)
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_yl26h")
+
+[node name="BusDrawerHandle" type="Sprite2D" parent="BusDrawer"]
+material = SubResource("ShaderMaterial_0q0tp")
+position = Vector2(116, 30)
+scale = Vector2(2, 2)
+texture = ExtResource("9_mqq7m")
+
+[node name="DrawerAnimation" type="AnimationPlayer" parent="BusDrawer"]
+libraries = {
+"": SubResource("AnimationLibrary_7wrdt")
+}
+
+[connection signal="mouse_entered" from="BusDrawer" to="." method="_on_bus_drawer_mouse_entered"]

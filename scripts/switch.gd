@@ -6,6 +6,7 @@ enum STATE {ON, OFF}
 # Enums.
 @export var switch_state: STATE = STATE.OFF
 @export var text: String = "VALUE"
+@export var group_name: String = ""
 @onready var audio_stream_player = $AudioStreamPlayer
 @onready var label = $Label
 
@@ -17,10 +18,12 @@ func _ready():
 	label.text = text
 	
 func switch_on():
+	get_tree().call_group(group_name, "switch_on")
 	switch_state = STATE.ON
 	frame = switch_state
 
 func switch_off():
+	get_tree().call_group(group_name, "switch_off")
 	switch_state = STATE.OFF
 	frame = switch_state
 

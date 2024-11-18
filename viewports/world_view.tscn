@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://c66ag2serjakk"]
+
+[ext_resource type="Script" path="res://busd/scripts/world_view.gd" id="1_6hvu2"]
+[ext_resource type="Texture2D" uid="uid://1b7t07iw2d1o" path="res://aseprite/city_skyline.png" id="1_ccxvh"]
+[ext_resource type="Texture2D" uid="uid://dd5dkl5hbtc8j" path="res://aseprite/road.png" id="2_qgb6b"]
+[ext_resource type="PackedScene" uid="uid://dm11kfdx7r5t7" path="res://busd/Scene/bus.tscn" id="3_wmvat"]
+
+[node name="WorldView" type="Node2D"]
+script = ExtResource("1_6hvu2")
+
+[node name="CitySkyline" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_ccxvh")
+centered = false
+
+[node name="Road" type="TextureRect" parent="."]
+offset_top = 106.0
+offset_right = 640.0
+offset_bottom = 170.0
+scale = Vector2(2, 2)
+texture = ExtResource("2_qgb6b")
+stretch_mode = 1
+
+[node name="Bus" parent="." instance=ExtResource("3_wmvat")]
+position = Vector2(1052, 86)
