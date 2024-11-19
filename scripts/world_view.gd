@@ -1,19 +1,29 @@
 extends Node2D
 
-@onready var dash_view: Node2D = $"../../../HBoxContainer/DashViewContainer/DashViewport/DashView"
 @onready var bus_lights: PointLight2D = $Bus/HeadLights
+
+var bus_light_switch: Node2D
+var bus_door_switch: Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#   player.hit.connect(_on_player_hit.bind("sword", 100))
-	printt("Viewport", get_viewport(), get_tree().root) # Game's viewport.
-	printt("Current Scene", get_tree().current_scene) # Active scene root.
-	#print(get_tree().root.get_tree_string())
-	pass # Replace with function body.
+	# Wait until scene tree is ready to continue
+	await(get_node("/root").ready)  
+	_connect_switches()
 
-func set_buslights_enabled(state: bool) -> void:
+func _connect_switches() -> void:
+	bus_light_switch = %DashView.get_switch_lights_node()
+	bus_door_switch = %DashView.get_switch_door_node()
+	bus_light_switch.switched.connect(set_buslights)
+	bus_door_switch.switched.connect(set_busdoor)
+	
+func set_buslights(state):
 	bus_lights.enabled = state
 
+func set_busdoor(state):
+	#bus_door.enabled = state
+	pass
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass

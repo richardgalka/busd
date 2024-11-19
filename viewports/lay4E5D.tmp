@@ -1,0 +1,86 @@
+[gd_scene load_steps=6 format=3 uid="uid://v3jm3ywuhkbj"]
+
+[ext_resource type="PackedScene" uid="uid://c66ag2serjakk" path="res://busd/viewports/world_view.tscn" id="1_g0gbr"]
+[ext_resource type="Texture2D" uid="uid://bb8lyb74w3oj6" path="res://aseprite/section_vert.png" id="1_jtmob"]
+[ext_resource type="PackedScene" uid="uid://crck0ckfgtrh4" path="res://busd/viewports/driver_view.tscn" id="2_q5lyk"]
+[ext_resource type="Texture2D" uid="uid://d1wqbe5iutqy5" path="res://aseprite/section_horiz.png" id="2_y02nb"]
+[ext_resource type="PackedScene" uid="uid://818qtr2nxwck" path="res://busd/viewports/dash_view.tscn" id="3_4twpa"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 726.0
+
+[node name="ExternalViewContainer" type="SubViewportContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 240)
+layout_mode = 2
+stretch = true
+
+[node name="ExternalViewport" type="SubViewport" parent="VBoxContainer/ExternalViewContainer"]
+disable_3d = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+physics_object_picking = true
+physics_object_picking_sort = true
+size = Vector2i(1280, 240)
+render_target_update_mode = 4
+
+[node name="WorldView" parent="VBoxContainer/ExternalViewContainer/ExternalViewport" instance=ExtResource("1_g0gbr")]
+unique_name_in_owner = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="DriverViewContainer" type="SubViewportContainer" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+stretch = true
+
+[node name="DriverViewport" type="SubViewport" parent="VBoxContainer/HBoxContainer/DriverViewContainer"]
+disable_3d = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+physics_object_picking = true
+physics_object_picking_sort = true
+size = Vector2i(320, 482)
+render_target_update_mode = 4
+
+[node name="DriverView" parent="VBoxContainer/HBoxContainer/DriverViewContainer/DriverViewport" instance=ExtResource("2_q5lyk")]
+unique_name_in_owner = true
+
+[node name="DashViewContainer" type="SubViewportContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 2
+stretch = true
+
+[node name="DashViewport" type="SubViewport" parent="VBoxContainer/HBoxContainer/DashViewContainer"]
+disable_3d = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+physics_object_picking = true
+physics_object_picking_sort = true
+size = Vector2i(956, 482)
+render_target_update_mode = 4
+
+[node name="DashView" parent="VBoxContainer/HBoxContainer/DashViewContainer/DashViewport" instance=ExtResource("3_4twpa")]
+unique_name_in_owner = true
+
+[node name="SectionVert" type="Sprite2D" parent="VBoxContainer"]
+scale = Vector2(2, 2)
+texture = ExtResource("1_jtmob")
+centered = false
+
+[node name="SectionHoriz" type="Sprite2D" parent="VBoxContainer"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_y02nb")
+centered = false

@@ -44,7 +44,8 @@ func _unhandled_input(event):
 				queue_free()
 
 func move_passenger():
-	self.create_tween().tween_property(self, "position:x", marker_2d_lineup.global_position.x-(10+passenger_width*passenger_number), walk_speed)
+	pass
+	#self.create_tween().tween_property(self, "position:x", marker_2d_lineup.global_position.x-(10+passenger_width*passenger_number), walk_speed)
 	
 func retreat():
 	pass

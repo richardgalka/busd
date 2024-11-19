@@ -1,0 +1,97 @@
+[gd_scene load_steps=10 format=3 uid="uid://4dyvwxqxve7l"]
+
+[ext_resource type="Script" path="res://busd/scripts/bus_stop.gd" id="1_11ibd"]
+[ext_resource type="Texture2D" uid="uid://ct47tuxjxbf8v" path="res://aseprite/sign.png" id="1_q3vey"]
+[ext_resource type="Texture2D" uid="uid://drdy3naj6fh44" path="res://aseprite/bus_stop.png" id="3_cgonu"]
+[ext_resource type="Texture2D" uid="uid://8270frmqokra" path="res://aseprite/human_silhoute0001.png" id="4_4wq6a"]
+[ext_resource type="Script" path="res://busd/scripts/test_3.gd" id="5_clplx"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_g30nf"]
+
+[sub_resource type="Curve2D" id="Curve2D_mjnmk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -60.5, -14, 0, 0, 0, 0, -44, -15.5, 0, 0, 0, 0, -24.5, -17.5, 0, 0, 0, 0, -16, -15, 0, 0, 0, 0, -9.5, -8.5, 0, 0, 0, 0, -16.5, -3, 0, 0, 0, 0, -31, -1.5, 0, 0, 0, 0, -44, -1.5, 0, 0, 0, 0, -60, -0.5, 0, 0, 0, 0, -63, 5, 0, 0, 0, 0, -60.5, 11, 0, 0, 0, 0, -48.5, 11, 0, 0, 0, 0, -31.5, 10, 0, 0, 0, 0, -13.5, 10.5, 0, 0, 0, 0, -7.5, 9.5)
+}
+point_count = 15
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cqmmr"]
+size = Vector2(9.5, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e1mf4"]
+size = Vector2(5, 10.5)
+
+[node name="BusStop" type="Node2D"]
+position = Vector2(321, 111)
+scale = Vector2(2, 2)
+script = ExtResource("1_11ibd")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -63.5
+offset_top = -18.0
+offset_right = -4.5
+offset_bottom = 15.0
+texture = SubResource("CanvasTexture_g30nf")
+
+[node name="Lineup" type="Path2D" parent="."]
+curve = SubResource("Curve2D_mjnmk")
+
+[node name="Area2D" type="Area2D" parent="Lineup"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Lineup/Area2D"]
+position = Vector2(-61.25, -14)
+shape = SubResource("RectangleShape2D_cqmmr")
+debug_color = Color(0, 0.6, 0.701961, 0.447059)
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Lineup"]
+position = Vector2(-60.5, -14)
+rotation = -0.0587558
+rotates = false
+
+[node name="HumanSilhoute0001" type="Sprite2D" parent="Lineup/PathFollow2D"]
+rotation = 0.0906599
+texture = ExtResource("4_4wq6a")
+
+[node name="PathFollow2D2" type="PathFollow2D" parent="Lineup"]
+position = Vector2(-27.9707, -1.81337)
+rotation = 3.03851
+progress = 74.6399
+
+[node name="PathFollow2D3" type="PathFollow2D" parent="Lineup"]
+position = Vector2(-27.9707, -1.81337)
+rotation = 3.03851
+progress = 74.6399
+
+[node name="Marker2D" type="Marker2D" parent="Lineup"]
+
+[node name="BusStopSpriteClose" type="Sprite2D" parent="Lineup"]
+visible = false
+scale = Vector2(2, 2)
+texture = ExtResource("3_cgonu")
+
+[node name="BusStopSpriteFar" type="Sprite2D" parent="Lineup"]
+scale = Vector2(2, 2)
+texture = ExtResource("1_q3vey")
+
+[node name="Test" type="CharacterBody2D" parent="." groups=["commuter"]]
+motion_mode = 1
+script = ExtResource("5_clplx")
+
+[node name="Sprite" type="Sprite2D" parent="Test"]
+texture = ExtResource("4_4wq6a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Test"]
+position = Vector2(-0.5, -0.25)
+shape = SubResource("RectangleShape2D_e1mf4")
+
+[node name="Test2" type="CharacterBody2D" parent="." groups=["commuter"]]
+position = Vector2(-1, 60.5)
+motion_mode = 1
+script = ExtResource("5_clplx")
+
+[node name="Sprite" type="Sprite2D" parent="Test2"]
+texture = ExtResource("4_4wq6a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Test2"]
+shape = SubResource("RectangleShape2D_e1mf4")
+
+[connection signal="body_entered" from="Lineup/Area2D" to="." method="_on_area_2d_body_entered"]

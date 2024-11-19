@@ -18,12 +18,14 @@ func _ready():
 	label.text = text
 	
 func switch_on():
-	get_tree().call_group(group_name, "switch_on")
+	#get_tree().call_group(group_name, "switch_on")
+	#switched.emit(STATE.ON)
 	switch_state = STATE.ON
 	frame = switch_state
 
 func switch_off():
-	get_tree().call_group(group_name, "switch_off")
+	#get_tree().call_group(group_name, "switch_off")
+	#switched.emit(STATE.OFF)
 	switch_state = STATE.OFF
 	frame = switch_state
 
@@ -34,4 +36,5 @@ func _on_area_2d_input_event(_viewport, event, _shape_idx):
 			switch_off()
 		else: 
 			switch_on()
-		switched.emit(switch_state)
+		switched.emit(!switch_state)
+		print("emit switched %s" % bool(!switch_state))
