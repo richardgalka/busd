@@ -422,6 +422,5 @@ libraries = {
 "": SubResource("AnimationLibrary_7wrdt")
 }
 
-[connection signal="switched" from="DashView/SwitchLights" to="ExternalView" method="_on_switch_lights_switched"]
 [connection signal="switched" from="DashView/SwitchDoor" to="BusDriverView" method="_on_switch_door_switched"]
 [connection signal="mouse_entered" from="DashView/BusDrawer" to="DashView" method="_on_bus_drawer_mouse_entered"]

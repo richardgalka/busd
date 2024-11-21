@@ -12,10 +12,11 @@ func _ready() -> void:
 	_connect_switches()
 
 func _connect_switches() -> void:
-	bus_light_switch = %DashView.get_switch_lights_node()
-	bus_door_switch = %DashView.get_switch_door_node()
-	bus_light_switch.switched.connect(set_buslights)
-	bus_door_switch.switched.connect(set_busdoor)
+	if get_node_or_null("%DashView"):
+		bus_light_switch = %DashView.get_switch_lights_node()
+		bus_door_switch = %DashView.get_switch_door_node()
+		bus_light_switch.switched.connect(set_buslights)
+		bus_door_switch.switched.connect(set_busdoor)
 	
 func set_buslights(state):
 	bus_lights.enabled = state
