@@ -9,6 +9,7 @@ class_name Person
 #@export var body : 
 #@export var legs : 
 @export var quirks : Array[Quirk]
+@export var speed: int = 10
 @export var storage : InvContainer
 
 @export var texture_small : Texture2D = preload("res://aseprite/human_silhoute0001.png")

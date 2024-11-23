@@ -22,7 +22,7 @@ func _connect_switches() -> void:
 		bus_light_switch.switched.connect(set_buslights)
 		bus_door_switch.switched.connect(set_busdoor)
 
-func set_buslights(state):
+func set_buslights(_state):
 	pass
 	
 func set_busdoor(state):

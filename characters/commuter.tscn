@@ -8,11 +8,14 @@ script = ExtResource("1_20k6p")
 stats = ExtResource("2_dxxhw")
 
 [node name="loc_external" type="Marker2D" parent="."]
-position = Vector2(52, 79)
 
 [node name="Sprite2D_external" type="Sprite2D" parent="loc_external"]
 
 [node name="loc_driverview" type="Marker2D" parent="."]
-position = Vector2(179, 80)
 
 [node name="Sprite2D_driver" type="Sprite2D" parent="loc_driverview"]
+
+[node name="FidgetTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="FidgetTimer" to="." method="_on_fidget_timer_timeout"]

@@ -21,8 +21,8 @@ signal bus_stop_line_linedup(body:Node2D, busstop:Node2D)
 var path_follows : Array[PathFollow2D] = []
 
 #testing
-@onready var path_follow_2d: PathFollow2D = $Lineup/PathFollow2D
-@onready var path_follow_2d_2: PathFollow2D = $Lineup/PathFollow2D2
+#@onready var path_follow_2d: PathFollow2D = $Lineup/PathFollow2D
+#@onready var path_follow_2d_2: PathFollow2D = $Lineup/PathFollow2D2
 
 var lineup_entry_point: Vector2
 
@@ -46,7 +46,7 @@ func _process(_delta: float) -> void:
 	#Move it at some speed
 	
 	#Stop at end-user_postion*width
-	
+
 	#Remove the path_follow once we are at end
 	pass
 

@@ -61,6 +61,7 @@ func provide_portrait():
 	
 
 func _on_fidget_timer_timeout():
+	global.dprint(self,"TIMER TRIGGERD")
 	timer_trigger = true
 	fidget_timer.wait_time = set_fidget_time(1,10)
 
