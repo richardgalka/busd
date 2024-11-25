@@ -1,5 +1,7 @@
 extends Node2D
 
+signal commuter_left(commuter_number:int)
+
 @onready var bus_lights: PointLight2D = $Bus/HeadLights
 @onready var bus_path_to_stop: Path2D = $BusStop/BusPathToStop
 @onready var commuter_path_to_stop: Path2D = $BusStop/CommuterPathToStop
@@ -7,11 +9,8 @@ extends Node2D
 @onready var bus_stop: Node2D = $BusStop
 @onready var passenger_arrive_timer: Timer = $PassengerArriveTimer
 
-
 var bus_light_switch: Node2D
 var bus_door_switch: Node2D
-
-var path_follows : Array[PathFollow2D] = []
 
 @export var passengers_present: int = 3
 @export var passengers_arriving: int = 1
@@ -20,7 +19,6 @@ const COMMUTER = preload("res://busd/characters/commuter.tscn")
 
 var first_stop : Vector2
 var last_stop : Vector2
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,17 +32,34 @@ func _ready() -> void:
 	
 	for n in range(passengers_present):
 		var comy = _create_passenger(Vector2(last_stop.x-(commuter_buffer*n), last_stop.y), n)
-		comy.scale = Vector2(2.0, 2.0)
+		var comy_path = commuter_path_follow_2d.duplicate()
+		commuter_path_to_stop.add_child(comy_path)
+		comy.follow_path(comy_path, true)
 		self.add_child(comy)
 	# create passengers at busstop
 
 ## create a passenger scene at location and let them know their position in line
 func _create_passenger(location, pos) -> commuter:
+	# Create the commuter instance and place at location
 	var commuter_instance = COMMUTER.instantiate()
 	commuter_instance.add_to_group("commuter")
 	commuter_instance.global_position = location
 	commuter_instance.line_position = pos
+	global.dprint(commuter_instance, "My position : %s" % pos)
+	
+	# register the commuter with our world
+	commuter_instance.decided_to_leave.connect(_passenger_left)
+	
+	# register this world with the passenger
+	self.commuter_left.connect(commuter_instance.other_comy_left)
 	return commuter_instance
+
+func _passenger_left(position_num):
+	global.dprint(self, "Passenger %s decided to leave" % position_num)
+	# for each passenger with a > # let's ensure they move forward one place
+	self.commuter_left.emit(position_num)
+
+
 
 func _connect_switches() -> void:
 	if get_node_or_null("%DashView"):
@@ -65,12 +80,12 @@ func _process(_delta: float) -> void:
 
 func _on_passenger_arrive_timer_timeout() -> void:
 	# duplicate pathfollow2d
-	var commuter_num = get_tree().get_nodes_in_group("commuter").size()+1
+	var commuter_num = get_tree().get_nodes_in_group("commuter").size()
 	global.dprint(self, "Commuter Number: %s" % commuter_num)
 	var new_comy = _create_passenger(first_stop, commuter_num)
 	var new_comy_path = commuter_path_follow_2d.duplicate()
 	commuter_path_to_stop.add_child(new_comy_path)
-	new_comy_path.add_child(new_comy)
+	self.add_child(new_comy)
 	new_comy.follow_path(new_comy_path)
 
 

@@ -7,18 +7,21 @@
 [ext_resource type="Texture2D" uid="uid://ct47tuxjxbf8v" path="res://aseprite/sign.png" id="5_p2odj"]
 
 [sub_resource type="Curve2D" id="Curve2D_mktfl"]
+bake_interval = 2.0
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -182, -0.5, 0, 0, 0, 0, -52, -2, 0, 0, 0, 0, -10, 2.5)
 }
 point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_g3q87"]
+bake_interval = 2.0
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 513.5, 11.5, 0, 0, 0, 0, 110.5, 10.5, 0, 0, 0, 0, 87, 4, 0, 0, 0, 0, 35, 0.5)
 }
 point_count = 4
 
 [sub_resource type="Curve2D" id="Curve2D_5ra2g"]
+bake_interval = 2.0
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 34.5, 1, 0, 0, 0, 0, -60.5, 10.5, 0, 0, 0, 0, -171.5, 12)
 }
@@ -26,6 +29,8 @@ point_count = 3
 
 [node name="WorldView" type="Node2D"]
 script = ExtResource("1_6hvu2")
+passengers_present = 2
+passengers_arriving = 3
 
 [node name="CitySkyline" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
@@ -80,6 +85,7 @@ rotates = false
 loop = false
 
 [node name="Bus" parent="." instance=ExtResource("3_wmvat")]
+visible = false
 z_index = 1
 position = Vector2(1609, 137)
 

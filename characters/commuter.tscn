@@ -1,15 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://d512ka5mw6gg"]
+[gd_scene load_steps=5 format=3 uid="uid://d512ka5mw6gg"]
 
 [ext_resource type="Script" path="res://busd/characters/commuter.gd" id="1_20k6p"]
 [ext_resource type="Resource" uid="uid://e67dfljxy5ya" path="res://busd/characters/person2.tres" id="2_dxxhw"]
+[ext_resource type="Texture2D" uid="uid://8270frmqokra" path="res://aseprite/human_silhoute0001.png" id="3_bi6wg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bvm8a"]
+size = Vector2(6, 17)
 
 [node name="Commuter" type="Node2D"]
+scale = Vector2(2, 2)
 script = ExtResource("1_20k6p")
 stats = ExtResource("2_dxxhw")
 
 [node name="loc_external" type="Marker2D" parent="."]
 
 [node name="Sprite2D_external" type="Sprite2D" parent="loc_external"]
+texture = ExtResource("3_bi6wg")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="loc_external/Sprite2D_external"]
+input_pickable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="loc_external/Sprite2D_external/StaticBody2D"]
+shape = SubResource("RectangleShape2D_bvm8a")
 
 [node name="loc_driverview" type="Marker2D" parent="."]
 
@@ -18,4 +30,5 @@ stats = ExtResource("2_dxxhw")
 [node name="FidgetTimer" type="Timer" parent="."]
 autostart = true
 
+[connection signal="input_event" from="loc_external/Sprite2D_external/StaticBody2D" to="." method="_on_static_body_2d_input_event"]
 [connection signal="timeout" from="FidgetTimer" to="." method="_on_fidget_timer_timeout"]

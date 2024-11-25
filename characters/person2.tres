@@ -20,6 +20,7 @@ script = ExtResource("1_4boq1")
 fname = "Isaac"
 lname = "Person"
 quirks = Array[ExtResource("1_im5u0")]([SubResource("Resource_iueu4")])
+speed = 10
 storage = SubResource("Resource_1fr0p")
 texture_small = ExtResource("4_evncj")
 texture_large = ExtResource("3_elb3m")
