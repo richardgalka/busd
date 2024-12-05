@@ -1,20 +1,22 @@
 [gd_scene load_steps=5 format=3 uid="uid://d512ka5mw6gg"]
 
 [ext_resource type="Script" path="res://busd/characters/commuter.gd" id="1_20k6p"]
-[ext_resource type="Resource" uid="uid://e67dfljxy5ya" path="res://busd/characters/person2.tres" id="2_dxxhw"]
+[ext_resource type="Resource" uid="uid://b6tbbwa03cx0g" path="res://busd/characters/person1.tres" id="2_hti5y"]
 [ext_resource type="Texture2D" uid="uid://8270frmqokra" path="res://aseprite/human_silhoute0001.png" id="3_bi6wg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvm8a"]
 size = Vector2(6, 17)
 
 [node name="Commuter" type="Node2D"]
+modulate = Color(0.808998, 0.808998, 0.808998, 1)
 scale = Vector2(2, 2)
 script = ExtResource("1_20k6p")
-stats = ExtResource("2_dxxhw")
+stats = ExtResource("2_hti5y")
 
 [node name="loc_external" type="Marker2D" parent="."]
 
 [node name="Sprite2D_external" type="Sprite2D" parent="loc_external"]
+modulate = Color(0.587683, 0.636434, 0.648105, 1)
 texture = ExtResource("3_bi6wg")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="loc_external/Sprite2D_external"]

@@ -74,6 +74,7 @@ func follow_path(path: PathFollow2D, start_at_end: bool = false) -> void:
 	# if start_at_end we set our mypath.progress to where we should be in line
 	if start_at_end:
 		mypath.progress = _my_final_distance()
+	global_position = floor(mypath.global_position)  # we floor due to low resoluton and partial pixels causing tearing
 	global.dprint(self, "Starting at %s to %s as I'm now number %s" % [mypath.progress, _my_final_distance(), self.line_position])
 
 
@@ -98,12 +99,13 @@ func get_fidgeting() -> Vector2:
 
 func _create_path_exit():
 	# We will not actually create a path, but a tween to leave the scene
+	# By default just move left outside of window
 	#self.create_tween()
-	
 	decided_to_leave.emit(line_position)
 	var tween = get_tree().create_tween()
-	tween.tween_property(self, "modulate", Color.RED, 1)
-	tween.tween_property(self, "scale", Vector2(), 1)
+	tween.tween_property(self, "position:x", -10.0, 1)
+	#tween.tween_property(self, "modulate", Color.RED, 1)
+	#tween.tween_property(self, "scale", Vector2(), 1)
 	tween.tween_callback(self._left)
 
 func _left():

@@ -14,8 +14,11 @@ var bus_door_switch: Node2D
 
 @export var passengers_present: int = 3
 @export var passengers_arriving: int = 1
-@export var commuter_buffer: int = 15
+@export var commuter_buffer: int = 125   ## Should use commuter.personal_space
 const COMMUTER = preload("res://busd/characters/commuter.tscn")
+@export var ordered_commuters: Array[Person]
+
+
 
 var first_stop : Vector2
 var last_stop : Vector2
@@ -31,21 +34,23 @@ func _ready() -> void:
 	last_stop = bus_stop.global_position + commuter_path_to_stop.scale.x*commuter_path_to_stop.curve.get_point_position(commuter_path_to_stop.curve.point_count-1)
 	
 	for n in range(passengers_present):
-		var comy = _create_passenger(Vector2(last_stop.x-(commuter_buffer*n), last_stop.y), n)
+		var comy = _create_passenger(last_stop, n)
 		var comy_path = commuter_path_follow_2d.duplicate()
 		commuter_path_to_stop.add_child(comy_path)
-		comy.follow_path(comy_path, true)
 		self.add_child(comy)
+		comy.follow_path(comy_path, true)
+
 	# create passengers at busstop
 
 ## create a passenger scene at location and let them know their position in line
 func _create_passenger(location, pos) -> commuter:
 	# Create the commuter instance and place at location
 	var commuter_instance = COMMUTER.instantiate()
+	# Need to add a person resource.
 	commuter_instance.add_to_group("commuter")
 	commuter_instance.global_position = location
 	commuter_instance.line_position = pos
-	global.dprint(commuter_instance, "My position : %s" % pos)
+	#global.dprint(commuter_instance, "My position : %s" % pos)
 	
 	# register the commuter with our world
 	commuter_instance.decided_to_leave.connect(_passenger_left)
@@ -80,9 +85,11 @@ func _process(_delta: float) -> void:
 
 func _on_passenger_arrive_timer_timeout() -> void:
 	# duplicate pathfollow2d
+	# bug to do with no commuter_buffer causing a change in this part of code
 	var commuter_num = get_tree().get_nodes_in_group("commuter").size()
-	global.dprint(self, "Commuter Number: %s" % commuter_num)
+	global.dprint(self, "Commuter arriving - Number: %s" % commuter_num)
 	var new_comy = _create_passenger(first_stop, commuter_num)
+	#global.dprint(self, "last_stop: %s" % last_stop)
 	var new_comy_path = commuter_path_follow_2d.duplicate()
 	commuter_path_to_stop.add_child(new_comy_path)
 	self.add_child(new_comy)

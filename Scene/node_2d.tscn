@@ -335,6 +335,11 @@ position = Vector2(-60, 272)
 scale = Vector2(1.32857, 1.32857)
 texture = ExtResource("8_axcme")
 
+[node name="SarahSprite" type="Sprite2D" parent="BusDriverView/BusStop"]
+position = Vector2(-33.1183, 12.043)
+scale = Vector2(0.752689, 0.752689)
+texture = ExtResource("18_xdxfx")
+
 [node name="CigarManSprite" type="Sprite2D" parent="BusDriverView/BusStop"]
 position = Vector2(42.9033, 11.2903)
 scale = Vector2(0.752689, 0.752689)
@@ -367,10 +372,6 @@ texture = ExtResource("7_b1rf0")
 [node name="BusDoorButton" type="Sprite2D" parent="BusDriverView"]
 position = Vector2(29, 286)
 texture = ExtResource("9_1dgk8")
-
-[node name="SarahSprite" type="Sprite2D" parent="BusDriverView"]
-position = Vector2(-99, 287)
-texture = ExtResource("18_xdxfx")
 
 [node name="DashView" type="Node2D" parent="."]
 script = ExtResource("11_18vpy")

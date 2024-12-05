@@ -70,10 +70,12 @@ animations = [{
 script = ExtResource("1_ik8c4")
 
 [node name="Busdriverviewroad" type="Sprite2D" parent="."]
-position = Vector2(0, -222)
-scale = Vector2(2, 2)
+texture_repeat = 2
+scale = Vector2(1.27778, 1.23889)
 texture = ExtResource("1_esql1")
 centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 360, 360)
 
 [node name="BusDoorBackground" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
