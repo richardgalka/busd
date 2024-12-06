@@ -18,7 +18,7 @@ var bus_door_switch: Node2D
 const COMMUTER = preload("res://busd/characters/commuter.tscn")
 @export var ordered_commuters: Array[Person]
 
-
+var _debug = true
 
 var first_stop : Vector2
 var last_stop : Vector2

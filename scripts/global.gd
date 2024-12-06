@@ -12,5 +12,5 @@ var bus_lights: bool = false
 @export var debug = true
 
 func dprint(objname, data):
-	if debug: print(objname, data)
+	if debug and objname._debug: print(objname, data)
 	

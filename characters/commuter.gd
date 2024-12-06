@@ -18,6 +18,7 @@ var timer_trigger : bool = false
 var next_move : Vector2 = Vector2.ZERO
 
 var tbool = true
+var _debug = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if stats == null:
@@ -44,7 +45,7 @@ func _process(delta: float) -> void:
 				tbool = false
 		else:
 			mypath.progress += stats.speed*delta
-			#global.dprint(self,"moved %s pixels of %s pixels" % [mypath.progress, mypath.get_node("../").curve.get_baked_length()])
+			global.dprint(self,"moved %s pixels of %s pixels" % [mypath.progress, mypath.get_node("../").curve.get_baked_length()])
 			global_position = floor(mypath.global_position)  # we floor due to low resoluton and partial pixels causing tearing
 			if mypath.progress_ratio >= 1:
 				global.dprint(self, "DONE MOVING")
@@ -117,7 +118,7 @@ func _on_static_body_2d_input_event(_viewport: Node, event: InputEvent, _shape_i
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			print("Left button was clicked at ", event.position)
-			global.dprint(self, "I'm at line position: %s" % line_position)
+			#global.dprint(self, "I'm at line position: %s" % line_position)
 			_create_path_exit()
 			
 	pass # Replace with function body.

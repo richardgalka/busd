@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://crck0ckfgtrh4"]
+[gd_scene load_steps=20 format=3 uid="uid://crck0ckfgtrh4"]
 
 [ext_resource type="Texture2D" uid="uid://xjanyy7f14by" path="res://aseprite/busdirverviewroad.png" id="1_esql1"]
 [ext_resource type="Script" path="res://busd/scripts/driver_view.gd" id="1_ik8c4"]
@@ -66,6 +66,43 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_3hyyt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Busdriverviewroad:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 0, 360, 360)]
+}
+
+[sub_resource type="Animation" id="Animation_cdbr0"]
+resource_name = "movingroad"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Busdriverviewroad:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Rect2(0, 0, 360, 360), Rect2(-360, 0, 360, 360)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dsaeu"]
+_data = {
+"RESET": SubResource("Animation_3hyyt"),
+"movingroad": SubResource("Animation_cdbr0")
+}
+
 [node name="DriverView" type="Node2D"]
 script = ExtResource("1_ik8c4")
 
@@ -103,3 +140,9 @@ pitch_scale = 1.9
 position = Vector2(59, 334)
 scale = Vector2(2, 2)
 texture = ExtResource("5_n658o")
+
+[node name="Driving" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dsaeu")
+}
+autoplay = "movingroad"

@@ -26,9 +26,6 @@ var path_follows : Array[PathFollow2D] = []
 
 var lineup_entry_point: Vector2
 
-func dprint(data):
-	if debug: print(self, data)
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Set bus stop textures from exports so we don't always have to use defaults
@@ -53,8 +50,6 @@ func _process(_delta: float) -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	#something entered our busstop lineup
 	if body.is_in_group("commuter"):
-		dprint("A commuter is here!")
-		dprint("emitting touched")
 		# signal_out
 		bus_stop_line_touched.emit(body, self)
 		# create tween
@@ -67,19 +62,18 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		
 func _move_to_spot_and_signal(body) -> void:
 	# We are now moved to beginning of line
-	dprint("bus_stop_line_entered_emitted")
+	pass
 	# Now we start the movement
 	# Find out where body should move to.
 	
 func register(body):
-	dprint("registered %s" % body)
+	pass
 	# let's register some signals for this body
 	# To be called by an external commutor that want's to lineup to this busstop
 	body.bus_stop_line_entered.connect(_entered)
 	body.bus_stop_line_left.connect(_left)
 	
 func _entered(body):
-	dprint("%s entered busstop" % body)
 	# how do we get them to follow the path? Let's get them a path to follow.
 	var path_follow = PathFollow2D.new()
 	path_follow.loop=false
@@ -90,7 +84,6 @@ func _entered(body):
 	print("path follow length: %s" % path_follows.size())
 	
 func _left(body):
-	dprint("%s body left busstop" % body)
-	
+	pass	
 	
 	

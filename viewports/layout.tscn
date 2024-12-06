@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://v3jm3ywuhkbj"]
+[gd_scene load_steps=7 format=3 uid="uid://v3jm3ywuhkbj"]
 
 [ext_resource type="Script" path="res://busd/viewports/layout.gd" id="1_4e6li"]
 [ext_resource type="PackedScene" uid="uid://c66ag2serjakk" path="res://busd/viewports/world_view.tscn" id="1_g0gbr"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://crck0ckfgtrh4" path="res://busd/viewports/driver_view.tscn" id="2_q5lyk"]
 [ext_resource type="Texture2D" uid="uid://d1wqbe5iutqy5" path="res://aseprite/section_horiz.png" id="2_y02nb"]
 [ext_resource type="PackedScene" uid="uid://818qtr2nxwck" path="res://busd/viewports/dash_view.tscn" id="3_4twpa"]
-[ext_resource type="Script" path="res://busd/characters/person.gd" id="3_8qcbo"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -37,7 +36,6 @@ render_target_update_mode = 4
 
 [node name="WorldView" parent="VBoxContainer/ExternalViewContainer/ExternalViewport" instance=ExtResource("1_g0gbr")]
 unique_name_in_owner = true
-ordered_commuters = Array[ExtResource("3_8qcbo")]([])
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2

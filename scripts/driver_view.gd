@@ -4,6 +4,8 @@ extends Node2D
 var bus_speed: float = 0.0
 
 @onready var bus_door_sprite: AnimatedSprite2D = $BusDoorSprite
+@onready var busdriverviewroad: Sprite2D = $Busdriverviewroad
+@onready var driving: AnimationPlayer = $Driving
 
 var bus_light_switch : Node2D
 var bus_door_switch : Node2D
@@ -21,7 +23,17 @@ func _connect_switches() -> void:
 		bus_door_switch = dashview.get_switch_door_node()
 		bus_light_switch.switched.connect(set_buslights)
 		bus_door_switch.switched.connect(set_busdoor)
+	signals.bus_arrived.connect(bus_arrived)
+	signals.bus_leaving.connect(bus_leaving)
 
+func bus_arrived():
+	driving.stop()
+	pass
+	
+func bus_leaving():
+	driving.start()
+	pass
+	
 func set_buslights(_state):
 	pass
 	

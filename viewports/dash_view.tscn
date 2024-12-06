@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://818qtr2nxwck"]
+[gd_scene load_steps=14 format=3 uid="uid://818qtr2nxwck"]
 
 [ext_resource type="Script" path="res://busd/scripts/dash_view.gd" id="1_2asdb"]
 [ext_resource type="Texture2D" uid="uid://b1xgeptkb4dut" path="res://aseprite/bus_console_background.png" id="2_yty65"]
@@ -18,40 +18,13 @@ shader = ExtResource("8_1w36w")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/pct = 0.0
 
-[sub_resource type="Animation" id="Animation_gkkd5"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BusDrawerHandle:material:shader_parameter/pct")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(456, 50)]
-}
-
 [sub_resource type="Animation" id="Animation_vhbvt"]
 resource_name = "highlight_drawer"
 length = 1.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BusDrawerHandle:material:shader_parameter/pct")
+tracks/0/path = NodePath("Handle_CS2D/BusDrawerHandle:material:shader_parameter/pct")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -61,26 +34,9 @@ tracks/0/keys = {
 "values": [0.0, 0.5, 0.0, 0.5, 0.0]
 }
 
-[sub_resource type="Animation" id="Animation_4ygj7"]
-resource_name = "open_drawer"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(456, 50), Vector2(456, 240)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7wrdt"]
 _data = {
-"RESET": SubResource("Animation_gkkd5"),
-"highlight_drawer": SubResource("Animation_vhbvt"),
-"open_drawer": SubResource("Animation_4ygj7")
+"highlight_drawer": SubResource("Animation_vhbvt")
 }
 
 [node name="DashView" type="Node2D"]
@@ -114,33 +70,32 @@ texture = ExtResource("5_stxjk")
 hframes = 3
 
 [node name="BusDrawer" type="StaticBody2D" parent="."]
-position = Vector2(456, 50)
+position = Vector2(473, 50)
 input_pickable = true
-
-[node name="BusDrawerImage" type="Sprite2D" parent="BusDrawer"]
-z_index = -5
-position = Vector2(116, -187)
-scale = Vector2(2, 2)
-texture = ExtResource("6_kjc54")
-
-[node name="Sprite2D" type="Sprite2D" parent="BusDrawer/BusDrawerImage"]
-position = Vector2(160, 105)
-texture = ExtResource("7_2bk6p")
 
 [node name="Handle_CS2D" type="CollisionShape2D" parent="BusDrawer"]
 position = Vector2(116, 29)
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_yl26h")
 
-[node name="BusDrawerHandle" type="Sprite2D" parent="BusDrawer"]
+[node name="BusDrawerHandle" type="Sprite2D" parent="BusDrawer/Handle_CS2D"]
 material = SubResource("ShaderMaterial_0q0tp")
-position = Vector2(116, 30)
-scale = Vector2(2, 2)
+position = Vector2(0, 0.5)
 texture = ExtResource("9_mqq7m")
+
+[node name="BusDrawerImage" type="Sprite2D" parent="BusDrawer/Handle_CS2D"]
+z_index = -5
+position = Vector2(0, -108)
+texture = ExtResource("6_kjc54")
+
+[node name="Sprite2D" type="Sprite2D" parent="BusDrawer/Handle_CS2D/BusDrawerImage"]
+position = Vector2(160, 105)
+texture = ExtResource("7_2bk6p")
 
 [node name="DrawerAnimation" type="AnimationPlayer" parent="BusDrawer"]
 libraries = {
 "": SubResource("AnimationLibrary_7wrdt")
 }
 
+[connection signal="input_event" from="BusDrawer" to="." method="_on_bus_drawer_input_event"]
 [connection signal="mouse_entered" from="BusDrawer" to="." method="_on_bus_drawer_mouse_entered"]
