@@ -16,7 +16,9 @@ var bus_door_switch: Node2D
 @export var passengers_arriving: int = 1
 @export var commuter_buffer: int = 125   ## Should use commuter.personal_space
 const COMMUTER = preload("res://busd/characters/commuter.tscn")
-@export var ordered_commuters: Array[Person]
+@export var ordered_commuters: Array[commuter]
+
+var t_ordered_commuters_size = 0
 
 var _debug = true
 
@@ -57,12 +59,15 @@ func _create_passenger(location, pos) -> commuter:
 	
 	# register this world with the passenger
 	self.commuter_left.connect(commuter_instance.other_comy_left)
+	ordered_commuters.append(commuter_instance)
 	return commuter_instance
 
 func _passenger_left(position_num):
 	global.dprint(self, "Passenger %s decided to leave" % position_num)
 	# for each passenger with a > # let's ensure they move forward one place
 	self.commuter_left.emit(position_num)
+	# Update ordered_commuters
+	ordered_commuters.pop_at(position_num)
 
 
 
@@ -80,6 +85,10 @@ func set_buslights(state):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
+	#global.dprint(self, "commuter size: %s" % ordered_commuters.size())
+	if ordered_commuters.size() != t_ordered_commuters_size:
+		global.dprint(self, "ordered commuters: %s" % ordered_commuters.size())
+		t_ordered_commuters_size = ordered_commuters.size()
 	pass
 
 

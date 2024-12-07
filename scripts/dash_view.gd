@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var switch_lights: Sprite2D = $SwitchLights
 @onready var switch_door: Sprite2D = $SwitchDoor
-@onready var bus_drawer_handle: Sprite2D = $BusDrawer/BusDrawerHandle
 @onready var drawer_animation: AnimationPlayer = $BusDrawer/DrawerAnimation
 @onready var handle_cs_2d: CollisionShape2D = $BusDrawer/Handle_CS2D
 
@@ -42,7 +41,7 @@ func _on_bus_drawer_mouse_entered():
 	pass # Replace with function body.
 
 
-func _on_bus_drawer_input_event(viewport: Node, event: InputEventMouseButton, shape_idx: int) -> void:
+func _on_bus_drawer_input_event(_viewport: Node, event: InputEventMouseButton, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
 		print("button: %s is pressed" % event.button_index)
 		drawer_dragging = true
