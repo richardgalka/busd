@@ -14,7 +14,6 @@ var bus_door_switch: Node2D
 
 @export var passengers_present: int = 3
 @export var passengers_arriving: int = 1
-@export var commuter_buffer: int = 125   ## Should use commuter.personal_space
 const COMMUTER = preload("res://busd/characters/commuter.tscn")
 @export var ordered_commuters: Array[commuter]
 
@@ -94,7 +93,6 @@ func _process(_delta: float) -> void:
 
 func _on_passenger_arrive_timer_timeout() -> void:
 	# duplicate pathfollow2d
-	# bug to do with no commuter_buffer causing a change in this part of code
 	var commuter_num = get_tree().get_nodes_in_group("commuter").size()
 	global.dprint(self, "Commuter arriving - Number: %s" % commuter_num)
 	var new_comy = _create_passenger(first_stop, commuter_num)

@@ -1,13 +1,21 @@
-[gd_scene load_steps=20 format=3 uid="uid://crck0ckfgtrh4"]
+[gd_scene load_steps=23 format=3 uid="uid://crck0ckfgtrh4"]
 
 [ext_resource type="Texture2D" uid="uid://xjanyy7f14by" path="res://aseprite/busdirverviewroad.png" id="1_esql1"]
 [ext_resource type="Script" path="res://busd/scripts/driver_view.gd" id="1_ik8c4"]
 [ext_resource type="Texture2D" uid="uid://bgpm8rvohp6vi" path="res://aseprite/bus_door_background.png" id="2_y4hsi"]
+[ext_resource type="Texture2D" uid="uid://drffnm2dt7rtw" path="res://aseprite/Cigar man sprite.png" id="3_8mhjl"]
 [ext_resource type="Texture2D" uid="uid://lwvtyi8osmay" path="res://aseprite/bus_door_inside.png" id="4_hn2ph"]
 [ext_resource type="Script" path="res://busd/scripts/bus_door_sprite.gd" id="5_gv7nm"]
 [ext_resource type="Texture2D" uid="uid://3rrujgfrtt6j" path="res://aseprite/bus_door_button.png" id="5_n658o"]
 [ext_resource type="AudioStream" uid="uid://c1usowqtcbtqa" path="res://audio/bus-door-open.ogg" id="6_ubn14"]
 [ext_resource type="AudioStream" uid="uid://db6uc40jx5tfj" path="res://audio/bus_door_close.ogg" id="7_cj0fk"]
+[ext_resource type="Texture2D" uid="uid://drdy3naj6fh44" path="res://aseprite/bus_stop.png" id="10_mmpq2"]
+
+[sub_resource type="Curve2D" id="Curve2D_ehwjj"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -3727, 285, 0, 0, 0, 0, 151, 306, 0, 0, 0, 0, 209, 327)
+}
+point_count = 3
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p6vfg"]
 atlas = ExtResource("4_hn2ph")
@@ -66,83 +74,107 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="Animation" id="Animation_3hyyt"]
+[sub_resource type="Animation" id="Animation_q5ieh"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Busdriverviewroad:region_rect")
+tracks/0/path = NodePath("BusDoorBackground:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Rect2(0, 0, 360, 360)]
+"values": [Vector2(3637, 116)]
 }
 
-[sub_resource type="Animation" id="Animation_cdbr0"]
-resource_name = "movingroad"
-loop_mode = 1
+[sub_resource type="Animation" id="Animation_4o5pl"]
+resource_name = "drive_to_stop"
+length = 4.7
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Busdriverviewroad:region_rect")
+tracks/0/path = NodePath("BusDoorBackground:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 3.83333, 4.7),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Rect2(0, 0, 360, 360), Rect2(-360, 0, 360, 360)]
+"values": [Vector2(3637, 116), Vector2(612, 126), Vector2(1, 8)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_dsaeu"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g87l8"]
 _data = {
-"RESET": SubResource("Animation_3hyyt"),
-"movingroad": SubResource("Animation_cdbr0")
+"RESET": SubResource("Animation_q5ieh"),
+"drive_to_stop": SubResource("Animation_4o5pl")
 }
 
 [node name="DriverView" type="Node2D"]
 script = ExtResource("1_ik8c4")
 
-[node name="Busdriverviewroad" type="Sprite2D" parent="."]
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(360, 0)
+repeat_times = 20
+
+[node name="Busdriverviewroad" type="Sprite2D" parent="Parallax2D"]
 texture_repeat = 2
-scale = Vector2(1.27778, 1.23889)
 texture = ExtResource("1_esql1")
 centered = false
 region_enabled = true
-region_rect = Rect2(0, 0, 360, 360)
+region_rect = Rect2(0, 0, 360, 620)
+
+[node name="BusStop" type="Sprite2D" parent="."]
+position = Vector2(219, 285)
+scale = Vector2(2, 2)
+texture = ExtResource("10_mmpq2")
+
+[node name="CommuterPathToStop" type="Path2D" parent="."]
+curve = SubResource("Curve2D_ehwjj")
+
+[node name="CommuterPathFollow2D" type="PathFollow2D" parent="CommuterPathToStop"]
+position = Vector2(209, 327)
+rotation = 0.00541511
+progress = 3939.75
+rotates = false
+
+[node name="CigarManSprite" type="Sprite2D" parent="CommuterPathToStop/CommuterPathFollow2D"]
+rotation = -0.00541511
+scale = Vector2(2, 2)
+texture = ExtResource("3_8mhjl")
 
 [node name="BusDoorBackground" type="Sprite2D" parent="."]
+position = Vector2(3637, 116)
 scale = Vector2(2, 2)
 texture = ExtResource("2_y4hsi")
 centered = false
 
-[node name="BusDoorSprite" type="AnimatedSprite2D" parent="." groups=["bus_doors"]]
-position = Vector2(206, 256)
-scale = Vector2(2, 2)
+[node name="BusDoorButton" type="Sprite2D" parent="BusDoorBackground"]
+position = Vector2(29.5, 167)
+texture = ExtResource("5_n658o")
+
+[node name="BusDoorSprite" type="AnimatedSprite2D" parent="BusDoorBackground" groups=["bus_doors"]]
+position = Vector2(103, 128)
 sprite_frames = SubResource("SpriteFrames_q7cyy")
 animation = &"Open"
 script = ExtResource("5_gv7nm")
 
-[node name="BusDoorOpen" type="AudioStreamPlayer" parent="BusDoorSprite"]
+[node name="BusDoorOpen" type="AudioStreamPlayer" parent="BusDoorBackground/BusDoorSprite"]
 stream = ExtResource("6_ubn14")
 volume_db = 1.0
 pitch_scale = 1.7
 
-[node name="BusDoorClose" type="AudioStreamPlayer" parent="BusDoorSprite"]
+[node name="BusDoorClose" type="AudioStreamPlayer" parent="BusDoorBackground/BusDoorSprite"]
 stream = ExtResource("7_cj0fk")
 volume_db = 1.0
 pitch_scale = 1.9
 
-[node name="BusDoorButton" type="Sprite2D" parent="."]
-position = Vector2(59, 334)
-scale = Vector2(2, 2)
-texture = ExtResource("5_n658o")
+[node name="Camera2D" type="Camera2D" parent="BusDoorBackground"]
+anchor_mode = 0
 
-[node name="Driving" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_dsaeu")
+"": SubResource("AnimationLibrary_g87l8")
 }
-autoplay = "movingroad"
+autoplay = "drive_to_stop"

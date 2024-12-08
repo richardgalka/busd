@@ -2,10 +2,8 @@ extends Node2D
 
 @export var bus_top_speed: float = 20.0
 var bus_speed: float = 0.0
-
-@onready var bus_door_sprite: AnimatedSprite2D = $BusDoorSprite
-@onready var busdriverviewroad: Sprite2D = $Busdriverviewroad
-@onready var driving: AnimationPlayer = $Driving
+@onready var bus_door_sprite: AnimatedSprite2D = $BusDoorBackground/BusDoorSprite
+@onready var busdriverviewroad: Sprite2D = $Parallax2D/Busdriverviewroad
 
 var bus_light_switch : Node2D
 var bus_door_switch : Node2D
@@ -53,11 +51,11 @@ func _connect_switches() -> void:
 	signals.bus_leaving.connect(bus_leaving)
 
 func bus_arrived():
-	driving.stop()
+	#driving.stop()
 	pass
 	
 func bus_leaving():
-	driving.start()
+	#driving.start()
 	pass
 	
 func set_buslights(_state):
