@@ -86,7 +86,7 @@ func _on_fidget_timer_timeout():
 	
 func get_fidgeting() -> Vector2:
 	# Jitter to make them look restless and alive. 
-	if timer_trigger and mypath == null:
+	if timer_trigger and mypath == null:   # TODO: Need to update as commuters now sit in their path
 		if next_move == Vector2.ZERO:
 			timer_trigger = false
 			fidget_move = Vector2(randi_range(-1, 1), randi_range(-1, 1))

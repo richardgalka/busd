@@ -45,10 +45,17 @@ func _connect_switches() -> void:
 		global.dprint(self, "world view connected")
 		global.dprint(self, world_view.ordered_commuters)
 		ordered_commuters = world_view.ordered_commuters
-		
-		
 	signals.bus_arrived.connect(bus_arrived)
 	signals.bus_leaving.connect(bus_leaving)
+	signals.commuter_added_to_scene.connect(commuter_added)
+	signals.commuter_path_setup.connect(spawn_commuter_path)
+
+func commuter_added(passenger: commuter):
+	global.dprint(self, "Commuter added to scene: %s" % commuter)
+	
+func spawn_commuter_path(passenter: commuter, path_follow: PathFollow2D, lined_up: bool):
+	global.dprint(self, "We need to add this commuter %s to the scene" % commuter)
+
 
 func bus_arrived():
 	#driving.stop()

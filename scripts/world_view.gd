@@ -2,6 +2,7 @@ extends Node2D
 
 signal commuter_left(commuter_number:int)
 
+
 @onready var bus_lights: PointLight2D = $Bus/HeadLights
 @onready var bus_path_to_stop: Path2D = $BusStop/BusPathToStop
 @onready var commuter_path_to_stop: Path2D = $BusStop/CommuterPathToStop
@@ -40,6 +41,8 @@ func _ready() -> void:
 		commuter_path_to_stop.add_child(comy_path)
 		self.add_child(comy)
 		comy.follow_path(comy_path, true)
+		# Fire commuter path setup so driverview port can mimick movement of commuter
+		signals.commuter_path_setup.emit(comy, comy_path, true)
 
 	# create passengers at busstop
 
@@ -59,6 +62,9 @@ func _create_passenger(location, pos) -> commuter:
 	# register this world with the passenger
 	self.commuter_left.connect(commuter_instance.other_comy_left)
 	ordered_commuters.append(commuter_instance)
+	
+	# let everyone know a new commuter has been added to scene
+	signals.commuter_added_to_scene.emit(commuter_instance)
 	return commuter_instance
 
 func _passenger_left(position_num):
@@ -101,6 +107,8 @@ func _on_passenger_arrive_timer_timeout() -> void:
 	commuter_path_to_stop.add_child(new_comy_path)
 	self.add_child(new_comy)
 	new_comy.follow_path(new_comy_path)
+	# Fire commuter path setup so driverview port can mimick movement of commuter
+	signals.commuter_path_setup.emit(new_comy, new_comy_path, false)
 
 
 	# check if we fire anymore
