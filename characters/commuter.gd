@@ -18,7 +18,7 @@ var timer_trigger : bool = false
 var next_move : Vector2 = Vector2.ZERO
 
 var tbool = true
-var _debug = false
+var _debug = true
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if stats == null:
@@ -45,7 +45,7 @@ func _process(delta: float) -> void:
 				tbool = false
 		else:
 			mypath.progress += stats.speed*delta
-			global.dprint(self,"moved %s pixels of %s pixels" % [mypath.progress, mypath.get_node("../").curve.get_baked_length()])
+			#global.dprint(self,"moved %s pixels of %s pixels" % [mypath.progress, mypath.get_node("../").curve.get_baked_length()])
 			global_position = floor(mypath.global_position)  # we floor due to low resoluton and partial pixels causing tearing
 			if mypath.progress_ratio >= 1:
 				global.dprint(self, "DONE MOVING")
@@ -86,7 +86,9 @@ func _on_fidget_timer_timeout():
 	
 func get_fidgeting() -> Vector2:
 	# Jitter to make them look restless and alive. 
-	if timer_trigger and mypath == null:   # TODO: Need to update as commuters now sit in their path
+	if timer_trigger and ((mypath and mypath.progress >= _my_final_distance()) or (mypath==null)):
+		#if timer_trigger and mypath == null:   # TODO: Need to update as commuters now sit in their path
+		global.dprint(self, "I twitched")
 		if next_move == Vector2.ZERO:
 			timer_trigger = false
 			fidget_move = Vector2(randi_range(-1, 1), randi_range(-1, 1))

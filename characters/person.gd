@@ -11,7 +11,7 @@ class_name Person
 @export var quirks : Array[Quirk]
 @export var speed: int = 10
 @export var storage : InvContainer
-@export var personal_space : int = 3
+@export var personal_space : int = 6
 
 @export var texture_small : Texture2D = preload("res://aseprite/human_silhoute0001.png")
 @export var texture_large : Texture2D = preload("res://aseprite/Cigar man sprite.png")

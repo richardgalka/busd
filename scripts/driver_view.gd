@@ -24,12 +24,6 @@ func _ready() -> void:
 	await(get_node("/root").ready)  
 	_connect_switches()
 
-func _process(delta: float) -> void:
-	# Check if we have signal connected for the first person. 
-	
-	
-	pass
-
 
 
 func _connect_switches() -> void:
@@ -52,6 +46,7 @@ func _connect_switches() -> void:
 
 func commuter_added(passenger: commuter):
 	global.dprint(self, "Commuter added to scene: %s" % commuter)
+
 	
 func spawn_commuter_path(passenter: commuter, path_follow: PathFollow2D, lined_up: bool):
 	global.dprint(self, "We need to add this commuter %s to the scene" % commuter)

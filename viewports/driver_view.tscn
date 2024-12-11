@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://crck0ckfgtrh4"]
+[gd_scene load_steps=28 format=3 uid="uid://crck0ckfgtrh4"]
 
 [ext_resource type="Texture2D" uid="uid://xjanyy7f14by" path="res://aseprite/busdirverviewroad.png" id="1_esql1"]
 [ext_resource type="Script" path="res://busd/scripts/driver_view.gd" id="1_ik8c4"]
@@ -16,6 +16,33 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -3727, 285, 0, 0, 0, 0, 151, 306, 0, 0, 0, 0, 209, 327)
 }
 point_count = 3
+
+[sub_resource type="Curve" id="Curve_8g5km"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.320513, 0.85567), 0.0, 0.0, 0, 0, Vector2(0.698718, 0.752577), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_2hsj1"]
+curve = SubResource("Curve_8g5km")
+
+[sub_resource type="Curve" id="Curve_sc6n3"]
+_data = [Vector2(0, 0.546392), 0.0, 0.0, 0, 0, Vector2(0.705128, 0.948454), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_2f352"]
+curve = SubResource("Curve_sc6n3")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f6kxe"]
+particle_flag_disable_z = true
+direction = Vector3(-3, -1, 0)
+spread = 2.0
+initial_velocity_min = 1.0
+initial_velocity_max = 3.0
+gravity = Vector3(0, -1, 0)
+damping_max = 0.03
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_2f352")
+color = Color(0.687215, 0.687215, 0.687215, 1)
+alpha_curve = SubResource("CurveTexture_2hsj1")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p6vfg"]
 atlas = ExtResource("4_hn2ph")
@@ -143,6 +170,17 @@ rotates = false
 rotation = -0.00541511
 scale = Vector2(2, 2)
 texture = ExtResource("3_8mhjl")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="CommuterPathToStop/CommuterPathFollow2D/CigarManSprite"]
+position = Vector2(-12.5, -41.5)
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_f6kxe")
+lifetime = 8.0
+speed_scale = 2.49
+randomness = 0.34
+fixed_fps = 0
+visibility_rect = Rect2(-2510.29, -12894.1, 3854.2, 14237.9)
+local_coords = true
 
 [node name="BusDoorBackground" type="Sprite2D" parent="."]
 position = Vector2(3637, 116)

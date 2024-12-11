@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://818qtr2nxwck"]
+[gd_scene load_steps=18 format=3 uid="uid://818qtr2nxwck"]
 
 [ext_resource type="Script" path="res://busd/scripts/dash_view.gd" id="1_2asdb"]
 [ext_resource type="Texture2D" uid="uid://b1xgeptkb4dut" path="res://aseprite/bus_console_background.png" id="2_yty65"]
@@ -6,9 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://5dpii76547or" path="res://aseprite/switch_red.png" id="4_jl7sc"]
 [ext_resource type="Texture2D" uid="uid://cn8yw5xmmo461" path="res://aseprite/green_button.png" id="5_stxjk"]
 [ext_resource type="Texture2D" uid="uid://bp4lxeiiq0tge" path="res://aseprite/bus_drawer.png" id="6_kjc54"]
-[ext_resource type="Texture2D" uid="uid://d05hsg8m26yfc" path="res://aseprite/stop_button.png" id="7_2bk6p"]
+[ext_resource type="Script" path="res://busd/viewports/bus_drawer.gd" id="6_u72af"]
 [ext_resource type="Shader" path="res://busd/shaders/flash.gdshader" id="8_1w36w"]
 [ext_resource type="Texture2D" uid="uid://bgqiqifi6odfp" path="res://aseprite/bus_drawer_handle.png" id="9_mqq7m"]
+[ext_resource type="AudioStream" uid="uid://b6ugyb6uxxe1f" path="res://audio/drawer_open_end.ogg" id="10_0sr0e"]
+[ext_resource type="AudioStream" uid="uid://cmhl88dfrjqab" path="res://audio/drawer_open_mid.ogg" id="11_hv0np"]
+[ext_resource type="AudioStream" uid="uid://ckya61jon11tl" path="res://audio/drawer_open_start.ogg" id="12_b5cox"]
+[ext_resource type="AudioStream" uid="uid://c1usowqtcbtqa" path="res://audio/bus-door-open.ogg" id="13_1f43q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yl26h"]
 size = Vector2(104, 20)
@@ -72,9 +76,10 @@ hframes = 3
 [node name="BusDrawer" type="StaticBody2D" parent="."]
 position = Vector2(473, 50)
 input_pickable = true
+script = ExtResource("6_u72af")
 
 [node name="Handle_CS2D" type="CollisionShape2D" parent="BusDrawer"]
-position = Vector2(116, 29)
+position = Vector2(116, 22)
 scale = Vector2(2, 2)
 shape = SubResource("RectangleShape2D_yl26h")
 
@@ -88,14 +93,23 @@ z_index = -5
 position = Vector2(0, -108)
 texture = ExtResource("6_kjc54")
 
-[node name="Sprite2D" type="Sprite2D" parent="BusDrawer/Handle_CS2D/BusDrawerImage"]
-position = Vector2(160, 105)
-texture = ExtResource("7_2bk6p")
+[node name="AudioBusDrawerClose" type="AudioStreamPlayer" parent="BusDrawer/Handle_CS2D"]
+stream = ExtResource("10_0sr0e")
+
+[node name="AudioBusDrawerMid" type="AudioStreamPlayer" parent="BusDrawer/Handle_CS2D"]
+stream = ExtResource("11_hv0np")
+
+[node name="AudioBusDrawerOpen" type="AudioStreamPlayer" parent="BusDrawer/Handle_CS2D"]
+stream = ExtResource("12_b5cox")
+
+[node name="Bus-door-open" type="AudioStreamPlayer" parent="BusDrawer/Handle_CS2D"]
+stream = ExtResource("13_1f43q")
 
 [node name="DrawerAnimation" type="AnimationPlayer" parent="BusDrawer"]
 libraries = {
 "": SubResource("AnimationLibrary_7wrdt")
 }
 
-[connection signal="input_event" from="BusDrawer" to="." method="_on_bus_drawer_input_event"]
-[connection signal="mouse_entered" from="BusDrawer" to="." method="_on_bus_drawer_mouse_entered"]
+[connection signal="input_event" from="BusDrawer" to="BusDrawer" method="_on_bus_drawer_input_event"]
+[connection signal="mouse_entered" from="BusDrawer" to="BusDrawer" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="BusDrawer" to="BusDrawer" method="_on_mouse_exited"]

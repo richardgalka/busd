@@ -127,14 +127,14 @@ _data = {
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.320513, 0.85567), 0.0, 0.0, 0, 0, Vector2(0.698718, 0.752577), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
-[sub_resource type="CurveTexture" id="CurveTexture_2hsj1"]
+[sub_resource type="CurveTexture" id="CurveTexture_riagg"]
 curve = SubResource("Curve_lvv4g")
 
 [sub_resource type="Curve" id="Curve_t2x6s"]
 _data = [Vector2(0, 0.546392), 0.0, 0.0, 0, 0, Vector2(0.705128, 0.948454), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_2f352"]
+[sub_resource type="CurveTexture" id="CurveTexture_56rpg"]
 curve = SubResource("Curve_t2x6s")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ndhhb"]
@@ -146,9 +146,9 @@ initial_velocity_max = 3.0
 gravity = Vector3(0, -1, 0)
 damping_max = 0.03
 scale_max = 3.0
-scale_curve = SubResource("CurveTexture_2f352")
+scale_curve = SubResource("CurveTexture_56rpg")
 color = Color(0.687215, 0.687215, 0.687215, 1)
-alpha_curve = SubResource("CurveTexture_2hsj1")
+alpha_curve = SubResource("CurveTexture_riagg")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p6vfg"]
 atlas = ExtResource("10_ockru")
