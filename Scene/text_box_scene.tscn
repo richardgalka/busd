@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnay7rut2wvd0"]
+
+[ext_resource type="Script" path="res://busd/scripts/text_box.gd" id="1_uoavc"]
+[ext_resource type="Texture2D" uid="uid://c0jgoo57n1k5a" path="res://assets/ui/UI assets (1x).png" id="2_gtggc"]
+[ext_resource type="FontFile" uid="uid://bf3ilminqw50w" path="res://assets/ui/FantasyRPGtitle (size 11).ttf" id="3_mnlqx"]
+
+[node name="MarginContainer" type="MarginContainer"]
+offset_right = 18.0
+offset_bottom = 27.0
+script = ExtResource("1_uoavc")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_gtggc")
+region_rect = Rect2(6, 6, 36, 36)
+patch_margin_left = 9
+patch_margin_top = 10
+patch_margin_right = 9
+patch_margin_bottom = 10
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_mnlqx")
+theme_override_font_sizes/font_size = 11
+vertical_alignment = 1
+
+[node name="LetterDisplayTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="LetterDisplayTimer" to="." method="_on_letter_display_timer_timeout"]
