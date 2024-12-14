@@ -4,6 +4,9 @@ extends Node2D
 var bus_speed: float = 0.0
 @onready var bus_door_sprite: AnimatedSprite2D = $BusDoorBackground/BusDoorSprite
 @onready var busdriverviewroad: Sprite2D = $Parallax2D/Busdriverviewroad
+@onready var commuter_path_to_stop: Path2D = $CommuterPathToStop
+@onready var commuter_path_follow_2d: PathFollow2D = $CommuterPathToStop/CommuterPathFollow2D
+
 
 var bus_light_switch : Node2D
 var bus_door_switch : Node2D
@@ -46,10 +49,25 @@ func _connect_switches() -> void:
 
 func commuter_added(passenger: commuter):
 	global.dprint(self, "Commuter added to scene: %s" % commuter)
+	print("here")
 
-	
-func spawn_commuter_path(passenter: commuter, path_follow: PathFollow2D, lined_up: bool):
+
+
+func spawn_commuter_path(passenger: commuter, path_follow: PathFollow2D, lined_up: bool):
 	global.dprint(self, "We need to add this commuter %s to the scene" % commuter)
+	
+	# create a new path: 
+	var new_comy_path = commuter_path_follow_2d.duplicate()
+	commuter_path_to_stop.add_child(new_comy_path)
+	# Get sprite to add to comy path
+	var commuter_sprite = passenger.stats.texture_large
+	var sprite2d = Sprite2D.new()
+	sprite2d.texture = commuter_sprite
+	new_comy_path.add_child(sprite2d)
+	passenger.follow_path(new_comy_path, lined_up)
+	# Get all the details we need. 
+	
+	pass
 
 
 func bus_arrived():

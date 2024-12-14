@@ -9,6 +9,7 @@ signal commuter_left(commuter_number:int)
 @onready var commuter_path_follow_2d: PathFollow2D = $BusStop/CommuterPathToStop/CommuterPathFollow2D
 @onready var bus_stop: Node2D = $BusStop
 @onready var passenger_arrive_timer: Timer = $PassengerArriveTimer
+@onready var driver_view: Node2D = %DriverView
 
 var bus_light_switch: Node2D
 var bus_door_switch: Node2D
@@ -30,6 +31,8 @@ func _ready() -> void:
 
 	# Wait until scene tree is ready to continue
 	await(get_node("/root").ready)  
+	driver_view = get_node_or_null("%DriverView")
+
 	_connect_switches()
 	# Get last commutter stop:
 	first_stop = bus_stop.global_position + bus_stop.scale.x*commuter_path_to_stop.curve.get_point_position(0)
@@ -43,6 +46,12 @@ func _ready() -> void:
 		comy.follow_path(comy_path, true)
 		# Fire commuter path setup so driverview port can mimick movement of commuter
 		signals.commuter_path_setup.emit(comy, comy_path, true)
+		# Driver view is not getting the above singal as it's not connected yet. Let's manually add.
+		if driver_view:
+			pass
+			#driver_view.spawn_commuter_path(comy, comy_path, true)
+
+		global.dprint(self, "signal commuter path setup")
 
 	# create passengers at busstop
 
@@ -68,7 +77,7 @@ func _create_passenger(location, pos) -> commuter:
 	return commuter_instance
 
 func _passenger_left(position_num):
-	global.dprint(self, "Passenger %s decided to leave" % position_num)
+	#global.dprint(self, "Passenger %s decided to leave" % position_num)
 	# for each passenger with a > # let's ensure they move forward one place
 	self.commuter_left.emit(position_num)
 	# Update ordered_commuters
@@ -92,7 +101,7 @@ func set_buslights(state):
 func _process(_delta: float) -> void:
 	#global.dprint(self, "commuter size: %s" % ordered_commuters.size())
 	if ordered_commuters.size() != t_ordered_commuters_size:
-		global.dprint(self, "ordered commuters: %s" % ordered_commuters.size())
+		#global.dprint(self, "ordered commuters: %s" % ordered_commuters.size())
 		t_ordered_commuters_size = ordered_commuters.size()
 	pass
 
@@ -100,7 +109,7 @@ func _process(_delta: float) -> void:
 func _on_passenger_arrive_timer_timeout() -> void:
 	# duplicate pathfollow2d
 	var commuter_num = get_tree().get_nodes_in_group("commuter").size()
-	global.dprint(self, "Commuter arriving - Number: %s" % commuter_num)
+	#global.dprint(self, "Commuter arriving - Number: %s" % commuter_num)
 	var new_comy = _create_passenger(first_stop, commuter_num)
 	#global.dprint(self, "last_stop: %s" % last_stop)
 	var new_comy_path = commuter_path_follow_2d.duplicate()

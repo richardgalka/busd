@@ -1,10 +1,11 @@
-[gd_scene load_steps=28 format=3 uid="uid://crck0ckfgtrh4"]
+[gd_scene load_steps=29 format=3 uid="uid://crck0ckfgtrh4"]
 
 [ext_resource type="Texture2D" uid="uid://xjanyy7f14by" path="res://aseprite/busdirverviewroad.png" id="1_esql1"]
 [ext_resource type="Script" path="res://busd/scripts/driver_view.gd" id="1_ik8c4"]
 [ext_resource type="Texture2D" uid="uid://bgpm8rvohp6vi" path="res://aseprite/bus_door_background.png" id="2_y4hsi"]
 [ext_resource type="Texture2D" uid="uid://drffnm2dt7rtw" path="res://aseprite/Cigar man sprite.png" id="3_8mhjl"]
 [ext_resource type="Texture2D" uid="uid://lwvtyi8osmay" path="res://aseprite/bus_door_inside.png" id="4_hn2ph"]
+[ext_resource type="Texture2D" uid="uid://xyiijvlukht7" path="res://aseprite/cigar.png" id="5_ej6vk"]
 [ext_resource type="Script" path="res://busd/scripts/bus_door_sprite.gd" id="5_gv7nm"]
 [ext_resource type="Texture2D" uid="uid://3rrujgfrtt6j" path="res://aseprite/bus_door_button.png" id="5_n658o"]
 [ext_resource type="AudioStream" uid="uid://c1usowqtcbtqa" path="res://audio/bus-door-open.ogg" id="6_ubn14"]
@@ -181,6 +182,10 @@ randomness = 0.34
 fixed_fps = 0
 visibility_rect = Rect2(-2510.29, -12894.1, 3854.2, 14237.9)
 local_coords = true
+
+[node name="PointLight2D" type="PointLight2D" parent="CommuterPathToStop/CommuterPathFollow2D/CigarManSprite"]
+position = Vector2(-11.5, -41.5)
+texture = ExtResource("5_ej6vk")
 
 [node name="BusDoorBackground" type="Sprite2D" parent="."]
 position = Vector2(3637, 116)

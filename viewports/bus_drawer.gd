@@ -29,7 +29,7 @@ func _process(delta: float) -> void:
 		var new_mouse_loc = get_global_mouse_position()
 		var new_loc = new_mouse_loc.y - mouse_loc.y
 		mouse_loc = new_mouse_loc
-		global.dprint(self, "Mouse movement: %s" % new_loc)
+		#global.dprint(self, "Mouse movement: %s" % new_loc)
 		handle_cs_2d.position.y = clampf(handle_cs_2d.position.y + new_loc, drawer_min_y, drawer_max_y)
 
 func _on_bus_drawer_input_event(_viewport: Node, event: InputEventMouseButton, _shape_idx: int) -> void:
@@ -52,7 +52,7 @@ func _continue_drawer_sound():
 		audio_bus_drawer_close.play()
 
 func _on_mouse_entered() -> void:
-	global.dprint(self, "mouse entered")
+	#global.dprint(self, "mouse entered")
 	drawer_animation.play("highlight_drawer")
 
 

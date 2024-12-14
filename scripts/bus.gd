@@ -38,7 +38,7 @@ func _process(delta: float) -> void:
 		on_path.progress += bus_speed*delta
 		global_position = on_path.global_position
 		if on_path.progress_ratio >= 1: 
-			global.dprint(self, "Emitting bus_arrived_signal" )
+			#global.dprint(self, "Emitting bus_arrived_signal" )
 			signals.bus_arrived.emit()
 			on_path = null
 
