@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxhgb2rn0iv2m"]
+
+[ext_resource type="Texture2D" uid="uid://it31mrn3fwqs" path="res://aseprite/sarah sprite.png" id="1_vw0by"]
+[ext_resource type="Script" path="res://busd/test/sarah_sprite.gd" id="2_wqcso"]
+[ext_resource type="AudioStream" uid="uid://be1r68u2d1uhy" path="res://audio/speech_male.ogg" id="3_vn6pp"]
+
+[node name="CharacterDriverView" type="Node2D"]
+
+[node name="CharacterSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_vw0by")
+script = ExtResource("2_wqcso")
+speech_sfx = ExtResource("3_vn6pp")
+
+[node name="Marker2D_speech_location" type="Marker2D" parent="CharacterSprite"]
+position = Vector2(-4, -72)
+
+[node name="Camera2D" type="Camera2D" parent="."]

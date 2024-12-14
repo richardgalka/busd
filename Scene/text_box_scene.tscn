@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dnay7rut2wvd0"]
+[gd_scene load_steps=5 format=3 uid="uid://dnay7rut2wvd0"]
 
 [ext_resource type="Script" path="res://busd/scripts/text_box.gd" id="1_uoavc"]
 [ext_resource type="Texture2D" uid="uid://c0jgoo57n1k5a" path="res://assets/ui/UI assets (1x).png" id="2_gtggc"]
+[ext_resource type="Texture2D" uid="uid://cwri8v7tcbjie" path="res://assets/ui/speech1_anchor.png" id="3_3gu1d"]
 [ext_resource type="FontFile" uid="uid://bf3ilminqw50w" path="res://assets/ui/FantasyRPGtitle (size 11).ttf" id="3_mnlqx"]
 
 [node name="MarginContainer" type="MarginContainer"]
@@ -17,6 +18,29 @@ patch_margin_left = 9
 patch_margin_top = 10
 patch_margin_right = 9
 patch_margin_bottom = 10
+
+[node name="Control" type="Control" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="NinePatchRect/Control"]
+layout_mode = 2
+offset_left = 16.0
+offset_top = 34.0
+offset_right = 24.0
+offset_bottom = 43.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+texture = ExtResource("3_3gu1d")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -34,5 +58,7 @@ vertical_alignment = 1
 
 [node name="LetterDisplayTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [connection signal="timeout" from="LetterDisplayTimer" to="." method="_on_letter_display_timer_timeout"]

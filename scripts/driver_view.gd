@@ -7,6 +7,8 @@ var bus_speed: float = 0.0
 @onready var commuter_path_to_stop: Path2D = $CommuterPathToStop
 @onready var commuter_path_follow_2d: PathFollow2D = $CommuterPathToStop/CommuterPathFollow2D
 
+var char_driver_view_scn = preload("res://busd/Scene/character_driver_view.tscn").instantiate()
+
 
 var bus_light_switch : Node2D
 var bus_door_switch : Node2D
@@ -51,24 +53,27 @@ func commuter_added(passenger: commuter):
 	global.dprint(self, "Commuter added to scene: %s" % commuter)
 	print("here")
 
-
-
 func spawn_commuter_path(passenger: commuter, path_follow: PathFollow2D, lined_up: bool):
 	global.dprint(self, "We need to add this commuter %s to the scene" % commuter)
 	
 	# create a new path: 
 	var new_comy_path = commuter_path_follow_2d.duplicate()
 	commuter_path_to_stop.add_child(new_comy_path)
+	
+	# create a new character_driver_view
+	var new_char = char_driver_view_scn.duplicate()
+	new_comy_path.add_child(new_char)
+	
+	'''
 	# Get sprite to add to comy path
 	var commuter_sprite = passenger.stats.texture_large
 	var sprite2d = Sprite2D.new()
 	sprite2d.texture = commuter_sprite
 	new_comy_path.add_child(sprite2d)
+	'''
 	passenger.follow_path(new_comy_path, lined_up)
-	# Get all the details we need. 
 	
-	pass
-
+	# Get all the details we need. 
 
 func bus_arrived():
 	#driving.stop()
