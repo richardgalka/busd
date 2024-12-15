@@ -35,7 +35,7 @@ func _show_text_box():
 	get_tree().root.add_child(text_box)   # use root so it displays about all subviews
 	#text_box_marker.add_child(text_box)
 	#text_box.global_position = text_box_position
-	text_box.global_position = Vector2(400,400)
+	text_box.global_position = Vector2(330,490)
 	#text_box.global_position = get_tree()
 	
 	text_box.display_text(dialog_lines[current_line_index], sfx)
