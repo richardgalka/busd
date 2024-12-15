@@ -20,7 +20,7 @@ func start_dialog(marker: Marker2D, position: Vector2, lines: Array[String], spe
 		return
 	dialog_lines = lines
 	#text_box_position = position
-	text_box_position = marker.global_position
+	text_box_position = Vector2(marker.global_position.x, marker.global_position.y*2)
 	sfx = speech_sfx
 	text_box_marker = marker
 	_show_text_box()
@@ -34,8 +34,8 @@ func _show_text_box():
 	text_box.finished_displaying.connect(_on_text_box_finished_displaying)
 	get_tree().root.add_child(text_box)   # use root so it displays about all subviews
 	#text_box_marker.add_child(text_box)
-	#text_box.global_position = text_box_position
-	text_box.global_position = Vector2(330,490)
+	text_box.global_position = text_box_position
+	#text_box.global_position = Vector2(320,240)
 	#text_box.global_position = get_tree()
 	
 	text_box.display_text(dialog_lines[current_line_index], sfx)

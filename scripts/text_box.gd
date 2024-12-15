@@ -39,9 +39,9 @@ func display_text(text_to_display: String, speech_sfx: AudioStream):
 		await resized # Await X resize
 		await resized # Await Y resize
 		custom_minimum_size.y = size.y
-	global_position.x -= size.x
+	#global_position.x -= size.x
 	print("global pos: %s ,  size.y : %s" % [global_position.y, size.y])
-	global_position.y -= size.y*2
+	#global_position.y -= size.y*2
 	
 	label.text = ""
 	# expand box

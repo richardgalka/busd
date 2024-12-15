@@ -8,13 +8,15 @@
 size = Vector2(14, 28)
 
 [sub_resource type="SystemFont" id="SystemFont_rgiyt"]
+hinting = 0
 subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_xa4tm"]
 font = SubResource("SystemFont_rgiyt")
-font_size = 6
+font_size = 12
 
 [node name="Switch" type="Sprite2D"]
+scale = Vector2(2, 2)
 texture = ExtResource("1_kf13q")
 hframes = 2
 script = ExtResource("2_5oj4a")
@@ -35,10 +37,11 @@ anchor_left = -0.1
 anchor_top = 0.983
 anchor_right = 1.1
 anchor_bottom = 1.293
-offset_left = -7.5
+offset_left = -5.28
 offset_top = -14.507
-offset_right = -7.5
-offset_bottom = -14.497
+offset_right = 4.545
+offset_bottom = -6.497
+scale = Vector2(0.5, 0.5)
 text = "Val
 "
 label_settings = SubResource("LabelSettings_xa4tm")

@@ -9,9 +9,10 @@
 [node name="CharacterSprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_vw0by")
 script = ExtResource("2_wqcso")
+text_lines = Array[String](["Hey, can you please open the door?", "Why does this bus stink so much? Perhaps you should learn to clean it once in a while eh!", "Come on, let me on.", "Thanks, I guess."])
 speech_sfx = ExtResource("3_vn6pp")
 
 [node name="Marker2D_speech_location" type="Marker2D" parent="CharacterSprite"]
-position = Vector2(-4, -72)
+position = Vector2(-8, -64)
 
 [node name="Camera2D" type="Camera2D" parent="."]

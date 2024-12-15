@@ -6,8 +6,17 @@
 [ext_resource type="FontFile" uid="uid://bf3ilminqw50w" path="res://assets/ui/FantasyRPGtitle (size 11).ttf" id="3_mnlqx"]
 
 [node name="MarginContainer" type="MarginContainer"]
-offset_right = 18.0
-offset_bottom = 27.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -9.0
+offset_top = -27.0
+offset_right = 9.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
 script = ExtResource("1_uoavc")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]

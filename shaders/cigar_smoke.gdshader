@@ -12,12 +12,12 @@ void fragment(){
 	COLOR = source_texture;
 	//vec4 out_color = source_texture;
 	/*if (source_texture.rbg == smoke_color.rbg && source_texture.a != 0.0) {
-		out_color.a = 1.0; 
+		out_color.a = 1.0;
 	} else {
 		out_color.a = 1.0;
 	}*/
 	//COLOR = source_texture;
-		
-		
+
+
 	//COLOR = vec4(mix(source_texture, flash_color, pct).rgb, source_texture.a);
 }
