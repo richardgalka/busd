@@ -5,7 +5,10 @@ signal bus_arrived
 ## Signal sent once bus leaves stop
 signal bus_leaving
 
-@export var bus_speed : float = 100.0
+@export var bus_max_speed : float = 400.0  # initial speed of bus
+@export var bus_min_speed : float = 10.0  # Minimum speed when bus is stopped. 
+@export var deceleration_factor: float = 0.95 # Factor by which speed decreases each frame
+var curve_length: float = 0.0 # Total length of the path curve
 
 @onready var bus_path_to_stop: Path2D = $"../BusStop/BusPathToStop"
 @onready var head_lights: PointLight2D = $HeadLights
@@ -24,21 +27,29 @@ func _ready() -> void:
 		self.flip_h = true
 	else:
 		self.flip_h = false
-	#lineup_entry_point = global_position + Vector2(scale.x * p.x, scale.y * p.y)
 	
 	# Setup what path we are on
 	on_path = path_to_stop
 	self.global_position = bus_stop.global_position + bus_stop.scale.x * p.get_point_position(0)
+	
+func set_path(path:PathFollow2D):
+	on_path = path
+	var parent_path : Path2D = on_path.get_parent()
+	curve_length = parent_path.curve.get_baked_length()
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	
-	#self.global_position = bus_stop.global_position + on_path.global_position * bus_stop.scale.x
 	if on_path:
-		on_path.progress += bus_speed*delta
+		# Calc the deceleration effect
+		var distance_remaining = 1.0 - on_path.progress_ratio
+		var speed_factor = ease(distance_remaining, 0.3)
+
+		var current_speed = max(speed_factor * bus_max_speed, bus_min_speed)
+		on_path.progress += current_speed * delta
 		global_position = on_path.global_position
+		
 		if on_path.progress_ratio >= 1: 
-			#global.dprint(self, "Emitting bus_arrived_signal" )
 			signals.bus_arrived.emit()
 			on_path = null
 
