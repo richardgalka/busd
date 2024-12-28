@@ -7,6 +7,11 @@ var bus_speed: float = 0.0
 @onready var commuter_path_to_stop: Path2D = $CommuterPathToStop
 @onready var commuter_path_follow_2d: PathFollow2D = $CommuterPathToStop/CommuterPathFollow2D
 
+@export_group("Same as bus.gd World View Please")
+@export var bus_max_speed : float = 400.0  # initial speed of bus
+@export var bus_min_speed : float = 10.0  # Minimum speed when bus is stopped. 
+@export var bus_acceleration_curve: float = 0.3 # Factor by which speed decreases each frame
+
 var char_driver_view_scn = preload("res://busd/Scene/character_driver_view.tscn").instantiate()
 
 
@@ -29,6 +34,20 @@ func _ready() -> void:
 	await(get_node("/root").ready)  
 	_connect_switches()
 
+func _process(delta: float) -> void:
+	var on_path = false
+	if on_path:
+		# Calc the deceleration effect
+		var distance_remaining = 1.0 - on_path.progress_ratio
+		var speed_factor = ease(distance_remaining, bus_acceleration_curve)
+
+		var current_speed = max(speed_factor * bus_max_speed, bus_min_speed)
+		on_path.progress += current_speed * delta
+		global_position = on_path.global_position
+		
+		if on_path.progress_ratio >= 1: 
+			signals.bus_arrived.emit()
+			on_path = null
 
 
 func _connect_switches() -> void:

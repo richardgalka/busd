@@ -14,8 +14,6 @@ signal commuter_left(commuter_number:int)
 var bus_light_switch: Node2D
 var bus_door_switch: Node2D
 
-@export var passengers_present: int = 3
-@export var passengers_arriving: int = 1
 const COMMUTER = preload("res://busd/characters/commuter.tscn")
 @export var ordered_commuters: Array[commuter]
 
@@ -32,13 +30,24 @@ func _ready() -> void:
 	# Wait until scene tree is ready to continue
 	await(get_node("/root").ready)  
 	driver_view = get_node_or_null("%DriverView")
+	
+	# Get number of passengers from level
 
 	_connect_switches()
 	# Get last commutter stop:
 	first_stop = bus_stop.global_position + bus_stop.scale.x*commuter_path_to_stop.curve.get_point_position(0)
 	last_stop = bus_stop.global_position + commuter_path_to_stop.scale.x*commuter_path_to_stop.curve.get_point_position(commuter_path_to_stop.curve.point_count-1)
 	
-	for n in range(passengers_present):
+	'''
+	var passengers = PersonManager.create_passengers_present(commuter_path_to_stop, commuter_path_follow_2d.duplicate())
+	for passenger in passengers:
+		self.add_child(passenger)
+	'''
+	#for n in range(PersonManager.passengers_present):
+		
+	PersonManager.add_passenger
+	
+	for n in range(PersonManager.passengers_present):
 		var comy = _create_passenger(last_stop, n)
 		var comy_path = commuter_path_follow_2d.duplicate()
 		commuter_path_to_stop.add_child(comy_path)
@@ -121,6 +130,6 @@ func _on_passenger_arrive_timer_timeout() -> void:
 
 
 	# check if we fire anymore
-	if commuter_num >= passengers_arriving + passengers_present:
+	if commuter_num >= PersonManager.passengers_arriving + PersonManager.passengers_present:
 		passenger_arrive_timer.stop()
 	

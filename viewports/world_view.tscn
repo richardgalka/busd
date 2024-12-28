@@ -31,8 +31,6 @@ point_count = 3
 
 [node name="WorldView" type="Node2D"]
 script = ExtResource("1_6hvu2")
-passengers_present = 2
-passengers_arriving = 3
 
 [node name="CitySkylineSky" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)

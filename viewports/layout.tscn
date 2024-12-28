@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://v3jm3ywuhkbj"]
+[gd_scene load_steps=8 format=3 uid="uid://v3jm3ywuhkbj"]
 
 [ext_resource type="Script" path="res://busd/viewports/layout.gd" id="1_4e6li"]
 [ext_resource type="PackedScene" uid="uid://c66ag2serjakk" path="res://busd/viewports/world_view.tscn" id="1_g0gbr"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://crck0ckfgtrh4" path="res://busd/viewports/driver_view.tscn" id="2_q5lyk"]
 [ext_resource type="Texture2D" uid="uid://d1wqbe5iutqy5" path="res://aseprite/section_horiz.png" id="2_y02nb"]
 [ext_resource type="PackedScene" uid="uid://818qtr2nxwck" path="res://busd/viewports/dash_view.tscn" id="3_4twpa"]
+[ext_resource type="Script" path="res://busd/Levels/level_1.gd" id="7_h3pay"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -31,7 +32,7 @@ handle_input_locally = false
 canvas_item_default_texture_filter = 0
 physics_object_picking = true
 physics_object_picking_sort = true
-size = Vector2i(2, 240)
+size = Vector2i(1280, 240)
 render_target_update_mode = 4
 
 [node name="WorldView" parent="VBoxContainer/ExternalViewContainer/ExternalViewport" instance=ExtResource("1_g0gbr")]
@@ -53,7 +54,7 @@ handle_input_locally = false
 canvas_item_default_texture_filter = 0
 physics_object_picking = true
 physics_object_picking_sort = true
-size = Vector2i(320, 2)
+size = Vector2i(320, 482)
 render_target_update_mode = 4
 
 [node name="DriverView" parent="VBoxContainer/HBoxContainer/DriverViewContainer/DriverViewport" instance=ExtResource("2_q5lyk")]
@@ -71,7 +72,7 @@ handle_input_locally = false
 canvas_item_default_texture_filter = 0
 physics_object_picking = true
 physics_object_picking_sort = true
-size = Vector2i(2, 2)
+size = Vector2i(956, 482)
 render_target_update_mode = 4
 
 [node name="DashView" parent="VBoxContainer/HBoxContainer/DashViewContainer/DashViewport" instance=ExtResource("3_4twpa")]
@@ -89,3 +90,7 @@ centered = false
 
 [node name="TextLocation" type="Marker2D" parent="."]
 position = Vector2(50, 481)
+
+[node name="Level1" type="Node2D" parent="."]
+script = ExtResource("7_h3pay")
+passengers_arriving = 5
