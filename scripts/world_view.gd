@@ -14,11 +14,6 @@ signal commuter_left(commuter_number:int)
 var bus_light_switch: Node2D
 var bus_door_switch: Node2D
 
-const COMMUTER = preload("res://busd/characters/commuter.tscn")
-@export var ordered_commuters: Array[commuter]
-
-var t_ordered_commuters_size = 0
-
 var _debug = true
 
 var first_stop : Vector2

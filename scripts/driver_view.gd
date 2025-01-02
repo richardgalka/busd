@@ -14,17 +14,12 @@ var bus_speed: float = 0.0
 
 var char_driver_view_scn = preload("res://busd/Scene/character_driver_view.tscn").instantiate()
 
-
 var bus_light_switch : Node2D
 var bus_door_switch : Node2D
-
-#var world_view : Node2D
-#var dash_view : Node2D
 
 @onready var world_view: Node2D = %WorldView
 @onready var dash_view: Node2D = %DashView
 var ordered_commuters: Array[commuter]
-
 
 var _debug = true
 
@@ -35,20 +30,7 @@ func _ready() -> void:
 	_connect_switches()
 
 func _process(delta: float) -> void:
-	var on_path = false
-	if on_path:
-		# Calc the deceleration effect
-		var distance_remaining = 1.0 - on_path.progress_ratio
-		var speed_factor = ease(distance_remaining, bus_acceleration_curve)
-
-		var current_speed = max(speed_factor * bus_max_speed, bus_min_speed)
-		on_path.progress += current_speed * delta
-		global_position = on_path.global_position
-		
-		if on_path.progress_ratio >= 1: 
-			signals.bus_arrived.emit()
-			on_path = null
-
+	pass
 
 func _connect_switches() -> void:
 	dash_view = get_node_or_null("%DashView")
@@ -90,6 +72,7 @@ func spawn_commuter_path(passenger: commuter, path_follow: PathFollow2D, lined_u
 	sprite2d.texture = commuter_sprite
 	new_comy_path.add_child(sprite2d)
 	'''
+	
 	passenger.follow_path(new_comy_path, lined_up)
 	
 	# Get all the details we need. 

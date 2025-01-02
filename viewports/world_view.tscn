@@ -62,9 +62,6 @@ scale = Vector2(2, 2)
 texture = ExtResource("2_qgb6b")
 stretch_mode = 1
 
-[node name="PassengerArriveTimer" type="Timer" parent="."]
-autostart = true
-
 [node name="BusStop" type="Node2D" parent="."]
 position = Vector2(351, 109)
 scale = Vector2(2, 2)
@@ -104,5 +101,3 @@ loop = false
 [node name="Bus" parent="." instance=ExtResource("3_wmvat")]
 z_index = 1
 position = Vector2(1609, 137)
-
-[connection signal="timeout" from="PassengerArriveTimer" to="." method="_on_passenger_arrive_timer_timeout"]
