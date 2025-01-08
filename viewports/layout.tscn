@@ -96,6 +96,8 @@ position = Vector2(50, 481)
 
 [node name="Level1" type="Node2D" parent="."]
 script = ExtResource("7_h3pay")
+passengers_present = 1
+passengers_arriving = 1
 ordered_commuters = Array[ExtResource("8_8vevc")]([ExtResource("9_scwxb"), ExtResource("10_nh6gb")])
 
 [node name="PassengerArriveTimer" type="Timer" parent="Level1"]

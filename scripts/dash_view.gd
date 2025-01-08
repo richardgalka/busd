@@ -10,7 +10,6 @@ func _init() -> void:
 func _ready():
 	pass
 
-
 # Function to pass the light switch to whomever asks about it
 func get_switch_lights_node() -> Node2D:
 	return switch_lights

@@ -19,7 +19,6 @@ var bus_door_switch : Node2D
 
 @onready var world_view: Node2D = %WorldView
 @onready var dash_view: Node2D = %DashView
-var ordered_commuters: Array[commuter]
 
 var _debug = true
 
@@ -43,8 +42,7 @@ func _connect_switches() -> void:
 		bus_door_switch.switched.connect(set_busdoor)
 	if world_view:
 		global.dprint(self, "world view connected")
-		global.dprint(self, world_view.ordered_commuters)
-		ordered_commuters = world_view.ordered_commuters
+		#ordered_commuters = world_view.ordered_commuters
 	signals.bus_arrived.connect(bus_arrived)
 	signals.bus_leaving.connect(bus_leaving)
 	signals.commuter_added_to_scene.connect(commuter_added)
@@ -86,8 +84,6 @@ func bus_leaving():
 	pass
 	
 func set_buslights(_state):
-	global.dprint(self, world_view.ordered_commuters)
-
 	pass
 	
 func set_busdoor(state):

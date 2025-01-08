@@ -29,8 +29,6 @@ func initialize_commuters(commuters: Array[Person]) -> void:
 		pass
 	ordered_commuters = commuters
 
-
-
 func create_passenger(commuter_instance:commuter = null) -> commuter:
 	# Create commuter instance and place in ordered_commuters
 	# We need to trigger a signal for each scene so they know to add the commuter

@@ -8,13 +8,13 @@ var drawer_dragging=false
 @onready var audio_bus_drawer_mid: AudioStreamPlayer = $Handle_CS2D/AudioBusDrawerMid
 @onready var audio_bus_drawer_close: AudioStreamPlayer = $Handle_CS2D/AudioBusDrawerClose
 
-
 var mouse_loc : Vector2
 
 @export var drawer_min_y:int = 20
 @export var drawer_max_y:int = 400
 var _debug = false
 # Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	pass # Replace with function body.
 
