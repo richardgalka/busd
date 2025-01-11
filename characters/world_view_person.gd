@@ -1,55 +1,42 @@
 extends Node2D
 class_name world_view_person
 
-# Finite State Machine Options
-enum States {IDLE, RUNNING, JUMPING, FALLING, GLIDING}
-# This variable keeps track of the character's current state.
-var state: States = States.IDLE: set = set_state
-
-
 signal decided_to_leave(position_number:int)
 signal left
 signal at_front_of_line
 
 @export var stats : Person = null
 @export var line_position : int = 0
-@onready var sprite_2d_external: Sprite2D = $loc_external/Sprite2D_external
-@onready var sprite_2d_driver: Sprite2D = $loc_driverview/Sprite2D_driver
+@onready var sprite_2d: Sprite2D
 @onready var fidget_timer: Timer = $FidgetTimer
 
 var mypath : PathFollow2D = null
 
+## Fidget related variables
 var fidget_move : Vector2 = Vector2.ZERO
 var timer_trigger : bool = false
 var next_move : Vector2 = Vector2.ZERO
 
 var tbool = true
 var _debug = true
+
+func _init(person_ref:Person, spawn_order:int, person_path:PathFollow2D) -> void:
+	stats = person_ref
+	line_position = spawn_order
+	mypath = person_path
+	sprite_2d = Sprite2D.new()
+	sprite_2d.texture = stats.texture_small
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if stats == null:
-		stats = preload("res://busd/characters/person2.tres")
-	sprite_2d_external.texture = stats.texture_small
+	# place our sprite in the world
+	mypath.add_child(sprite_2d)
+	# set our fidget timer
+	fidget_timer = Timer.new()
+	fidget_timer.wait_time = set_fidget_time()
+	fidget_timer.connect("timeout", _on_fidget_timer_timeout)
 	fidget_timer.start()
-
-func set_state(new_state: int) -> void:
-	var previous_state := state
-	state = new_state
-	if state == States.IDLE:
-		#animation_player.play("idle")
-		pass
-	elif state == States.RUNNING:
-		#animation_player.play("run")
-		pass
-
-	# You can check both the previous and the new state to determine what to do when the state changes. This checks the previous state.
-	if previous_state == States.GLIDING:
-		pass
-
-	# Here, I check the new state.
-	if state == States.GLIDING:
-		pass
-
+	
 
 
 func set_fidget_time(min_time : float = 1.0, max_time : float = 6.0) -> float:

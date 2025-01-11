@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://c7ny7y3sjbpk4"]
+[gd_scene load_steps=3 format=3 uid="uid://cf2adqhcihu2d"]
 
 [ext_resource type="Texture2D" uid="uid://8270frmqokra" path="res://aseprite/human_silhoute0001.png" id="1_miher"]
 [ext_resource type="Script" path="res://busd/scripts/human_silhoute.gd" id="2_qdtsk"]

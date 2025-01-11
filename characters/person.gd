@@ -4,6 +4,8 @@ class_name Person
 
 @export_category("Person Details")
 @export var name : String = "name"
+@export var personal_space : int = 5
+@export var speed : int = 55
 
 #@export var head : 
 #@export var body : 

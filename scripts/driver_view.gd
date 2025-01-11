@@ -28,7 +28,7 @@ func _ready() -> void:
 	await(get_node("/root").ready)  
 	_connect_switches()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func _connect_switches() -> void:
@@ -47,7 +47,7 @@ func _connect_switches() -> void:
 	signals.bus_leaving.connect(bus_leaving)
 
 
-func spawn_commuter_path(passenger: Person, path_follow: PathFollow2D, lined_up: bool):
+func spawn_commuter_path(passenger: Person, _path_follow: PathFollow2D, lined_up: bool):
 	global.dprint(self, "We need to add this commuter %s to the scene" % passenger.name)
 	
 	# create a new path: 

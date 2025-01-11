@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://by2jk5wouhgi8"]
+[gd_scene load_steps=13 format=3 uid="uid://borl7ti3qxgfj"]
 
 [ext_resource type="Script" path="res://busd/scripts/external_view.gd" id="1_281un"]
 [ext_resource type="Texture2D" uid="uid://1b7t07iw2d1o" path="res://aseprite/city_skyline.png" id="2_sunmo"]

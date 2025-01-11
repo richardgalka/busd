@@ -41,7 +41,12 @@ func _ready() -> void:
 	
 
 func place_commuter_on_path(passenger:Person, position:int):
-	pass
+	var commuter_path = commuter_path_follow_2d.duplicate()
+	var commuter = world_view_person.new(passenger, position, commuter_path)
+	commuter_path_to_stop.add_child(commuter_path)
+	commuter_path.add_child(commuter)
+	
+	print("created")
 
 func _connect_switches() -> void:
 	if get_node_or_null("%DashView"):
