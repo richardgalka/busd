@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Person" load_steps=5 format=3 uid="uid://ct761tglrv3b2"]
+
+[ext_resource type="Script" path="res://busd/quirks/quirk.gd" id="1_lw0c3"]
+[ext_resource type="Script" path="res://busd/characters/person.gd" id="2_aoy0p"]
+[ext_resource type="Texture2D" uid="uid://k4217cpkgyv7" path="res://icon.svg" id="3_f8l8i"]
+[ext_resource type="Texture2D" uid="uid://8270frmqokra" path="res://aseprite/human_silhoute0001.png" id="4_an2ed"]
+
+[resource]
+script = ExtResource("2_aoy0p")
+name = "name"
+quirks = Array[ExtResource("1_lw0c3")]([])
+texture_small = ExtResource("4_an2ed")
+texture_large = ExtResource("3_f8l8i")

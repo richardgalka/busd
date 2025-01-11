@@ -1,5 +1,5 @@
 extends Node2D
-class_name commuter
+class_name world_view_person
 
 # Finite State Machine Options
 enum States {IDLE, RUNNING, JUMPING, FALLING, GLIDING}

@@ -45,15 +45,10 @@ func _connect_switches() -> void:
 		#ordered_commuters = world_view.ordered_commuters
 	signals.bus_arrived.connect(bus_arrived)
 	signals.bus_leaving.connect(bus_leaving)
-	signals.commuter_added_to_scene.connect(commuter_added)
-	signals.commuter_path_setup.connect(spawn_commuter_path)
 
-func commuter_added(passenger: commuter):
-	global.dprint(self, "Commuter added to scene: %s" % commuter)
-	print("here")
 
-func spawn_commuter_path(passenger: commuter, path_follow: PathFollow2D, lined_up: bool):
-	global.dprint(self, "We need to add this commuter %s to the scene" % commuter)
+func spawn_commuter_path(passenger: Person, path_follow: PathFollow2D, lined_up: bool):
+	global.dprint(self, "We need to add this commuter %s to the scene" % passenger.name)
 	
 	# create a new path: 
 	var new_comy_path = commuter_path_follow_2d.duplicate()

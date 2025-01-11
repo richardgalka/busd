@@ -8,7 +8,6 @@ signal commuter_left(commuter_number:int)
 @onready var commuter_path_to_stop: Path2D = $BusStop/CommuterPathToStop
 @onready var commuter_path_follow_2d: PathFollow2D = $BusStop/CommuterPathToStop/CommuterPathFollow2D
 @onready var bus_stop: Node2D = $BusStop
-@onready var passenger_arrive_timer: Timer = $PassengerArriveTimer
 @onready var driver_view: Node2D = %DriverView
 
 var bus_light_switch: Node2D
@@ -27,15 +26,22 @@ func _ready() -> void:
 	driver_view = get_node_or_null("%DriverView")
 	
 	# Get number of passengers from level
-
+	global.dprint(self, "Passengers: %s" % len(PersonManager.ordered_commuters))
+	
 	_connect_switches()
 	# Get last commutter stop:
-	first_stop = bus_stop.global_position + bus_stop.scale.x*commuter_path_to_stop.curve.get_point_position(0)
-	last_stop = bus_stop.global_position + commuter_path_to_stop.scale.x*commuter_path_to_stop.curve.get_point_position(commuter_path_to_stop.curve.point_count-1)
+	#first_stop = bus_stop.global_position + bus_stop.scale.x*commuter_path_to_stop.curve.get_point_position(0)
+	#last_stop = bus_stop.global_position + commuter_path_to_stop.scale.x*commuter_path_to_stop.curve.get_point_position(commuter_path_to_stop.curve.point_count-1)
+	
+	# Add passengers to scene
+	var i := 0
+	for passenger in PersonManager.ordered_commuters:
+		i = i+1
+		place_commuter_on_path(passenger, i)
 	
 
-
-
+func place_commuter_on_path(passenger:Person, position:int):
+	pass
 
 func _connect_switches() -> void:
 	if get_node_or_null("%DashView"):
@@ -46,8 +52,6 @@ func _connect_switches() -> void:
 	
 func set_buslights(state):
 	bus_lights.enabled = state
-
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

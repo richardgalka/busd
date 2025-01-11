@@ -10,6 +10,8 @@ var ordered_commuters: Array[Person]
 
 var t_ordered_commuters_size = 0
 
+var _debug = true
+
 # Passeneger counts - set in level
 var passengers_present: int = 3:
 	set(new_value):
@@ -28,20 +30,7 @@ func initialize_commuters(commuters: Array[Person]) -> void:
 		# TODO: UI - Display warning 
 		pass
 	ordered_commuters = commuters
-
-func create_passenger(commuter_instance:commuter = null) -> commuter:
-	# Create commuter instance and place in ordered_commuters
-	# We need to trigger a signal for each scene so they know to add the commuter
-	if !commuter_instance:
-		commuter_instance = COMMUTER.instantiate()
-	# Need to add a person resource.
-	commuter_instance.add_to_group("commuter")
-	ordered_commuters.append(commuter_instance)
-	global.dprint(commuter_instance, "My position : %s" % ordered_commuters.size())
 	
-	signals.commuter_added_to_scene.emit(commuter_instance)
-	return commuter_instance
-
 
 func passenger_left(position_num):
 	#global.dprint(self, "Passenger %s decided to leave" % position_num)
