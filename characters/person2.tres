@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("1_4boq1")
 name = "Miles"
-personal_space = 5
+personal_space = 0.8
 at_stop = false
 time_to_spawn = 0.5
 time_to_travel = 5.0

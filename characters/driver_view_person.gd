@@ -10,7 +10,7 @@ signal at_front_of_line
 @onready var sprite_2d: Sprite2D
 var fidget_timer: Timer = null
 var spawn_timer: Timer = null 
-
+var sprite_width: int = 90
 var mypath : PathFollow2D = null
 var is_spawned : bool = false
 
@@ -49,14 +49,14 @@ func _ready() -> void:
 	else:
 		await get_tree().create_timer(stats.time_to_spawn).timeout
 		is_spawned = true
-	
 
 
 func set_fidget_time(min_time : float = 1.0, max_time : float = 6.0) -> float:
 	return randf_range(min_time, max_time)
 
 func _my_final_distance() -> float:
-	return mypath.get_node("../").curve.get_baked_length() - line_position * stats.personal_space
+	# personal space should be 0.8 times the width of our character
+	return mypath.get_node("../").curve.get_baked_length() - line_position * (stats.personal_space * float(sprite_width))
 	
 func _final_distance() -> float:
 	return mypath.get_node("../").curve.get_baked_length()
@@ -78,7 +78,7 @@ func _process(delta: float) -> void:
 			# Fix for a bug when speed is too quick and mypath.progress overbounds and resets to 0
 			set_path_progress(delta)
 			#mypath.progress += stats.speed*delta*50
-			global.dprint(self, "progress: %s %s" % [mypath.progress, _my_final_distance()])
+			#global.dprint(self, "progress: %s %s" % [mypath.progress, _my_final_distance()])
 			#global.dprint(self,"moved %s pixels of %s pixels" % [mypath.progress, mypath.get_node("../").curve.get_baked_length()])
 			global_position = floor(mypath.global_position)  # we floor due to low resoluton and partial pixels causing tearing
 			#if mypath.progress_ratio >= 1:
@@ -92,16 +92,8 @@ func set_path_progress(delta: float) -> void:
 	var final_distance = _my_final_distance()
 	var my_movement = _my_final_distance() / delta
 	'''
-	10 spaces in 1 second
-	frame speed is 0.5 seconds
-	
-	10 / 1 * 0.5 = 5
-	
-	10 spaces in 2 seconds
+	10 spaces in 2 seconds if we have a frame every 1/2 second
 	10 / 2 * 0.5  = 0.25
-	
-	10 spaces in 1 second   =   10
-	10 spaces in 2 second = 5
 	distance / time * delta = movement
 	'''
 	var progress = _my_final_distance() / stats.time_to_travel * delta

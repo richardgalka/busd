@@ -11,7 +11,7 @@ signal at_front_of_line
 var fidget_timer: Timer = null
 var spawn_timer: Timer = null 
 var is_spawned: bool = false
-
+var sprite_width: int = 5
 var mypath : PathFollow2D = null
 
 ## Fidget related variables
@@ -55,7 +55,9 @@ func set_fidget_time(min_time : float = 1.0, max_time : float = 6.0) -> float:
 	return randf_range(min_time, max_time)
 
 func _my_final_distance() -> float:
-	return mypath.get_node("../").curve.get_baked_length() - line_position * stats.personal_space
+	var dist = mypath.get_node("../").curve.get_baked_length() - line_position * (stats.personal_space * float(sprite_width))
+	return dist
+
 	
 func _final_distance() -> float:
 	return mypath.get_node("../").curve.get_baked_length()
@@ -89,16 +91,8 @@ func set_path_progress(delta: float) -> void:
 	var final_distance = _my_final_distance()
 	var my_movement = _my_final_distance() / delta
 	'''
-	10 spaces in 1 second
-	frame speed is 0.5 seconds
-	
-	10 / 1 * 0.5 = 5
-	
-	10 spaces in 2 seconds
+	10 spaces in 2 seconds if we have a frame every 1/2 second
 	10 / 2 * 0.5  = 0.25
-	
-	10 spaces in 1 second   =   10
-	10 spaces in 2 second = 5
 	distance / time * delta = movement
 	'''
 	var progress = _my_final_distance() / stats.time_to_travel * delta
@@ -174,8 +168,8 @@ func _left():
 func _on_static_body_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			print("Left button was clicked at ", event.position)
-			#global.dprint(self, "I'm at line position: %s" % line_position)
+			global.dprint("Left button was clicked at ", event.position)
+			global.dprint(self, "I'm at line position: %s" % line_position)
 			_create_path_exit()
 			
 	pass # Replace with function body.

@@ -8,10 +8,10 @@
 [resource]
 script = ExtResource("1_ywi6r")
 name = "name"
-personal_space = 5
-speed = 2
+personal_space = 0.8
 at_stop = false
 time_to_spawn = 0.5
+time_to_travel = 5.0
 quirks = Array[ExtResource("1_m1a8g")]([])
 texture_small = ExtResource("4_3jvok")
 texture_large = ExtResource("3_1n3qo")
