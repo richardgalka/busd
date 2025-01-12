@@ -10,6 +10,7 @@ signal at_front_of_line
 @onready var sprite_2d: Sprite2D
 var fidget_timer: Timer = null
 var spawn_timer: Timer = null 
+var is_spawned: bool = false
 
 var mypath : PathFollow2D = null
 
@@ -42,9 +43,11 @@ func _ready() -> void:
 	
 	# check stats and if we are to wait to get to start our process. 
 	if stats.at_stop: 
+		is_spawned = true
 		mypath.progress = _my_final_distance()
 	else:
 		await get_tree().create_timer(stats.time_to_spawn).timeout
+		is_spawned = true
 	
 
 
@@ -59,7 +62,7 @@ func _final_distance() -> float:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if mypath: 
+	if mypath and is_spawned: 
 		# get how far down math i should go
 		if mypath.progress >= _my_final_distance():
 			stats.at_stop = true

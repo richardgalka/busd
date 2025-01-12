@@ -62,28 +62,6 @@ func _connect_switches() -> void:
 	signals.bus_leaving.connect(bus_leaving)
 
 
-func spawn_commuter_path(passenger: Person, _path_follow: PathFollow2D, lined_up: bool):
-	global.dprint(self, "We need to add this commuter %s to the scene" % passenger.name)
-	
-	# create a new path: 
-	var new_comy_path = commuter_path_follow_2d.duplicate()
-	commuter_path_to_stop.add_child(new_comy_path)
-	
-	# create a new character_driver_view
-	var new_char = char_driver_view_scn.duplicate()
-	new_comy_path.add_child(new_char)
-	
-	'''
-	# Get sprite to add to comy path
-	var commuter_sprite = passenger.stats.texture_large
-	var sprite2d = Sprite2D.new()
-	sprite2d.texture = commuter_sprite
-	new_comy_path.add_child(sprite2d)
-	'''
-	
-	passenger.follow_path(new_comy_path, lined_up)
-	
-	# Get all the details we need. 
 
 func bus_arrived():
 	#driving.stop()

@@ -14,7 +14,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_ehwjj"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -3727, 285, 0, 0, 0, 0, 151, 306, 0, 0, 0, 0, 209, 327)
+"points": PackedVector2Array(0, 0, 0, 0, -3727.13, 285, 0, 0, 0, 0, 151, 306, 0, 0, 0, 0, 209, 327)
 }
 point_count = 3
 
@@ -162,10 +162,9 @@ texture = ExtResource("10_mmpq2")
 curve = SubResource("Curve2D_ehwjj")
 
 [node name="CommuterPathFollow2D" type="PathFollow2D" parent="CommuterPathToStop"]
-position = Vector2(209, 327)
+position = Vector2(-3727.13, 285)
 rotation = 0.00541511
 scale = Vector2(2, 2)
-progress = 3939.75
 rotates = false
 
 [node name="BusDoorBackground" type="Sprite2D" parent="."]

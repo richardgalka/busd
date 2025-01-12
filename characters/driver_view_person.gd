@@ -12,6 +12,7 @@ var fidget_timer: Timer = null
 var spawn_timer: Timer = null 
 
 var mypath : PathFollow2D = null
+var is_spawned : bool = false
 
 ## Fidget related variables
 var fidget_move : Vector2 = Vector2.ZERO
@@ -43,9 +44,11 @@ func _ready() -> void:
 	
 	# check stats and if we are to wait to get to start our process. 
 	if stats.at_stop: 
+		is_spawned = true
 		mypath.progress = _my_final_distance()
 	else:
 		await get_tree().create_timer(stats.time_to_spawn).timeout
+		is_spawned = true
 	
 
 
@@ -60,8 +63,9 @@ func _final_distance() -> float:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if mypath: 
+	if mypath and is_spawned: 
 		# get how far down math i should go
+		var final_distance = _my_final_distance()
 		if mypath.progress >= _my_final_distance():
 			stats.at_stop = true
 			# Don't move
@@ -69,16 +73,26 @@ func _process(delta: float) -> void:
 				#global.dprint(self,"my final distance: %s of %s" % [_my_final_distance(), _final_distance()])
 				tbool = false
 		else:
-			global.dprint(self, "I'm inline!")
+			#global.dprint(self, "I'm inline!")
 			stats.at_stop = false
-			mypath.progress += stats.speed*delta
+			# Fix for a bug when speed is too quick and mypath.progress overbounds and resets to 0
+			set_path_progress(delta)
+			#mypath.progress += stats.speed*delta*50
+			global.dprint(self, "progress: %s %s" % [mypath.progress, _my_final_distance()])
 			#global.dprint(self,"moved %s pixels of %s pixels" % [mypath.progress, mypath.get_node("../").curve.get_baked_length()])
 			global_position = floor(mypath.global_position)  # we floor due to low resoluton and partial pixels causing tearing
-			if mypath.progress_ratio >= 1:
-				mypath.queue_free.call_deferred()
-				mypath = null
+			#if mypath.progress_ratio >= 1:
+			#	mypath.queue_free.call_deferred()
+			#	mypath = null
 	# add fidgeting 
 	self.position = floor(self.position) + get_fidgeting()
+
+func set_path_progress(delta: float) -> void:
+	var progress = 0
+	var orig_progress_ratio = mypath.progress_ratio
+	mypath.progress += stats.speed*delta*20
+	if mypath.progress_ratio < orig_progress_ratio:
+		mypath.progress_ratio = 1.0
 
 ## Called by signal for world recognizing commutor left
 func other_comy_left(comy_num: int):
