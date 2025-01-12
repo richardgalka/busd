@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://v3jm3ywuhkbj"]
+[gd_scene load_steps=11 format=3 uid="uid://v3jm3ywuhkbj"]
 
 [ext_resource type="Script" path="res://busd/viewports/layout.gd" id="1_4e6li"]
 [ext_resource type="PackedScene" uid="uid://c66ag2serjakk" path="res://busd/viewports/world_view.tscn" id="1_g0gbr"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://busd/Levels/level_1.gd" id="7_h3pay"]
 [ext_resource type="Script" path="res://busd/characters/person.gd" id="8_8vevc"]
 [ext_resource type="Resource" uid="uid://b6tbbwa03cx0g" path="res://busd/characters/person1.tres" id="9_scwxb"]
+[ext_resource type="Resource" uid="uid://e67dfljxy5ya" path="res://busd/characters/person2.tres" id="10_nh6gb"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -21,7 +22,7 @@ script = ExtResource("1_4e6li")
 [node name="Level1" type="Node2D" parent="."]
 process_priority = -1
 script = ExtResource("7_h3pay")
-ordered_commuters = Array[ExtResource("8_8vevc")]([ExtResource("9_scwxb")])
+ordered_commuters = Array[ExtResource("8_8vevc")]([ExtResource("9_scwxb"), ExtResource("10_nh6gb")])
 
 [node name="PassengerArriveTimer" type="Timer" parent="Level1"]
 autostart = true

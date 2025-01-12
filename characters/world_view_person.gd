@@ -72,7 +72,7 @@ func _process(delta: float) -> void:
 				tbool = false
 		else:
 			stats.at_stop = false
-			mypath.progress += stats.speed*delta
+			set_path_progress(delta)
 			#global.dprint(self,"moved %s pixels of %s pixels" % [mypath.progress, mypath.get_node("../").curve.get_baked_length()])
 			global_position = floor(mypath.global_position)  # we floor due to low resoluton and partial pixels causing tearing
 			if mypath.progress_ratio >= 1:
@@ -83,7 +83,29 @@ func _process(delta: float) -> void:
 	var preposition = sprite_2d.position
 	var postposition = floor(preposition) + get_fidgeting()
 	sprite_2d.position = postposition
+
+func set_path_progress(delta: float) -> void:
+	# delta is amount of seconds
+	var final_distance = _my_final_distance()
+	var my_movement = _my_final_distance() / delta
+	'''
+	10 spaces in 1 second
+	frame speed is 0.5 seconds
 	
+	10 / 1 * 0.5 = 5
+	
+	10 spaces in 2 seconds
+	10 / 2 * 0.5  = 0.25
+	
+	10 spaces in 1 second   =   10
+	10 spaces in 2 second = 5
+	distance / time * delta = movement
+	'''
+	var progress = _my_final_distance() / stats.time_to_travel * delta
+	var orig_progress_ratio = mypath.progress_ratio
+	mypath.progress += progress
+	if mypath.progress_ratio < orig_progress_ratio:
+		mypath.progress_ratio = 1.0
 
 ## Called by signal for world recognizing commutor left
 func other_comy_left(comy_num: int):
