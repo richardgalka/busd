@@ -15,7 +15,10 @@ var mouse_loc : Vector2
 # Called when the node enters the scene tree for the first time.
 
 func _ready() -> void:
-	pass # Replace with function body.
+	# connect audio path
+	audio_bus_drawer_mid.finished.connect(_continue_drawer_sound)
+	audio_bus_drawer_open.finished.connect(_continue_drawer_sound)
+
 
 func _input(event):
 	# Mouse in viewport coordinates.
@@ -23,7 +26,7 @@ func _input(event):
 		drawer_dragging = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if mouse_loc and drawer_dragging:
 		var new_mouse_loc = get_global_mouse_position()
 		var new_loc = new_mouse_loc.y - mouse_loc.y
@@ -31,12 +34,11 @@ func _process(delta: float) -> void:
 		#global.dprint(self, "Mouse movement: %s" % new_loc)
 		handle_cs_2d.position.y = clampf(handle_cs_2d.position.y + new_loc, drawer_min_y, drawer_max_y)
 
-func _on_bus_drawer_input_event(_viewport: Node, event: InputEventMouseButton, _shape_idx: int) -> void:
+func _on_bus_drawer_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
 		mouse_loc = event.position
 		print("button: %s is pressed" % event.button_index)
 		drawer_dragging = true
-		audio_bus_drawer_open.finished.connect(_continue_drawer_sound)
 		audio_bus_drawer_open.play()
 		#	bus_move_animation_player.animation_finished.connect(bus_state_set)
 	if event is InputEventMouseButton and event.is_released():
@@ -45,8 +47,8 @@ func _on_bus_drawer_input_event(_viewport: Node, event: InputEventMouseButton, _
 
 func _continue_drawer_sound():
 	if drawer_dragging: 
-		audio_bus_drawer_mid.finished.connect(_continue_drawer_sound)
-		audio_bus_drawer_mid.play()
+		if !audio_bus_drawer_mid.playing:
+			audio_bus_drawer_mid.play()
 	else: 
 		audio_bus_drawer_close.play()
 

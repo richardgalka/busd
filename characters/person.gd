@@ -6,6 +6,8 @@ class_name Person
 @export var name : String = "name"
 @export var personal_space : int = 5
 @export var speed : int = 55
+@export var at_stop : bool = true
+@export var time_to_spawn : float = 1.0
 
 #@export var head : 
 #@export var body : 

@@ -12,6 +12,7 @@ var _debug = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if _debug: global.dprint(self, "Debug Enabled")
 	pass # Replace with function body.
 	PersonManager.passengers_arriving = passengers_arriving
 	PersonManager.passengers_present = passengers_present
@@ -21,5 +22,5 @@ func _ready() -> void:
 	global.dprint(self, "PersonManager setup")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass

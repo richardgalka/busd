@@ -1,8 +1,5 @@
 extends Node2D
 
-signal commuter_left(commuter_number:int)
-
-
 @onready var bus_lights: PointLight2D = $Bus/HeadLights
 @onready var bus_path_to_stop: Path2D = $BusStop/BusPathToStop
 @onready var commuter_path_to_stop: Path2D = $BusStop/CommuterPathToStop
@@ -20,7 +17,7 @@ var last_stop : Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-
+	if _debug: global.dprint(self, "Debug Enabled")
 	# Wait until scene tree is ready to continue
 	await(get_node("/root").ready)  
 	driver_view = get_node_or_null("%DriverView")
@@ -40,9 +37,9 @@ func _ready() -> void:
 		place_commuter_on_path(passenger, i)
 	
 
-func place_commuter_on_path(passenger:Person, position:int):
+func place_commuter_on_path(passenger:Person, line_position:int):
 	var commuter_path = commuter_path_follow_2d.duplicate()
-	var commuter = world_view_person.new(passenger, position, commuter_path)
+	var commuter = world_view_person.new(passenger, line_position, commuter_path)
 	commuter_path_to_stop.add_child(commuter_path)
 	commuter_path.add_child(commuter)
 	

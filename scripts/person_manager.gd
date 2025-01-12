@@ -24,6 +24,9 @@ var passengers_arriving: int = 1:
 		passengers_arriving = clamp(new_value, MIN_PASSENGERS, MAX_PASSENGERS)
 	get:
 		return passengers_arriving
+		
+func _ready() -> void:
+	if _debug: global.dprint(self, "Debug Enabled")
 
 func initialize_commuters(commuters: Array[Person]) -> void:
 	if commuters.size() > MAX_PASSENGERS:
@@ -38,4 +41,4 @@ func passenger_left(position_num):
 	
 	# Update ordered_commuters
 	ordered_commuters.pop_at(position_num)
-	self.commuter_left.emit(position_num)   # should we send actual commuter?
+	self.commuter_left.emit(position_num) 

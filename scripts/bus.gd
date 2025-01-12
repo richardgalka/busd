@@ -1,10 +1,5 @@
 extends Sprite2D
 
-## Signal sent once bus arrives at stop
-signal bus_arrived
-## Signal sent once bus leaves stop
-signal bus_leaving
-
 @export var bus_max_speed : float = 400.0  # initial speed of bus
 @export var bus_min_speed : float = 10.0  # Minimum speed when bus is stopped. 
 @export var bus_acceleration_curve: float = 0.3 # Factor by which speed decreases each frame
@@ -20,6 +15,7 @@ var _debug = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if _debug: global.dprint(self, "Debug Enabled")
 	# set bus direction based on BusPathToStop direction
 	var p = bus_path_to_stop.curve
 	if p.get_point_position(0).x > p.get_point_position(p.point_count-1).x:
@@ -33,7 +29,7 @@ func _ready() -> void:
 	
 func set_path(path:PathFollow2D):
 	on_path = path
-	var parent_path : Path2D = on_path.get_parent()
+	#var parent_path : Path2D = on_path.get_parent()
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

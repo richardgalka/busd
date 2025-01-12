@@ -2,12 +2,16 @@
 
 [ext_resource type="Script" path="res://busd/quirks/quirk.gd" id="1_m1a8g"]
 [ext_resource type="Script" path="res://busd/characters/person.gd" id="1_ywi6r"]
-[ext_resource type="Texture2D" uid="uid://drffnm2dt7rtw" path="res://aseprite/Cigar man sprite.png" id="3_ix450"]
+[ext_resource type="Texture2D" uid="uid://it31mrn3fwqs" path="res://aseprite/sarah sprite.png" id="3_1n3qo"]
 [ext_resource type="Texture2D" uid="uid://8270frmqokra" path="res://aseprite/human_silhoute0001.png" id="4_3jvok"]
 
 [resource]
 script = ExtResource("1_ywi6r")
 name = "name"
+personal_space = 5
+speed = 2
+at_stop = false
+time_to_spawn = 0.5
 quirks = Array[ExtResource("1_m1a8g")]([])
 texture_small = ExtResource("4_3jvok")
-texture_large = ExtResource("3_ix450")
+texture_large = ExtResource("3_1n3qo")

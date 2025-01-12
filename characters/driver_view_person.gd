@@ -1,5 +1,5 @@
 extends Node2D
-class_name world_view_person
+class_name driver_view_person
 
 signal decided_to_leave(position_number:int)
 signal left
@@ -37,7 +37,6 @@ func _ready() -> void:
 	fidget_timer = Timer.new()
 	fidget_timer.wait_time = set_fidget_time()
 	fidget_timer.connect("timeout", _on_fidget_timer_timeout)
-	self.add_child(fidget_timer)
 	fidget_timer.start()
 	
 	# check stats and if we are to wait to get to start our process. 
@@ -77,11 +76,7 @@ func _process(delta: float) -> void:
 				mypath.queue_free.call_deferred()
 				mypath = null
 	# add fidgeting 
-	var preposition = sprite_2d.position
-	var postposition = floor(preposition) + get_fidgeting()
-	global.dprint(self, "Fidget change: %s to %s" % [preposition, postposition])
-	sprite_2d.position = postposition
-	
+	self.position = floor(self.position) + get_fidgeting()
 
 ## Called by signal for world recognizing commutor left
 func other_comy_left(comy_num: int):
@@ -125,8 +120,6 @@ func get_fidgeting() -> Vector2:
 		else:
 			fidget_move = next_move
 			next_move = Vector2.ZERO
-		global.dprint(self, "Fidget Move: %s" % next_move)
-
 	else:
 		fidget_move = Vector2.ZERO
 	return fidget_move
