@@ -147,6 +147,7 @@ repeat_size = Vector2(360, 0)
 repeat_times = 20
 
 [node name="Busdriverviewroad" type="Sprite2D" parent="Parallax2D"]
+z_index = -100
 texture_repeat = 2
 texture = ExtResource("1_esql1")
 centered = false
@@ -154,6 +155,7 @@ region_enabled = true
 region_rect = Rect2(0, 0, 360, 620)
 
 [node name="BusStop" type="Sprite2D" parent="."]
+z_index = -50
 position = Vector2(219, 285)
 scale = Vector2(2, 2)
 texture = ExtResource("10_mmpq2")
@@ -168,6 +170,7 @@ scale = Vector2(2, 2)
 rotates = false
 
 [node name="BusDoorBackground" type="Sprite2D" parent="."]
+z_index = 10
 position = Vector2(3637, 116)
 scale = Vector2(2, 2)
 texture = ExtResource("2_y4hsi")

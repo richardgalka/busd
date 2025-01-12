@@ -27,6 +27,7 @@ func _init(person_ref:Person, spawn_order:int, person_path:PathFollow2D) -> void
 	line_position = spawn_order
 	mypath = person_path
 	sprite_2d = Sprite2D.new()
+	sprite_2d.z_index -= line_position
 	sprite_2d.texture = stats.texture_small
 
 # Called when the node enters the scene tree for the first time.
@@ -48,8 +49,6 @@ func _ready() -> void:
 	else:
 		await get_tree().create_timer(stats.time_to_spawn).timeout
 		is_spawned = true
-	
-
 
 func set_fidget_time(min_time : float = 1.0, max_time : float = 6.0) -> float:
 	return randf_range(min_time, max_time)

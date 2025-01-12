@@ -33,6 +33,7 @@ point_count = 3
 script = ExtResource("1_6hvu2")
 
 [node name="CitySkylineSky" type="Sprite2D" parent="."]
+z_index = -100
 scale = Vector2(2, 2)
 texture = ExtResource("2_lii3p")
 centered = false
@@ -45,11 +46,13 @@ autoscroll = Vector2(4, 0)
 repeat_times = 2
 
 [node name="CitySkylineClouds" type="Sprite2D" parent="BackgroundClouds"]
+z_index = -70
 scale = Vector2(2, 2)
 texture = ExtResource("3_twdxj")
 centered = false
 
 [node name="CitySkyline" type="Sprite2D" parent="."]
+z_index = -60
 scale = Vector2(2, 2)
 texture = ExtResource("1_ccxvh")
 centered = false
@@ -67,6 +70,7 @@ position = Vector2(351, 109)
 scale = Vector2(2, 2)
 
 [node name="BusStopSprite" type="Sprite2D" parent="BusStop"]
+z_index = -10
 position = Vector2(0, -1.5)
 scale = Vector2(1, 1.5)
 texture = ExtResource("5_p2odj")

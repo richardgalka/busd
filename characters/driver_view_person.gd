@@ -27,6 +27,7 @@ func _init(person_ref:Person, spawn_order:int, person_path:PathFollow2D) -> void
 	line_position = spawn_order
 	mypath = person_path
 	sprite_2d = Sprite2D.new()
+	sprite_2d.z_index -= line_position
 	sprite_2d.texture = stats.texture_large
 	
 # Called when the node enters the scene tree for the first time.
