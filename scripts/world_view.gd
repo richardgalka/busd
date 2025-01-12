@@ -10,7 +10,7 @@ extends Node2D
 var bus_light_switch: Node2D
 var bus_door_switch: Node2D
 
-var _debug = true
+var _debug = false
 
 var first_stop : Vector2
 var last_stop : Vector2
@@ -43,8 +43,6 @@ func place_commuter_on_path(passenger:Person, line_position:int):
 	commuter_path_to_stop.add_child(commuter_path)
 	commuter_path.add_child(commuter)
 	
-	print("created")
-
 func _connect_switches() -> void:
 	if get_node_or_null("%DashView"):
 		bus_light_switch = %DashView.get_switch_lights_node()

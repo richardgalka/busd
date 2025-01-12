@@ -19,7 +19,7 @@ var timer_trigger : bool = false
 var next_move : Vector2 = Vector2.ZERO
 
 var tbool = true
-var _debug = true
+var _debug = false
 
 func _init(person_ref:Person, spawn_order:int, person_path:PathFollow2D) -> void:
 	stats = person_ref
@@ -79,7 +79,6 @@ func _process(delta: float) -> void:
 	# add fidgeting 
 	var preposition = sprite_2d.position
 	var postposition = floor(preposition) + get_fidgeting()
-	global.dprint(self, "Fidget change: %s to %s" % [preposition, postposition])
 	sprite_2d.position = postposition
 	
 
@@ -92,7 +91,7 @@ func other_comy_left(comy_num: int):
 		if self.line_position == 0:
 			at_front_of_line.emit()
 		tbool = true
-			
+
 
 ## Follow the path that is this commuter's parent or the path provided in
 func follow_path(path: PathFollow2D, start_at_end: bool = false) -> void:

@@ -31,7 +31,6 @@ func _ready() -> void:
 	
 	global.dprint(self, "Passengers: %s" % len(PersonManager.ordered_commuters))
 	
-	_connect_switches()
 	# Add passengers to scene
 	var i := 0
 	for passenger in PersonManager.ordered_commuters:
@@ -40,11 +39,9 @@ func _ready() -> void:
 
 func place_commuter_on_path(passenger:Person, line_position:int):
 	var commuter_path = commuter_path_follow_2d.duplicate()
-	var commuter = world_view_person.new(passenger, line_position, commuter_path)
+	var commuter = driver_view_person.new(passenger, line_position, commuter_path)
 	commuter_path_to_stop.add_child(commuter_path)
 	commuter_path.add_child(commuter)
-	
-	print("created")
 
 func _process(_delta: float) -> void:
 	pass

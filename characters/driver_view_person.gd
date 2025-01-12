@@ -26,18 +26,20 @@ func _init(person_ref:Person, spawn_order:int, person_path:PathFollow2D) -> void
 	line_position = spawn_order
 	mypath = person_path
 	sprite_2d = Sprite2D.new()
-	sprite_2d.texture = stats.texture_small
-
+	sprite_2d.texture = stats.texture_large
+	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if _debug: global.dprint(self, "Debug Enabled")
+	global.dprint(self, sprite_2d.texture.resource_name)
+
 	# place our sprite in the world
 	mypath.add_child(sprite_2d)
 	# set our fidget timer
-	fidget_timer = Timer.new()
-	fidget_timer.wait_time = set_fidget_time()
-	fidget_timer.connect("timeout", _on_fidget_timer_timeout)
-	fidget_timer.start()
+	#fidget_timer = Timer.new()
+	#fidget_timer.wait_time = set_fidget_time()
+	#fidget_timer.connect("timeout", _on_fidget_timer_timeout)
+	#fidget_timer.start()
 	
 	# check stats and if we are to wait to get to start our process. 
 	if stats.at_stop: 
@@ -67,12 +69,12 @@ func _process(delta: float) -> void:
 				#global.dprint(self,"my final distance: %s of %s" % [_my_final_distance(), _final_distance()])
 				tbool = false
 		else:
+			global.dprint(self, "I'm inline!")
 			stats.at_stop = false
 			mypath.progress += stats.speed*delta
 			#global.dprint(self,"moved %s pixels of %s pixels" % [mypath.progress, mypath.get_node("../").curve.get_baked_length()])
 			global_position = floor(mypath.global_position)  # we floor due to low resoluton and partial pixels causing tearing
 			if mypath.progress_ratio >= 1:
-				#global.dprint(self, "DONE MOVING")
 				mypath.queue_free.call_deferred()
 				mypath = null
 	# add fidgeting 
