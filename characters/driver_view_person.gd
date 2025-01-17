@@ -66,7 +66,7 @@ func _final_distance() -> float:
 func _process(delta: float) -> void:
 	if mypath and is_spawned: 
 		# get how far down math i should go
-		var final_distance = _my_final_distance()
+		#var final_distance = _my_final_distance()
 		if mypath.progress >= _my_final_distance():
 			stats.at_stop = true
 			# Don't move
@@ -91,13 +91,13 @@ func _process(delta: float) -> void:
 func set_path_progress(delta: float) -> void:
 	# delta is amount of seconds
 	var final_distance = _my_final_distance()
-	var my_movement = _my_final_distance() / delta
+	#var my_movement = _my_final_distance() / delta
 	'''
 	10 spaces in 2 seconds if we have a frame every 1/2 second
 	10 / 2 * 0.5  = 0.25
 	distance / time * delta = movement
 	'''
-	var progress = _my_final_distance() / stats.time_to_travel * delta
+	var progress = final_distance / stats.time_to_travel * delta
 	var orig_progress_ratio = mypath.progress_ratio
 	mypath.progress += progress
 	if mypath.progress_ratio < orig_progress_ratio:
