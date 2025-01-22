@@ -5,6 +5,7 @@ class_name TextBoxScene
 @onready var label: Label = $MarginContainer/Label
 @onready var letter_display_timer: Timer = $LetterDisplayTimer
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+@onready var options_display_timer: Timer = $OptionsDisplayTimer
 
 @export_category("Size")
 @export var max_width: int = 256
@@ -13,22 +14,26 @@ class_name TextBoxScene
 @export var height_above: int = 60
 
 @export_category("Text Timing")
-@export var letter_time: float = 0.05
-@export var space_time: float = 0.09
-@export var punctuation_time: float = 0.3
-@export var fast_forward_rate: float = 5.0
+@export var letter_time: float = 0.04
+@export var space_time: float = 0.07
+@export var punctuation_time: float = 0.2
+@export var options_time: float = 0.3
+@export var fast_forward_rate: float = 15.0
 
 signal finished_displaying
 
 var text = ""
 var letter_index = 0
 var forward_rate := 1.0
+var display_options := false
 
 func _ready() -> void:
 	scale = Vector2.ZERO
 	forward_rate = 1.0
 
-func display_text(text_to_display: String, speech_sfx: AudioStream):
+func display_text(text_to_display: String, speech_sfx: AudioStream, options_to_display:Dictionary={}):
+	if options_to_display:
+		display_options = true
 	text = text_to_display
 	label.text = text_to_display
 	audio_stream_player.stream = speech_sfx
@@ -52,10 +57,21 @@ func display_text(text_to_display: String, speech_sfx: AudioStream):
 	
 	_display_letter()
 
+func _display_options():
+	# We modify label to have new selections
+	pass
+	# Need to 
+
 func _display_letter():
 	label.text += text[letter_index]
 	letter_index += 1
 	if letter_index >= text.length():
+		if display_options:
+			print("Here'd we'd display some options")
+			options_display_timer.start(options_time / forward_rate)
+		#if options:
+			#options_display_timer.start(options_time / forward_rate)
+		# do we need to display options?
 		finished_displaying.emit()
 		return
 		
@@ -86,3 +102,8 @@ func fast_forward(rate:float = fast_forward_rate) -> void:
 func _on_letter_display_timer_timeout() -> void:
 	_display_letter()
 	pass # Replace with function body.
+	
+func _on_options_display_timer_timeout() -> void:
+	print("options displayed timer triggered - draw an option!")
+	_display_options()
+	pass
