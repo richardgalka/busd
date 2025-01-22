@@ -15,3 +15,4 @@ class_name Person
 
 @export var texture_small : Texture2D = preload("res://aseprite/human_silhoute0001.png")
 @export var texture_large : Texture2D = preload("res://aseprite/Cigar man sprite.png")
+@export var driver_view_scene : PackedScene

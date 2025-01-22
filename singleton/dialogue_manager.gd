@@ -2,11 +2,14 @@ extends Node
 
 @onready var text_box_scene = preload("res://busd/Scene/text_box_scene.tscn")
 
+
+var dialog_options: Dictionary = {}
+
 var dialog_lines: Array[String] = []
 
 var current_line_index = 0
 
-var text_box: TextBoxScene
+var text_box: TextBoxScene = null
 var text_box_position
 var text_box_marker: Marker2D
 
@@ -15,9 +18,14 @@ var can_advance_line = false
 
 var sfx: AudioStream
 
-func start_dialog(marker: Marker2D, position: Vector2, lines: Array[String], speech_sfx: AudioStream):
+func b_start_dialog(marker: Marker2D, position: Vector2, d_options: Array[String], speech_sfx: AudioStream):
+	if is_dialog_active: return
+	
+
+
+func start_dialog(marker: Marker2D, position: Vector2, lines: Array[String], speech_sfx: AudioStream) -> bool:
 	if is_dialog_active:
-		return
+		return false
 	dialog_lines = lines
 	#text_box_position = position
 	text_box_position = Vector2(marker.global_position.x, marker.global_position.y*2)
@@ -28,6 +36,7 @@ func start_dialog(marker: Marker2D, position: Vector2, lines: Array[String], spe
 	print("Char pos: %s" % marker.global_position)
 	
 	is_dialog_active = true
+	return true
 	
 func _show_text_box():
 	text_box = text_box_scene.instantiate()
@@ -45,17 +54,19 @@ func _on_text_box_finished_displaying():
 	can_advance_line = true
 	
 func _unhandled_input(event: InputEvent) -> void:
-	if (
-		event.is_action_pressed("advance_dialogue") && 
-		is_dialog_active && 
-		can_advance_line
-	):
-		text_box.queue_free()
-		
-		current_line_index += 1
-		if current_line_index >= dialog_lines.size():
-			is_dialog_active = false
-			current_line_index = 0 
-			return
-		_show_text_box()
+	if (event.is_action_pressed("advance_dialogue") && is_dialog_active):
+		print("can advance? %s" % can_advance_line)
+		pass
+		if (can_advance_line):
+			text_box.queue_free()
+			
+			current_line_index += 1
+			if current_line_index >= dialog_lines.size():
+				is_dialog_active = false
+				current_line_index = 0 
+				return
+			_show_text_box()
+		else:
+			# Can't advance line so speed up text
+			text_box.fast_forward()
 	pass

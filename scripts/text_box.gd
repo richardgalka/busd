@@ -13,22 +13,26 @@ class_name TextBoxScene
 @export var height_above: int = 60
 
 @export_category("Text Timing")
-@export var letter_time: float = 0.03
-@export var space_time: float = 0.06
-@export var punctuation_time: float = 0.2
+@export var letter_time: float = 0.05
+@export var space_time: float = 0.09
+@export var punctuation_time: float = 0.3
+@export var fast_forward_rate: float = 5.0
 
 signal finished_displaying
 
 var text = ""
 var letter_index = 0
+var forward_rate := 1.0
 
 func _ready() -> void:
 	scale = Vector2.ZERO
+	forward_rate = 1.0
 
 func display_text(text_to_display: String, speech_sfx: AudioStream):
 	text = text_to_display
 	label.text = text_to_display
 	audio_stream_player.stream = speech_sfx
+	forward_rate = 1.0
 	
 	await resized
 	
@@ -39,9 +43,6 @@ func display_text(text_to_display: String, speech_sfx: AudioStream):
 		await resized # Await X resize
 		await resized # Await Y resize
 		custom_minimum_size.y = size.y
-	#global_position.x -= size.x
-	print("global pos: %s ,  size.y : %s" % [global_position.y, size.y])
-	#global_position.y -= size.y*2
 	
 	label.text = ""
 	# expand box
@@ -60,11 +61,11 @@ func _display_letter():
 		
 	match text[letter_index]:
 		"!", "?", ",", ".":
-			letter_display_timer.start(punctuation_time)
+			letter_display_timer.start(punctuation_time / forward_rate)
 		" ":
-			letter_display_timer.start(space_time)
+			letter_display_timer.start(space_time / forward_rate)
 		_:
-			letter_display_timer.start(letter_time)
+			letter_display_timer.start(letter_time / forward_rate)
 			var new_audio_player:AudioStreamPlayer = audio_stream_player.duplicate()
 			new_audio_player.pitch_scale += randf_range(-0.1, 0.1)
 			if text[letter_index] in ['a', 'e','i','o','u']:
@@ -73,13 +74,14 @@ func _display_letter():
 			new_audio_player.play()
 			await new_audio_player.finished
 			new_audio_player.queue_free()
-	
-	
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
 
+func fast_forward(rate:float = fast_forward_rate) -> void:
+	forward_rate = rate
 
 func _on_letter_display_timer_timeout() -> void:
 	_display_letter()

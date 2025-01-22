@@ -16,3 +16,4 @@ speech_sfx = ExtResource("3_vn6pp")
 position = Vector2(-8, -64)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
