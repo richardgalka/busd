@@ -3,7 +3,7 @@ extends Sprite2D
 @onready var marker_speech_bubble: Marker2D = $Marker2D_speech_location
 
 enum State {LINING_UP, IN_LINE, BUS_DOOR, LEAVING, ENTERING_BUS, LEAVING_BUS}
-var state = State.BUS_DOOR
+var state = State.LINING_UP
 
 
 @export var text_lines:Array[String] = [
