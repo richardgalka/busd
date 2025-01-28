@@ -3,7 +3,7 @@ extends Sprite2D
 @onready var marker_speech_bubble: Marker2D = $Marker2D_speech_location
 
 enum State {LINING_UP, IN_LINE, BUS_DOOR, LEAVING, ENTERING_BUS, LEAVING_BUS}
-var state = State.LINING_UP
+var state = State.BUS_DOOR
 
 
 @export var text_lines:Array[String] = [
@@ -14,13 +14,19 @@ var state = State.LINING_UP
 ]
 
 @export var text_interaction:Dictionary = {
-	"text_1" : {"text" : "How is your day?", "options" : ["Great", "Bad"], "methods":["response_great", "response_bad"]},
+	"text_1" : {"text" : "How is your day?", "options" : [["Great", option_great], ["Bad", option_bad]]},
 	"text_2" : {"text" : "Sorry to hear that!"},
 	"text_3" : {"text" : "Awesome! How should we celebrate??", "options" : ["Let's go out!"], "methods":["response_go_out"]},
 	"text_4" : {"text" : "Nothing more to say I have.\nOkay. Thanks though\n    Do    we    do    lots   of spaces?"}
 }
 
 @export var speech_sfx: AudioStream
+
+func option_great():
+	print("option great selected")
+
+func option_bad():
+	print("option bad selected")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):

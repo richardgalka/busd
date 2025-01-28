@@ -1,18 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://4ebuaagvdipt"]
+[gd_scene load_steps=6 format=3 uid="uid://4ebuaagvdipt"]
 
 [ext_resource type="Texture2D" uid="uid://c0jgoo57n1k5a" path="res://assets/ui/UI assets (1x).png" id="1_3q2yg"]
 [ext_resource type="Script" path="res://busd/scripts/option_box.gd" id="1_173de"]
 [ext_resource type="Texture2D" uid="uid://cwri8v7tcbjie" path="res://assets/ui/speech1_anchor.png" id="2_thy0a"]
 [ext_resource type="Theme" uid="uid://bcoe4hpk0bgow" path="res://busd/ui/talk_theme.tres" id="4_hei1x"]
-[ext_resource type="Script" path="res://busd/ui/animation_component.gd" id="5_bkqfn"]
 
 [sub_resource type="Theme" id="Theme_tihhr"]
 
 [node name="option_box" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-size_flags_horizontal = 2
-size_flags_vertical = 2
 script = ExtResource("1_173de")
 
 [node name="OptionsDisplayTimer" type="Timer" parent="."]
@@ -65,21 +62,3 @@ theme = ExtResource("4_hei1x")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer"]
 layout_mode = 2
-
-[node name="Buttona" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("4_hei1x")
-text = "This is some Text!!"
-
-[node name="AnimationComponent" type="Node" parent="MarginContainer/MarginContainer/VBoxContainer/Buttona"]
-script = ExtResource("5_bkqfn")
-hover_scale = Vector2(1.1, 1)
-
-[node name="Button2b" type="Button" parent="MarginContainer/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("4_hei1x")
-text = "Option #1"
-
-[node name="AnimationComponent2" type="Node" parent="MarginContainer/MarginContainer/VBoxContainer/Button2b"]
-script = ExtResource("5_bkqfn")
-hover_scale = Vector2(1.1, 1)

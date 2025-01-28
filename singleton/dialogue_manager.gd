@@ -1,6 +1,8 @@
 extends Node
 
-@onready var text_box_scene = preload("res://busd/Scene/text_box_scene.tscn")
+#@onready var text_box_scene = preload("res://busd/Scene/text_box_scene.tscn")
+const TEXT_BOX_SCENE = preload("res://busd/Scene/text_box_scene.tscn")
+const OPTION_BOX = preload("res://busd/Scene/option_box.tscn")
 
 
 var dialog_options: Dictionary = {}
@@ -20,6 +22,10 @@ var sfx: AudioStream
 var options_dialogue_object := {}
 
 var option_chose = true
+
+# Option box vars
+var options_box: OptionBoxScene
+var options_box_offset: Vector2 = Vector2(-10, -8)
 
 
 func start_dialog_options(marker: Marker2D, position: Vector2, line_options: Dictionary, speech_sfx: AudioStream):
@@ -51,9 +57,15 @@ func text_dialog(marker: Marker2D, position: Vector2, lines: Array[String], spee
 func start_dialog(marker: Marker2D, position: Vector2, lines: Array[String], speech_sfx: AudioStream) -> bool:
 	return text_dialog(marker, position, lines, speech_sfx)
 	
+func end_dialog() -> void:
+	if options_box:
+		options_box.queue_free()
+	if text_box:
+		text_box.queue_free()
+	
 	
 func _show_text_box():
-	text_box = text_box_scene.instantiate()
+	text_box = TEXT_BOX_SCENE.instantiate()
 	text_box.finished_displaying.connect(_on_text_box_finished_displaying)
 	get_tree().root.add_child(text_box)   # use root so it displays about all subviews
 	text_box.global_position = text_box_position
@@ -62,6 +74,16 @@ func _show_text_box():
 
 func _on_text_box_finished_displaying():
 	can_advance_line = true
+	if !option_chose:
+		options_box = OPTION_BOX.instantiate()
+		#options_box.
+		get_tree().root.add_child(options_box)
+		#text_box.add_child(options_box)
+		var text_box_bot_right = text_box_position \
+									+ Vector2(text_box.size.x/2, text_box.size.y) \
+									+ options_box_offset
+		options_box.display_options(options_dialogue_object, text_box_bot_right)
+
 	
 
 func _unhandled_input(event: InputEvent) -> void:

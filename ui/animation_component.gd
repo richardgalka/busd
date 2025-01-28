@@ -5,6 +5,8 @@ class_name AnimationComponent
 @export var hover_scale : Vector2 = Vector2.ONE
 @export var time : float = 0.1
 @export var transition : Tween.TransitionType
+@export var x_inline : int = 5
+@export var y_inline : int = 5
 
 var target : Control
 var default_scale : Vector2
@@ -15,7 +17,6 @@ var _debug = true
 func _ready() -> void:
 	target = get_parent()
 	call_deferred("setup")
-	setup()
 
 func connect_signals() -> void:
 	target.mouse_entered.connect(on_hover)
@@ -29,14 +30,16 @@ func setup() -> void:
 	default_scale = target.scale
 	connect_signals()
 
-
 func on_hover() -> void:
 	print("on_hover")
 	add_tween("scale", hover_scale, time)
 	
 func off_hover() -> void: 
+	print("off_hover")
 	add_tween("scale", default_scale, time)
 	
 func add_tween(property: String, value, seconds: float) -> void:
+	if !is_inside_tree():
+		return
 	var tween = get_tree().create_tween()
 	tween.tween_property(target, property, value, seconds).set_trans(transition)
