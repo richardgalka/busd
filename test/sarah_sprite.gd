@@ -14,7 +14,7 @@ var state = State.BUS_DOOR
 ]
 
 @export var text_interaction:Dictionary = {
-	"text_1" : {"text" : "How is your day?", "options" : [["Great", option_great], ["Bad", option_bad]]},
+	"text_1" : {"text" : ["How is your day?", "I hope it's going well!"], "options" : [["Great", option_great], ["Bad", option_bad]]},
 	"text_2" : {"text" : "Sorry to hear that!"},
 	"text_3" : {"text" : "Awesome! How should we celebrate??", "options" : ["Let's go out!"], "methods":["response_go_out"]},
 	"text_4" : {"text" : "Nothing more to say I have.\nOkay. Thanks though\n    Do    we    do    lots   of spaces?"}

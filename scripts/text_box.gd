@@ -5,7 +5,6 @@ class_name TextBoxScene
 @onready var label: Label = $MarginContainer/Label
 @onready var letter_display_timer: Timer = $LetterDisplayTimer
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
-@onready var options_display_timer: Timer = $OptionsDisplayTimer
 
 @export_category("Size")
 @export var max_width: int = 256
@@ -57,19 +56,15 @@ func display_text(text_to_display: String, speech_sfx: AudioStream, options_to_d
 	
 	_display_letter()
 
-func _display_options():
-	# We modify label to have new selections
-	pass
-	# Need to 
 
 func _display_letter():
 	label.text += text[letter_index]
 	letter_index += 1
 	if letter_index >= text.length():
-		if display_options:
-			print("Here'd we'd display some options")
-			options_display_timer.start(options_time / forward_rate)
-		#if options:
+		#if display_options:
+			#print("Here'd we'd display some options")
+			#options_display_timer.start(options_time / forward_rate)
+			#if options:
 			#options_display_timer.start(options_time / forward_rate)
 		# do we need to display options?
 		finished_displaying.emit()
@@ -92,10 +87,6 @@ func _display_letter():
 			new_audio_player.queue_free()
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
-
 func fast_forward(rate:float = fast_forward_rate) -> void:
 	forward_rate = rate
 
@@ -103,7 +94,3 @@ func _on_letter_display_timer_timeout() -> void:
 	_display_letter()
 	pass # Replace with function body.
 	
-func _on_options_display_timer_timeout() -> void:
-	print("options displayed timer triggered - draw an option!")
-	_display_options()
-	pass
