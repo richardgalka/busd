@@ -46,5 +46,5 @@ func display_options(options: Dictionary, location: Vector2 = Vector2(0,0)) -> v
 # Option Chosen
 func _handle_button_press(method:Callable) -> void:
 	# Need to free the text box and the options box
-	method.call_deferred()
 	DialogueManager.end_dialog.call_deferred()
+	method.call_deferred()

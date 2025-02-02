@@ -63,8 +63,10 @@ func start_dialog(marker: Marker2D, position: Vector2, lines: Array[String], spe
 	return text_dialog(marker, position, lines, speech_sfx)
 	
 func end_dialog() -> void:
+	option_chose = true
+	options_dialogue_object = {}
 	is_dialog_active = false
-	if options_box:
+	if options_box != null:
 		options_box.queue_free()
 	if text_box:
 		text_box.queue_free()
