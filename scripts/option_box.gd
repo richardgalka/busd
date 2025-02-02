@@ -12,26 +12,15 @@ const TALK_THEME = preload("res://busd/ui/talk_theme.tres")
 
 # Called when the node enters the scene tree for the first time.
 
-var _debug = true
+var _debug = false
 
 func _ready() -> void:
-	
 	global.dprint(self, "Option Box ready!")
-	# debug
-	#display_options({"options":[
-	#	["text1", self.option_chose],
-	#	["Come on in", self.option_chose],
-	#	["Go F**K yourself lady!", self.option_chose]
-	#	]})
-
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-func option_chose() -> void:
-	print("option chosen")
 
 
 func display_options(options: Dictionary, location: Vector2 = Vector2(0,0)) -> void:
@@ -42,7 +31,6 @@ func display_options(options: Dictionary, location: Vector2 = Vector2(0,0)) -> v
 		var button = Button.new()
 		button.theme
 		button.text = option[0]
-		#button.pressed.connect(option[1])
 		button.pressed.connect(_handle_button_press.bind(option[1]))
 		button.theme = TALK_THEME
 		v_box_container.add_child(button)
@@ -54,9 +42,9 @@ func display_options(options: Dictionary, location: Vector2 = Vector2(0,0)) -> v
 		anim_comp.hover_scale = Vector2(1.13, 1)
 		button.add_child(anim_comp)
 	global_position = location
-	
+
+# Option Chosen
 func _handle_button_press(method:Callable) -> void:
 	# Need to free the text box and the options box
-	#DialogueManager.end_dialog()
-	#method.call_deferred()
+	method.call_deferred()
 	DialogueManager.end_dialog.call_deferred()

@@ -5,8 +5,6 @@ const TEXT_BOX_SCENE = preload("res://busd/Scene/text_box_scene.tscn")
 const OPTION_BOX = preload("res://busd/Scene/option_box.tscn")
 
 
-var dialog_options: Dictionary = {}
-
 var dialog_lines: Array = []
 
 var current_line_index = 0
@@ -70,6 +68,7 @@ func end_dialog() -> void:
 		options_box.queue_free()
 	if text_box:
 		text_box.queue_free()
+	current_line_index = 0
 	
 	
 func _show_text_box():
@@ -99,29 +98,15 @@ func _unhandled_input(event: InputEvent) -> void:
 	if (event.is_action_pressed("advance_dialogue") and is_dialog_active):
 		print("can advance? %s" % can_advance_line)
 		if can_advance_line:
-			current_line_index +=1
-			text_box.queue_free()
-			if current_line_index >= dialog_lines.size():
-				is_dialog_active = false  
-				if options_displayed and option_chose:
-					current_line_index = 0
-				else: 
-					# await for them to choose an option
-					pass
-			_show_text_box()
+			print("current_line_index: %s, dialog_lines.size: %s, option_chose: %s" % [current_line_index, dialog_lines.size(), option_chose])
+			#current_line_index += 1
+			if current_line_index+1 < dialog_lines.size():
+				# We can display one more line! 
+				current_line_index +=1
+				text_box.queue_free()
+				_show_text_box()
+			else:
+				if option_chose:
+					end_dialog()
 		else: 
 			text_box.fast_forward()
-		'''
-		if (can_advance_line && (option_chose || ((current_line_index+1)>=dialog_lines.size()))):
-			text_box.queue_free()
-			current_line_index += 1
-			if current_line_index >= dialog_lines.size():
-				is_dialog_active = false
-				current_line_index = 0 
-				return
-			_show_text_box()
-		else:
-			# Can't advance line so speed up text
-			text_box.fast_forward()
-		'''
-	pass
