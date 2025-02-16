@@ -36,6 +36,7 @@ func _ready() -> void:
 	for passenger in PersonManager.ordered_commuters:
 		i = i+1
 		place_commuter_on_path(passenger, i)
+	
 
 func place_commuter_on_path(passenger:Person, line_position:int):
 	var commuter_path = commuter_path_follow_2d.duplicate()

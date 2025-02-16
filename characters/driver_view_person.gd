@@ -38,10 +38,12 @@ func _ready() -> void:
 	# place our sprite in the world
 	mypath.add_child(sprite_2d)
 	# set our fidget timer
-	#fidget_timer = Timer.new()
-	#fidget_timer.wait_time = set_fidget_time()
-	#fidget_timer.connect("timeout", _on_fidget_timer_timeout)
-	#fidget_timer.start()
+	fidget_timer = Timer.new()
+	fidget_timer.wait_time = set_fidget_time()
+	fidget_timer.connect("timeout", _on_fidget_timer_timeout)
+	self.add_child(fidget_timer)
+	fidget_timer.start()
+
 	
 	# check stats and if we are to wait to get to start our process. 
 	if stats.at_stop: 
@@ -61,6 +63,10 @@ func _my_final_distance() -> float:
 	
 func _final_distance() -> float:
 	return mypath.get_node("../").curve.get_baked_length()
+	
+func _finished_path() -> void:
+	
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -85,8 +91,10 @@ func _process(delta: float) -> void:
 			#if mypath.progress_ratio >= 1:
 			#	mypath.queue_free.call_deferred()
 			#	mypath = null
+
 	# add fidgeting 
-	self.position = floor(self.position) + get_fidgeting()
+	sprite_2d.position = floor(sprite_2d.position) + get_fidgeting()
+
 
 func set_path_progress(delta: float) -> void:
 	# delta is amount of seconds
@@ -136,6 +144,7 @@ func _on_fidget_timer_timeout():
 func get_fidgeting() -> Vector2:
 	# Jitter to make them look restless and alive. 
 	if timer_trigger and ((mypath and mypath.progress >= _my_final_distance()) or (mypath==null)):
+		print("FIDGETING")
 		#if timer_trigger and mypath == null:   # TODO: Need to update as commuters now sit in their path
 		#global.dprint(self, "I twitched")
 		if next_move == Vector2.ZERO:
@@ -147,6 +156,8 @@ func get_fidgeting() -> Vector2:
 			next_move = Vector2.ZERO
 	else:
 		fidget_move = Vector2.ZERO
+	if fidget_move != Vector2.ZERO:
+		print("fidgeting: %s" % fidget_move)
 	return fidget_move
 
 func _create_path_exit():
